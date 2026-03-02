@@ -70,7 +70,7 @@ new class extends Component
 
             Log::info('Product added to cart:', ['cartItems' => $cartItems]);
 
-            // Optionally, you can emit an event or show a success message
+            // Emit an event or show a success message
             $this->dispatch('trigger-toast', type: 'success', message : 'Your cart successfully updated');
 
             $this->loadProducts();

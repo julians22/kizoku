@@ -34,14 +34,6 @@
 
             <!-- cart button -->
             <livewire:utils.add-to-cart-button slug="{{ $selectedParfume['slug'] }}" text="ADD TO CART"/>
-
-            {{-- <button
-                title="Add to cart"
-                class="bg-black hover:bg-gray-800 px-4 py-2 font-medium text-white text-sm transition-colors cursor-pointer"
-                wire:click.prevent="$dispatchTo('cart-component','addToCart', {'slug': '{{ $selectedParfume['slug'] }}'})"
-                >
-                ADD TO CART
-            </button> --}}
         </div>
 
         <div class="col-span-4">

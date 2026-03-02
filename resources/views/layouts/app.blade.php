@@ -27,23 +27,22 @@
 </head>
 <body
      x-data="{
-            openSidebar: false,
-            section: 'cart',
-            toggleSidebar(section) {
-                event.preventDefault();
-                this.section = section;
-                this.openSidebar = !this.openSidebar;
-            },
-            scrollToTop() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }"
+        openSidebar: false,
+        section: 'cart',
+        toggleSidebar(section) {
+            event.preventDefault();
+            this.section = section;
+            this.openSidebar = !this.openSidebar;
+        },
+        scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }"
 
-        x-bind:class="{
-            'overflow-hidden': openSidebar
-        }"
->
-
+    x-bind:class="{
+        'overflow-hidden': openSidebar
+    }"
+    >
     <div id="app">
         @include('layouts.navbar')
 
