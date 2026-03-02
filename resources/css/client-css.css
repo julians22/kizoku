@@ -1,0 +1,5642 @@
+Hex code: for all fonts and writing #11182b
+
+Fonts for website:
+1. 'SaaSeriesEdot'
+2. 'Flama'
+
+
+Styles.CSS
+
+/* ======================================
+   IMPORTS
+====================================== */
+@import "/css/reset.css";
+@import "/css/predef.css";
+@import "/css/default.css";
+@import "/css/nav.css";
+
+/* Font */
+@import url('https://rsms.me/inter/inter.css');
+
+/* ======================================
+   GLOBAL
+====================================== */
+/* 1. INSTALL THE INK (Define the fonts) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(14px, 1vw, 16px);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'SaaSeriesEdot';
+    src: url('fonts/SaaSeriesEdot.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Flama';
+    src: url('fonts/Flama.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ======================================
+   TARGETED RESPONSIVE PADDING
+   ====================================== */
+
+/* Update this existing block near the top */
+.panel__text,
+.section--centered,
+.product-info__content,
+.checkout-left,
+.footer-container,
+.section--image-contained { /* <--- Add this class here */
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 2. Force all images to ignore padding and stay edge-to-edge */
+.margin__zero,
+.panel--image,
+.img__cover-100,
+.product-header__grid,
+article section img {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+/* 3. Keep the Product Grid centered with a small gap so it doesn't touch the glass */
+.product-grid {
+  padding: 0 1rem !important;
+}
+
+.product__name {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px; /* Optional: adds a bit of space after the image */
+}
+
+/* 2. USE THE INK (Assign the fonts) */
+
+/* Use Flama for the general body text and prevent horizontal scrolling */
+html, body {
+  font-family: 'Flama', sans-serif;
+  overflow-x: hidden;
+  margin: 0; /* Good practice to reset this */
+  padding: 0;
+}
+
+/* Use SaaSeriesEdot for all Titles/Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'SaaSeriesEdot', serif;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Prevents side-scrolling */
+    font-family: 'Flama', sans-serif; /* Default body font */
+    background-color: #fff;
+}
+
+
+/* Fixes images that might be causing the leak */
+img, .scroll-story, .panel {
+  max-width: 100%;
+}
+
+/* ======================================
+   ROOT VARIABLES
+====================================== */
+:root {
+  /* Colors */
+  --color-bg: rgb(255, 255, 255);
+  --color-fg: rgb(32, 32, 32);
+  --color-link: rgb(60, 55, 40);
+  --color-hover: rgb(160, 155, 140);
+
+  /* Menu */
+  --menu__color-bg: rgba(0, 0, 0, 0.7);
+  --menu__color-link: rgb(240, 240, 240);
+  --menu__color-hover: rgb(132, 132, 132);
+  --menu__color-current: rgb(120, 116, 102);
+  --menu__font-size: 1rem;
+  --menu__font-weight: 500;
+  --menu__mix-blend: difference;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 3rem;
+  --spacing-l: 6rem;
+  --spacing-xl: 12rem;
+
+  /* Widths */
+  --width-min: 60rem;
+  --width-max: 72rem;
+
+  /* Font sizes */
+  --font-size-xs: 0.6rem;
+  --font-size-s: 0.75rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2.5rem;
+  --font-size-2x: 3rem;
+  --font-size-4x: 6rem;
+  --font-size-8x: 12rem;
+  --font-size-10x: 15rem;
+
+  --landing-offset: 100vh;
+  --debug: 0px;
+}
+
+/* Fix for Logo Visibility and Stacking */
+.main__nav-bar {
+    padding: 1rem 2rem;
+    align-items: center;
+}
+
+.nav-logo-static {
+    height: 1000px; /* Adjust this until it looks right */
+    width: auto;  /* Maintains aspect ratio */
+    position: relative;
+    z-index: 10000;
+
+    /* This stops the logo from changing colors when overlapping images */
+    mix-blend-mode: normal !important;
+    filter: none !important;
+
+    /* Ensure it doesn't dim on hover unless you want it to */
+    opacity: 1 !important;
+
+    /* Clean appearance */
+    height: 100px;
+    width: 100px;
+    display: block;
+}
+
+/* Ensure the title container doesn't have any blending effects */
+.main__nav-title {
+    mix-blend-mode: normal !important;
+}
+
+/* Titles and Branding */
+.main__nav-title-item a,
+h1, h2, h3, .panel__text p {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase; /* Byredo vibes usually use uppercase */
+    letter-spacing: 1px;
+}
+
+/* Nav links and small details */
+.main__nav-item a,
+.cart-item-name,
+footer a {
+    font-family: 'Flama', sans-serif;
+    font-size: 3rem;
+    text-decoration: none;
+    color: #000;
+}
+
+/* Ensure the Nav Bar is a flexible line */
+.main__nav-bar {
+  display: flex;
+  justify-content: space-between; /* Logo on left, Links on right */
+  align-items: center;           /* VERTICAL ALIGNMENT - This is the fix! */
+  padding: 1.5rem 2rem;
+  width: 100%;
+  position: fixed;               /* Keeps nav at top */
+  top: 0;
+  z-index: 1000;
+  background: transparent
+}
+
+/* Remove default list styles */
+.main__nav-title,
+.main__nav-list {
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Space out the right-side links */
+.main__nav-list {
+  gap: 2rem;
+}
+
+/* THE LOGO FIX */
+.nav-logo {
+  height: 100px;     /* Set this to the size you want your logo wordmark */
+  width: auto;      /* Keeps the proportions correct */
+  display: block;   /* Removes the weird bottom gap images sometimes have */
+}
+
+/* Styling the text links to match the logo vibe */
+.main__nav-list a {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Flama', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* All images should behave as blocks, not text */
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.scroll-story {
+  width: 100%; /* Changed from 100vw to prevent overflow */
+  overflow-x: hidden;
+}
+
+.panel {
+  width: 100%; /* Changed from 100vw */
+}
+
+.panel--image img {
+  width: 100%; /* Changed from 100vw */
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* For the two side-by-side images */
+.panel--double {
+    display: flex;
+    gap: 10px; /* Adjust spacing between the two images */
+}
+
+.panel--double img {
+    width: 50%; /* Each takes half the screen */
+}
+
+/* For the Split Text/Image section */
+/* Ensure the split panel doesn't push outward */
+.panel--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.panel--split .panel--image,
+.panel--split .panel__text {
+    flex: 1; /* Both sides get 50% width */
+    padding: 40px;
+}
+
+/* ======================================
+   BYREDO STYLE SCROLL
+====================================== */
+.scroll-story {
+  width: 100vw;
+}
+
+.panel {
+  width: 100vw;
+}
+
+.panel--image img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* Split panel */
+.panel--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel--split video {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.panel__text {
+  display: flex;
+  align-items: center;
+  padding: 4rem;
+  background: #fff;
+  color: #000;
+}
+
+.panel__text p {
+  max-width: 420px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.panel__text a {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* Double image */
+.panel--double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel--double img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile */
+
+
+/* ======================================
+   PRODUCT GRID
+====================================== */
+.product {
+  position: relative;
+  list-style: none;
+}
+
+.product__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* Hover swap */
+.product__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease;
+}
+
+.product__image .img-hover {
+  opacity: 0;
+}
+
+.product__image:hover .img-hover {
+  opacity: 1;
+}
+
+.product__image:hover .img-default {
+  opacity: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* PRODUCT INSIGHT LAYOUT */
+.product-insight {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* MEDIA AREA */
+.product-insight__media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* IMAGES */
+.product-insight__media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.product-insight__info {
+  max-width: 420px;
+  margin-left: auto;
+}
+
+/* ===============================
+   PRODUCT HEADER
+=============================== */
+.product-header__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.product-header__grid img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* SLIDER */
+.product-header__slider {
+  position: relative;
+  cursor: none;
+}
+
+/* HOVER ZONES */
+.hover-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.hover-zone.left {
+  left: 0;
+  cursor: w-resize;
+}
+
+.hover-zone.right {
+  right: 0;
+  cursor: e-resize;
+}
+
+/* ===============================
+   PRODUCT INFO
+=============================== */
+.product-info__content {
+  grid-column: 2;
+  max-width: 420px;
+}
+
+.product-info__content .add-to-cart {
+  position: static;
+  margin-top: 2rem;
+  align-self: flex-start;
+}
+
+.product__text {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.add-to-cart {
+  margin-top: 2rem;
+  border: 1px solid #000;
+  background: transparent;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+
+/* STATIC IMAGE */
+.media-static img {
+  max-height: 520px;
+}
+
+/* SLIDER IMAGE */
+.media-slider {
+  position: relative;
+}
+
+.media-slider img {
+  max-height: 520px;
+}
+
+/* SLIDER BUTTONS */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.slider-btn.left {
+  left: -2rem;
+}
+
+.slider-btn.right {
+  right: -2rem;
+}
+
+/* TEXT SIDE */
+.product-insight__info {
+  max-width: 420px;
+}
+
+.product__name {
+  margin: 0.5rem 0;
+}
+
+.product__text {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+
+/* Add to cart button */
+.add-to-cart {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+.add-to-cart:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ======================================
+   CART OVERLAY
+====================================== */
+
+
+.cart-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Slide panel */
+.cart-panel {
+  width: 25vw;
+  min-width: 320px;
+  height: 100vh;
+  background: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cart-overlay.active .cart-panel {
+  transform: translateX(0);
+}
+
+/* Cart header */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cart items */
+.cart-items {
+  flex: 1;
+  margin-top: 2rem;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+/* Cart controls */
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* The "Your Cart" Header */
+.cart-header p {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.cart-item-info p:first-child {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem; /* Adjust size to fit the sidebar width */
+    margin-bottom: 4px;
+    color: #000;
+}
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cart-qty button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cart-remove {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+/* CART FOOTER STYLES */
+.cart-panel {
+  display: flex;
+  flex-direction: column; /* This allows margin-top: auto to work */
+}
+
+.cart-items {
+  flex: 1; /* This pushes the footer down */
+  overflow-y: auto;
+}
+
+.cart-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  font-family: 'Flama', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  font-family: 'Flama', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between; /* This creates the left/right split */
+  align-items: flex-start;
+  padding-bottom: 4rem;
+}
+
+.footer-logo {
+      height: 32px; /* Increased from 18px */
+      width: auto;
+      display: block;
+    }
+
+    /* 2. CUSTOMER SERVICE ALIGNMENT */
+/* ======================================
+   FOOTER ALIGNMENT FIX
+====================================== */
+
+.site-footer {
+  /* Match the side padding of .main__nav-bar (2rem) */
+  padding: 100px 2rem 40px 2rem;
+  border-top: 1px solid #eeeeee;
+  margin-top: 100px;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't add to width */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 80px 2rem; /* Matches your nav padding */
+}
+
+/* 1. KIZUKO LOGO BIGGER & ALIGNED LEFT */
+.footer-left {
+  height: 20px;
+  align-items: flex-start;
+  height:30px;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+  /* Remove any default margins that might push it */
+  margin: 0;
+}
+
+/* 2. CUSTOMER SERVICE ALIGNED RIGHT */
+.footer-right {
+  text-align: left; /* Aligns text within the block to the left */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-heading {
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 25px; /* Space between title and first link */
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Forces links to stack vertically */
+  gap: 12px; /* Uniform space between links instead of <br> tags */
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #777;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #000;
+}
+
+/* 3. CENTERED TOP BUTTON */
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+  padding-top: 40px;
+}
+
+    /* 3. CENTERED TOP BUTTON (SMALL) */
+    .footer-bottom {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      border-top: 1px solid #f9f9f9;
+      padding-top: 40px;
+    }
+
+    .back-to-top {
+      font-size: 10px; /* Small and minimalist */
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .back-to-top:hover {
+      color: #000;
+    }
+
+        /* Specific Checkout Layout Styles */
+    .checkout-container {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 80px;
+        padding-top: 120px;
+        min-height: 100vh;
+    }
+
+    .checkout-left { padding-bottom: 100px; }
+
+    .checkout-section {
+        margin-bottom: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 30px;
+    }
+
+    .checkout-section h2 {
+        font-family: 'SaaSeriesEdot', serif;
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .input-group { margin-bottom: 15px; }
+
+    input[type="text"], input[type="email"], select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        font-family: 'Flama', sans-serif;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .gift-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    /* Right Column: Order Summary */
+    .checkout-right {
+        background: #fafafa;
+        padding: 40px;
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+
+    .summary-total {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #000;
+        font-family: 'SaaSeriesEdot', serif;
+        font-size: 18px;
+        margin-bottom: 25px; /* Added space for the button */
+    }
+
+    /* Refined Button Style */
+    .complete-purchase-btn {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        padding: 15px;
+        border: none;
+        font-family: 'Flama', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    .complete-purchase-btn:hover {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+        .checkout-container { grid-template-columns: 1fr; gap: 40px; }
+        .checkout-right { position: static; width: 100%; }
+    }
+
+/* ======================================
+   MOBILE TYPOGRAPHY
+====================================== */
+@media (orientation: portrait) {
+  :root {
+    --font-size-l: 1.5rem;
+    --font-size-xl: 1.75rem;
+    --font-size-2x: 2rem;
+    --font-size-4x: 3rem;
+    --font-size-8x: 4rem;
+    --font-size-10x: 5rem;
+    --landing-offset: 100vh;
+  }
+
+  h1,
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ======================================
+   FINAL NAV OVERRIDE (NAV.CSS KILL SWITCH)
+====================================== */
+
+/* Kill blend modes globally inside nav */
+header,
+header *,
+.main__nav-bar,
+.main__nav-bar * {
+  mix-blend-mode: normal !important;
+}
+
+/* NAV BAR – aligned and centered */
+.main__nav-bar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem; /* Reduced top padding slightly */
+
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important; /* THIS PULLS LINKS DOWN TO LOGO LEVEL */
+
+  z-index: 99999 !important;
+  background: transparent !important;
+  box-sizing: border-box;
+}
+/* ---------- LOGO ---------- */
+
+/* Force logo to match footer size */
+.main__nav-title img,
+.nav-logo,
+.nav-logo-static {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  position: relative;
+  z-index: 100000 !important;
+
+  height: 50px !important;
+  width: auto !important;
+  display: block;
+
+  /* ADD THIS LINE BELOW TO PUSH IT DOWN */
+  transform: translateY(10px); /* Adjust '10px' until it sits perfectly */
+
+  transition: opacity 0.2s ease;
+}
+/* ---------- NAV LINKS ---------- */
+
+.main__nav-list a {
+  text-decoration: none !important; /* NO UNDERLINE */
+  color: #000 !important;
+
+  font-family: 'Flama', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  transition: color 0.2s ease;
+}
+
+/* Hover = color change only */
+.main__nav-list a:hover {
+  text-decoration: none !important;
+  color: var(--color-hover) !important;
+}
+
+/* Active page */
+.main__nav-list a.active {
+  color: var(--menu__color-current) !important;
+}
+
+.nav-logo,
+.nav-logo-static {
+  filter: invert(1);
+}
+
+.drag__gallery-image {
+  width: 220px !important;
+  height: auto;
+}
+
+.section--centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section--centered {
+  min-height: auto;        /* REMOVE full-screen height */
+  padding: 80px 0;         /* controlled spacing */
+  display: flex;
+  justify-content: center;
+}
+
+.section-text {
+  width: 520px;        /* ← match your other text blocks */
+  max-width: 90vw;     /* mobile safety */
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+
+
+/* Clean CTA styling */
+.panel__link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: 'Flama', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+}
+
+/* ===============================
+   PANEL TEXT – CLEAN VERSION
+=============================== */
+
+
+/* Reset panel text container behavior */
+.panel__text {
+  display: block;       /* kills flex interference */
+  padding: 4rem;        /* keeps your spacing */
+  background: #fff;
+  color: #000;
+}
+
+/* Intro line — SaaSeriesEdot */
+.panel__intro {
+  font-family: 'SaaSeriesEdot', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Body copy — Flama */
+.panel__body {
+  font-family: 'Flama', sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-top: 1.5rem;
+  max-width: 420px;     /* keeps same readable width as before */
+}
+
+/* CTA */
+.panel__link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: 'Flama', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+}
+
+/* Center text vertically in split panel */
+.panel--split .panel__text {
+  align-self: center;
+}
+
+/* Accordion container */
+.product-accordion {
+  margin-top: 3rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Accordion button */
+.accordion-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Arrow */
+.accordion-icon {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Content panel */
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* Panel text */
+.accordion-panel p {
+  margin: 1rem 0 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Open state */
+.accordion-item.active .accordion-icon {
+  transform: rotate(90deg);
+}
+
+.accordion-item.active + .accordion-panel {
+  max-height: 300px;
+}
+
+/* Container for the area below the images */
+.product-details__footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50/50 Split */
+  gap: 1.5rem;                    /* Matches image gap */
+  margin-top: 3rem;               /* Space between images and text */
+  align-items: start;
+}
+
+/* LEFT SIDE: Info Content */
+.product-info__content {
+  /* REMOVE grid-column: 2; if it was here! */
+  grid-column: 1;                 /* Explicitly set to left column */
+  max-width: 420px;
+  padding-top: 0;
+}
+
+/* RIGHT SIDE: Accordion */
+.product-accordion {
+  grid-column: 2;                 /* Explicitly set to right column */
+  margin-top: 0;
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
+}
+
+/* Correcting the Add to Cart button behavior */
+.product-info__content .add-to-cart {
+  position: relative;             /* Removes it from absolute corners */
+  margin-top: 2rem;
+  display: inline-block;
+  width: auto;
+  left: 0;
+  bottom: 0;
+}
+/* Container to provide vertical breathing room */
+.section--image-contained {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+}
+
+.image-container {
+  max-width: 90vw; /* Keeps it from hitting screen edges on mobile */
+  display: flex;
+  justify-content: center;
+}
+
+.img-natural {
+  /* This prevents the image from stretching beyond its real size */
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+
+  /* Optional: if you want a specific elegant width like the text blocks */
+  /* max-width: 600px; */
+}
+
+.main__nav-title img,
+.nav-logo,
+.nav-logo-static {
+  height: 40px !important;
+  width: auto !important;
+}
+
+/* REMOVE underline / strike-through animation on nav hover */
+.main__nav-list a::after,
+.main__nav-list a::before {
+  display: none !important;
+  content: none !important;
+}
+
+.main__nav-list a {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.main__nav-title a::before,
+.main__nav-title a::after {
+  display: none !important;
+  content: none !important;
+}
+
+.main__nav-title a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* ===============================
+   ABOUT PAGE CENTERING FIXES
+   =============================== */
+
+/* Centers the paragraph block */
+.section--centered {
+  min-height: auto;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Horizontal Center */
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* Centers the Portrait Image */
+.section--image-contained {
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Prevents the portrait from stretching to 100% width */
+.img-natural {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ============================================================
+   KIZUKO MOBILE MASTER FIX (Nav + Layout + Grid)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* --- 1. NAVIGATION FIX --- */
+  /* Hidden by default, covers the whole screen when active */
+  .main__nav-list {
+    display: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 999998 !important; /* Layered just below the button */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Show the menu when JS adds the .active class */
+  .main__nav-list.active {
+    display: flex !important;
+  }
+
+  /* Force the toggle button to the top layer */
+  .nav-toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 999999 !important; /* The highest layer on the page */
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  /* Icon visibility logic */
+  .nav-toggle .icon-close { display: none; font-size: 35px; color: #000; }
+  .nav-toggle .icon-open { display: block; font-size: 30px; color: #000; }
+
+  /* Swaps icons when button has the .is-open class */
+  .nav-toggle.is-open .icon-open { display: none !important; }
+  .nav-toggle.is-open .icon-close { display: block !important; }
+
+  /* Mobile menu typography and gaps */
+  .main__nav-list li { margin: 15px 0; }
+  .main__nav-list a {
+    font-size: 1rem !important;
+    color: #000 !important;
+    text-decoration: none;
+    font-family: 'SaaSeriesEdot';
+  }
+  .nav-spacer { height: 50px !important; display: block !important; }
+  .nav-cart a { font-size: 1rem !important; opacity: 0.6; }
+
+
+  /* --- 2. LAYOUT FIX (STACKING) --- */
+  /* Stack the side-by-side Desktop sections vertically */
+  .panel--split {
+    flex-direction: column !important;
+  }
+
+  .panel--split .panel--image,
+  .panel--split .panel__text {
+    width: 100% !important;
+    padding: 2.5rem 1.5rem !important; /* Nice breathing room for mobile */
+  }
+
+  .panel--image img {
+    height: 60vh !important; /* Don't make images too tall on phones */
+  }
+
+
+  /* --- 3. PRODUCT GRID FIX --- */
+  /* Show 2 products per row on mobile instead of 4 */
+  .product-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+
+  /* Adjust product text for smaller screens */
+  .product__name {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* --- 4. EXTRA SMALL PHONES --- */
+@media (max-width: 480px) {
+  /* Stack products in 1 single column on very small devices */
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ======================================
+   EMERGENCY CENTERING OVERRIDE
+   ====================================== */
+
+/* 1. Force the Paragraph Section to Center Everything Inside */
+.section--centered {
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+    padding: 60px 0 !important;
+    margin: 0 !important;
+}
+
+/* 2. Force the inner div to be centered */
+.section--centered > div {
+    display: inline-block !important; /* Shrinks to text width */
+    margin: 0 auto !important;
+    text-align: center !important;
+    float: none !important; /* Removes any accidental leaning */
+    max-width: 90% !important; /* Prevents it from hitting edges */
+}
+
+/* 3. Force the Portrait Image Section to center */
+.section--image-contained {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.image-container {
+    display: inline-block !important;
+    margin: 0 auto !important;
+    width: auto !important;
+}
+
+/* 4. The "Natural" Image Fix */
+.img-natural {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: auto !important;      /* Stops the 100% stretch */
+    max-width: 280px !important; /* Forces it to be a nice Portrait size on phone */
+    height: auto !important;
+}
+
+@media (min-width: 769px) {
+    .img-natural {
+        max-width: 500px !important; /* Bigger on Desktop */
+    }
+}
+
+/* ============================================================
+   PRODUCT PAGE: PRIORITY STACKING & WIDTH FIX
+   ============================================================ */
+
+/* 1. Desktop: Keep the side-by-side but favor the description */
+@media (min-width: 769px) {
+    .product-details__footer-grid {
+        display: grid !important;
+        grid-template-columns: 1.2fr 0.8fr !important; /* Description gets 60%, Accordion gets 40% */
+        gap: 3rem !important;
+        width: 100% !important;
+        margin-top: 40px !important;
+        align-items: start !important;
+    }
+
+    .product-info__content {
+        max-width: 520px !important; /* Elegant reading width */
+    }
+}
+
+/* 2. Mobile: The "Priority Swap" Logic */
+@media (max-width: 768px) {
+    .product-details__footer-grid {
+        display: flex !important;
+        flex-direction: column !important; /* Stack vertically */
+        padding: 0 1.5rem !important;
+        gap: 2rem !important;
+    }
+
+    /* Keep the Description at the TOP */
+    .product-info__content {
+        order: 1 !important;
+        width: 100% !important;
+    }
+
+    /* Move the Accordion to the BOTTOM */
+    .product-accordion {
+        order: 2 !important;
+        width: 100% !important;
+        margin-top: 2rem !important;
+        border-top: 1px solid #eee !important;
+    }
+
+    /* Ensure the Add to Cart button is prominent */
+    .product-info__content .add-to-cart {
+        width: 100% !important; /* Full width button on phone is easier to tap */
+        margin-top: 2.5rem !important;
+        padding: 1rem !important;
+    }
+}
+
+/* 3. Global fix to stop the "Skinny" look */
+.product__text {
+    line-height: 1.6 !important;
+    font-size: 1rem !important;
+    margin-bottom: 20px !important;
+}
+
+/* ============================================================
+   PRODUCT PAGE: MOBILE TYPOGRAPHY OVERRIDE
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. Force Product Name to Desktop size (approx 2.5rem - 3rem) */
+    .product__name#product-name {
+        font-size: 2.1rem !important; /* Force large size */
+        line-height: 1.1 !important;
+        margin-top: 10px !important;
+        margin-bottom: 15px !important;
+        display: block !important;
+        text-align: left !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* 2. Adjust Product Type (Eau De Parfum) to match the scale */
+    .product__desc#product-type {
+        font-size: 0.9rem !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* 3. Adjust Price visibility */
+    .product__price#product-price {
+        font-size: 1.1rem !important;
+        margin-bottom: 25px !important;
+        color: #000 !important;
+    }
+}
+
+/* 4. Ensure the container doesn't squish the text */
+@media (max-width: 480px) {
+    .product__name#product-name {
+        font-size: 2.4rem !important; /* Slightly smaller for very thin phones to prevent clipping */
+    }
+}
+
+/* ============================================================
+   CHECKOUT HEADER: BACK BUTTON OVERRIDE
+   ============================================================ */
+
+/* 1. Center the logo and place the back button on the left */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1rem 1.5rem !important;
+}
+
+/* 2. Style the Back Button (<) */
+.back-link {
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 2.5rem !important; /* Large, elegant chevron */
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Optimal tap target size */
+    height: 44px;
+    transition: opacity 0.2s ease;
+}
+
+.back-link:hover {
+    opacity: 0.5;
+}
+
+/* ============================================================
+   KIZUKO FINAL NAV: LEFT-ALIGNED & MINIMALIST
+   ============================================================ */
+
+/* 1. The Header: Keep Logo Centered, Meta on Right */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+
+.nav-left, .nav-right { flex: 1 !important; display: flex !important; }
+.nav-right { justify-content: flex-end !important; gap: 1.5rem !important; }
+.nav-logo-container { flex: 0 !important; }
+
+/* Account & Cart Labels */
+.nav-account-link, .nav-cart-link, .menu-trigger {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* 2. The Menu Overlay: Left Aligned & Small Flama Font */
+.menu-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: #fff !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Top align */
+    align-items: flex-start !important;    /* Left align */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* The X and the Links: Same Font, Same Size, Same Left Grid */
+.menu-close-btn,
+.menu-links a {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important; /* THE FIX: Small & sophisticated */
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #000 !important;
+    text-decoration: none !important;
+    text-align: left !important;
+}
+
+.menu-overlay-header {
+    padding: 1.5rem 2.5rem !important; /* Matches main nav padding exactly */
+}
+
+.menu-close-btn {
+    font-size: 1.2rem !important; /* Slightly larger for the X icon itself */
+    line-height: 1 !important;
+}
+
+.menu-content {
+    padding: 1rem 2.5rem !important; /* Stacks links directly under the X */
+}
+
+.menu-links { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+.menu-links li { margin-bottom: 1.2rem !important; text-align: left !important; }
+
+/* Mobile logic: Keep the Left alignment */
+@media (max-width: 768px) {
+    .main__nav-bar, .menu-overlay-header, .menu-content {
+        padding: 1.5rem 1.5rem !important;
+    }
+    .nav-account-link { display: none !important; } /* Hide account on mobile to prevent logo crowding */
+}
+
+/* ============================================================
+   KIZUKO NAV: REMOVE GREY BOX / FOCUS RING
+   ============================================================ */
+
+/* Targets the X button and the Menu button */
+.menu-close-btn,
+.menu-trigger {
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important; /* Fix for mobile tap grey box */
+}
+
+/* Specific fix for the "Active/Focus" states */
+.menu-close-btn:focus,
+.menu-close-btn:active,
+.menu-trigger:focus,
+.menu-trigger:active {
+    background: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+}
+
+/* ============================================================
+   KIZUKO EDITORIAL MENU STYLING
+   ============================================================ */
+
+/* 1. Header Meta Links Spacing */
+.nav-meta-links {
+    display: flex !important;
+    gap: 1.5rem !important;
+    align-items: center !important;
+}
+
+/* 2. Menu Labels (Grey, Small, Non-clickable) */
+#full-menu-overlay .menu-label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    color: #999 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 12px !important;
+    pointer-events: none !important; /* Prevents clicking */
+}
+
+/* 3. The Links inside the Overlay */
+#full-menu-overlay .menu-links a {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important;
+    line-height: 2.2 !important; /* Extra air between links */
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+/* 4. The Spacer (The <br><br> replacement) */
+#full-menu-overlay .menu-spacer {
+    height: 40px !important; /* Adjust this to control the gap size */
+}
+
+/* 5. Force Left Alignment */
+#full-menu-overlay .menu-content {
+    padding: 1rem 2.5rem !important;
+    text-align: left !important;
+}
+
+#full-menu-overlay .menu-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   BYREDO MENU: GRID ALIGNMENT & RIGHT-ALIGNED LABELS
+   ============================================================ */
+
+/* 1. THE HEADER: The Grid Pivot */
+.menu-overlay-header {
+    display: flex !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    width: 100% !important;
+}
+
+/* THE ANCHOR: The start of the 'W' */
+.menu-search-container {
+    margin-left: 6rem !important;
+    flex: 1 !important;
+}
+
+.menu-search-input {
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    outline: none !important;
+    color: #000;
+}
+
+/* 2. THE CONTENT: Snap 'About' to the 'W' */
+.menu-content-wrapper {
+    display: flex !important;
+    flex: 1 !important;
+    /* 8.5rem aligns the links precisely under the search input start */
+    padding: 2rem 2.5rem 2rem 8.5rem !important;
+    gap: 12% !important;
+}
+
+.menu-column-links {
+    flex: 0 0 250px !important;
+}
+
+/* 3. FEATURED IMAGES & RIGHT-ALIGNED 'DISCOVER' */
+.menu-column-featured {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3rem !important;
+    max-width: 420px !important;
+}
+
+.featured-item {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    overflow: hidden !important; /* Clips the zoom effect */
+}
+
+.featured-item img {
+    width: 100% !important;
+    height: 320px !important;
+    object-fit: cover !important;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+/* The Byredo Zoom Effect */
+.featured-item:hover img {
+    transform: scale(1.08) !important;
+}
+
+/* THE FIX: Discover label moved to the BOTTOM RIGHT */
+.featured-label {
+    position: absolute !important;
+    bottom: 25px !important;
+    right: 25px !important; /* Moved from left to right */
+    color: #fff !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    z-index: 2;
+}
+
+/* Gradient Overlay for legibility */
+.featured-item::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* Gradient flows to the bottom right for the label */
+    background: radial-gradient(circle at bottom right, rgba(0,0,0,0.4) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+/* 4. MOBILE: Reset for vertical screens */
+@media (max-width: 900px) {
+    .menu-content-wrapper {
+        padding: 2rem 1.5rem !important;
+        flex-direction: column !important;
+    }
+    .menu-search-container {
+        margin-left: 2rem !important;
+    }
+    .menu-column-featured {
+        display: none !important; /* Standard luxury mobile UX */
+    }
+}
+
+/* ============================================================
+   HEADER LOGO RESTORATION & CENTERING
+   ============================================================ */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    background: #fff !important; /* Ensure visibility */
+}
+
+/* Force 3 equal columns for mathematical centering */
+.nav-left, .nav-right {
+    flex: 1 1 0% !important;
+    display: flex !important;
+}
+
+.nav-right {
+    justify-content: flex-end !important;
+    gap: 1.5rem !important;
+}
+
+.nav-logo-container {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.nav-logo {
+    height: 40px !important; /* Optimal luxury height */
+    width: auto !important;
+    display: block !important;
+    filter: none !important; /* Remove any accidental inversion */
+}
+
+/* ============================================================
+   ACCOUNT PAGE: BYREDO MINIMALISM
+   ============================================================ */
+.account-container {
+    padding-top: 150px; /* Space for the fixed header */
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 90%;
+    gap: 100px;
+}
+
+.account-title {
+    font-family: 'SaaSeriesEdot', serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.account-text {
+    font-family: 'Flama', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Form Styling */
+.input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+.account-form input {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-family: 'Flama', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.account-form input:focus {
+    border-bottom: 1px solid #000;
+}
+
+/* Buttons */
+.black-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-family: 'Flama';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.outline-btn {
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+    padding: 15px 40px;
+    font-family: 'Flama';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.forgot-link {
+    font-size: 0.7rem;
+    color: #999;
+    text-decoration: underline;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .account-section.border-left {
+        border-top: 1px solid #eee;
+        padding-top: 60px;
+    }
+}
+
+/* ============================================================
+   ACCOUNT & CHECKOUT: SHARED MINIMALIST HEADER
+   ============================================================ */
+
+/* 1. Reset Header for Account/Checkout to ensure Logo is dead center */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+}
+
+.nav-left, .nav-right {
+    flex: 1 !important; /* Forces equal side-widths */
+    display: flex !important;
+}
+
+.nav-right {
+    justify-content: flex-end !important;
+}
+
+.nav-logo-container {
+    flex: 0 0 auto !important;
+}
+
+/* 2. The Back Chevron Styling */
+.back-link {
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 2rem !important; /* Elegant large chevron */
+    line-height: 1 !important;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.back-link:hover {
+    opacity: 0.5;
+}
+
+/* 3. Account Input Line Styling (Matches Byredo's minimalist style) */
+.account-form input {
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    padding: 12px 0 !important;
+    width: 100% !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.9rem !important;
+    outline: none !important;
+    background: transparent !important;
+}
+
+.account-form input:focus {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* ============================================================
+   KIZUKO: CLEAN TRANSPARENT NAVIGATION
+   ============================================================ */
+
+/* 1. Remove all backgrounds and overlays */
+.main__nav-bar {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* 2. Reset text and logo to solid black */
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    color: #000 !important;
+    mix-blend-mode: normal !important; /* Disables the "difference" effect */
+}
+
+.nav-logo {
+    filter: none !important; /* Ensures the logo shows its natural colors */
+    mix-blend-mode: normal !important;
+}
+
+/* 3. Ensure the Menu Overlay still has its white background */
+/* We only want the top bar to be transparent, not the menu itself! */
+.menu-overlay {
+    background-color: #ffffff !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: TYPOGRAPHY BUMP
+   ============================================================ */
+
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    font-family: 'Flama', sans-serif !important;
+
+    /* Increased from 0.7rem/0.75rem to 0.85rem for better presence */
+    font-size: 0.80rem !important;
+
+    text-transform: uppercase !important;
+
+    /* Slightly wider tracking for a more "architectural" look */
+    letter-spacing: 0.50px !important;
+
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    opacity: 0.5 !important;
+}
+
+/* Ensure the cart count stays proportional */
+#cart-count {
+    font-size: 0.85rem !important;
+}
+
+/* ============================================================
+   KIZUKO LEFT-SIDE BRANDING FIX
+   ============================================================ */
+
+/* 1. Stop forcing the logo to the center */
+.main__nav-bar {
+    justify-content: space-between !important;
+    padding: 1.5rem 2.5rem !important;
+}
+
+/* 2. Put Menu and Logo side-by-side */
+.nav-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important; /* Space between the 3 bars and your logo */
+    flex: 1 !important;
+}
+
+.nav-logo-container {
+    margin: 0 !important; /* Removes any auto-centering margins */
+}
+
+.nav-logo {
+    height: 35px !important; /* Adjust height to fit the vibe */
+}
+
+/* 3. Create the 3-Bar Icon (Hamburger) */
+.hamburger-icon {
+    width: 20px;
+    height: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-icon span {
+    display: block;
+    height: 1px; /* Very thin, luxury line */
+    width: 100%;
+    background-color: #000;
+}
+
+/* Ensure the button is invisible, only showing the spans */
+.menu-trigger {
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* ============================================================
+   MENU OVERLAY: MILKY TRANSPARENT (FROSTED GLASS)
+   ============================================================ */
+
+.menu-overlay {
+    /* 1. Milky White Transparency (85% opacity) */
+    background-color: rgba(255, 255, 255, 0.75) !important;
+
+    /* 2. The "Blur" effect that makes it look milky */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important; /* Safari support */
+
+    /* 3. Ensure it still covers the whole screen smoothly */
+    transition: opacity 0.4s ease, visibility 0.4s ease !important;
+}
+
+/* Ensure the search bar and links remain crisp against the blur */
+.menu-search-input,
+.menu-links a {
+    color: #000 !important;
+    text-shadow: 0 0 1px rgba(255,255,255,0.1); /* Subtle sharpening */
+}
+
+/* ============================================================
+   COHESIVE OVERLAYS: SLIDE & POP LOGIC
+   ============================================================ */
+
+/* --- MENU OVERLAY (Milky + Slide) --- */
+.menu-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9999 !important;
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* THE SLIDE EFFECT: Starts off-screen to the left */
+    transform: translateX(-100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    /* Cubic-bezier gives it that "luxury pop" feel */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.5s ease,
+                visibility 0.5s ease !important;
+}
+
+.menu-overlay.is-active {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* --- CART PANEL: SHORTER WIDTH --- */
+.cart-panel {
+    /* THE FIX: Shorter, more elegant drawer width */
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+
+    height: 100vh !important;
+    background: #fff !important;
+    padding: 2.5rem !important;
+
+    /* Ensure it slides from the right */
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+
+    transform: translateX(100%) !important;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cart-overlay.active .cart-panel {
+    transform: translateX(0) !important;
+}
+
+/* Mobile Adjustments for Overlays */
+@media (max-width: 768px) {
+    .cart-panel {
+        width: 85vw !important; /* Slightly more room on small phones */
+        min-width: unset !important;
+    }
+}
+
+/* ============================================================
+   MASTER OVERRIDE: MILKY GLASS CART & UNIFIED TYPOGRAPHY
+   ============================================================ */
+
+/* 1. THE CART DRAWER: Milky Glass + Flama */
+.cart-panel {
+    /* The Frosted Blur */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Shorter, elegant width */
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+
+    /* Global Font Change to Flama */
+    font-family: 'Flama', sans-serif !important;
+
+    /* Animation matching the Menu pop */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* 2. THE TYPOGRAPHY: Forcing everything in the Cart to Flama */
+.cart-header p,
+.cart-item-info p,
+.cart-qty span,
+.cart-total span,
+.checkout-btn,
+.cart-remove {
+    font-family: 'Flama', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+/* Refined Header (The "Your Cart" text) */
+.cart-header p {
+    font-size: 0.85rem !important;
+    font-weight: normal !important;
+}
+
+/* Refined Item Names */
+.cart-item-info p:first-child {
+    font-size: 0.75rem !important;
+    margin-bottom: 5px !important;
+}
+
+/*
+
+/* ============================================================
+   CART OVERRIDE: BUTTON & ICON SYMMETRY
+   ============================================================ */
+
+/* 1. The Cart Close Button (X) - Matching Menu Style */
+.cart-header button {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1.2rem !important; /* Matches your menu-close-btn size */
+    font-weight: 300 !important;
+    background: none !important;
+    border: none !important;
+    color: #000 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    transition: opacity 0.3s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.cart-header button:hover {
+    opacity: 0.5 !important;
+}
+
+/* 2. Positioning the Cart Header to match Menu Header padding */
+.cart-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important; /* Standard spacing */
+}
+
+/* 3. Ensure "Your Cart" title matches Menu Label styling */
+.cart-header p {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    margin: 0 !important;
+}
+
+/* 4. Fix for the Cart Panel background (75% Milky) */
+.cart-panel {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    font-family: 'Flama', sans-serif !important;
+}
+
+/* ============================================================
+   VERSION 2: MENU AS SIDE DRAWER (CART SYMMETRY)
+   ============================================================ */
+
+.menu-overlay.side-drawer {
+    /* Position exactly like the Cart */
+    left: auto !important;
+    right: 0 !important;
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+    height: 100vh !important;
+
+    /* Milky Glass Effect (75%) */
+    background-color: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Animation: Slide from right (like Cart) */
+    transform: translateX(100%) !important;
+    opacity: 1 !important; /* Keep opacity solid for the slide effect */
+    visibility: visible !important;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.menu-overlay.side-drawer.is-active {
+    transform: translateX(0) !important;
+}
+
+/* Header & Content inside the drawer */
+.menu-drawer-content {
+    padding: 2.5rem !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-search-container-drawer {
+    margin-bottom: 3rem !important;
+    border-bottom: 1px solid #000;
+}
+
+.menu-search-input {
+    width: 100% !important;
+    padding: 10px 0 !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 2px !important;
+}
+
+.menu-spacer-small {
+    height: 25px !important;
+}
+
+/* Ensure the nav-left only contains the logo */
+.nav-left {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: BALANCED MEDIUM TYPOGRAPHY
+   ============================================================ */
+
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    /* 1. Size & Weight */
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1rem !important;      /* Increased to match logo scale */
+    font-weight: 500 !important;     /* Medium weight for presence */
+
+    /* 2. Spacing & Alignment */
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important; /* Elegant tracking */
+
+    /* 3. Reset Button/Link styles */
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: opacity 0.3s ease !important;
+}
+
+/* Ensure the cart count stays the same size as the labels */
+#cart-count {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+}
+
+/* Optional: Slight dim on hover for interactivity */
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    opacity: 0.6 !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: PERFECT VERTICAL ALIGNMENT
+   ============================================================ */
+
+.main__nav-bar {
+    display: flex !important;
+    align-items: center !important; /* This is the "Magic" line for vertical centering */
+    justify-content: space-between !important;
+    padding: 1.5rem 2.5rem !important;
+    min-height: 80px !important; /* Ensures enough breathing room for the logo */
+}
+
+/* Ensure the left group (Logo) and right group (Links) are centered internally */
+.nav-left,
+.nav-right {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+/* If the text still feels a pixel or two too high, we use a subtle offset */
+.nav-meta-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2rem !important;
+    /* Move this number (1px or 2px) if it still looks slightly off */
+    transform: translateY(2px);
+}
+
+/* Ensure the logo doesn't have accidental bottom margins */
+.nav-logo {
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   KIZUKO BRAND COLOR UPDATE: #11182b
+   ============================================================ */
+
+/* 1. UNIVERSAL TYPOGRAPHY */
+html, body, p, h1, h2, h3, h4, h5, h6, a, span, label, input, textarea {
+    color: #11182b !important;
+}
+
+/* 2. NAVIGATION & LINKS */
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link,
+.back-link,
+.footer-links a,
+.panel__link,
+.cart-remove,
+.forgot-link {
+    color: #11182b !important;
+    border-color: #11182b !important; /* For links with underlines */
+}
+
+/* 3. SOLID BUTTONS (Backgrounds) */
+.checkout-btn,
+.black-btn,
+.add-to-cart,
+.complete-purchase-btn {
+    background-color: #11182b !important;
+    color: #ffffff !important; /* Keep text white for readability on dark backgrounds */
+    border: 1px solid #11182b !important;
+}
+
+/* 4. OUTLINE BUTTONS */
+.outline-btn {
+    border: 1px solid #11182b !important;
+    color: #11182b !important;
+    background: transparent !important;
+}
+
+/* 5. UI ELEMENTS (Icons, Borders, Spans) */
+.hamburger-icon span {
+    background-color: #11182b !important;
+}
+
+.cart-qty button {
+    border: 0.5px solid #11182b !important;
+    color: #11182b !important;
+}
+
+.menu-search-container-drawer,
+.input-group input,
+.account-form input {
+    border-bottom-color: #11182b !important;
+}
+
+.accordion-item {
+    border-bottom-color: #11182b33 !important; /* 20% opacity of the brand color for lines */
+}
+
+/* 6. HOVER STATES */
+.checkout-btn:hover,
+.black-btn:hover,
+.add-to-cart:hover {
+    opacity: 0.9 !important;
+    background-color: #11182b !important;
+}
+
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    color: #11182b !important;
+    opacity: 0.6 !important;
+}
+
+/* ============================================================
+   KIZUKO ACCOUNT: WIDE & LEFT-ALIGNED CENTERED BOX
+   ============================================================ */
+
+/* 1. Viewport Container: Mathematical center for the box */
+.account-container.centered-layout {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 90vh !important;
+    padding: 120px 2.5rem 80px 2.5rem !important;
+}
+
+/* 2. Wide Wrapper: Increased to 650px for more typing space */
+.login-wrapper-wide {
+    width: 100% !important;
+    max-width: 650px !important;
+    background: transparent;
+}
+
+/* 3. Left Alignment for Form Groups */
+.account-form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Forces items to stay left */
+}
+
+.input-group {
+    width: 100% !important;
+    text-align: left !important;
+}
+
+/* 4. Spaced Inputs with Midnight Blue color */
+.input-group input {
+    text-align: left !important;
+    font-family: 'Flama', sans-serif !important;
+    padding: 18px 0 !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+    color: #11182b !important;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #11182b !important;
+}
+
+/* 5. Left-Aligned Actions */
+.form-footer-left {
+    margin-top: 4rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+/* 6. Subtle mobile safety */
+@media (max-width: 768px) {
+    .login-wrapper-wide {
+        max-width: 100% !important;
+    }
+    .form-footer-left button,
+    .create-account-prompt-left button {
+        width: 100% !important; /* Full width button on phone is better for thumbs */
+        max-width: 100% !important;
+    }
+}
+
+/* ============================================================
+   KIZUKO ACCOUNT: TIGHTENED VERTICAL SPACING
+   ============================================================ */
+
+/* 1. Viewport Container: Reduced top padding and height stretching */
+.account-container.centered-layout {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important; /* Changed from center to prevent excessive float */
+    min-height: 80vh !important;
+    padding: 160px 2.5rem 60px 2.5rem !important; /* Fixed padding from top logo */
+}
+
+/* 2. Wide Wrapper */
+.login-wrapper-wide {
+    width: 100% !important;
+    max-width: 650px !important;
+    background: transparent;
+}
+
+/* 3. Form Layout */
+.account-form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+.input-group {
+    width: 100% !important;
+}
+
+/* 4. Tighter Inputs */
+.input-group input {
+    text-align: left !important;
+    font-family: 'Flama', sans-serif !important;
+    padding: 14px 0 !important; /* Slimmer padding */
+    font-size: 1rem !important;
+    width: 100% !important;
+    color: #11182b !important;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #11182b !important;
+}
+
+/* 5. Left-Aligned Actions (Tightened) */
+.form-footer-left {
+    margin-top: 2.5rem !important; /* Reduced from 4rem */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+/* 6. Registration Section (Tightened) */
+.create-account-prompt-left {
+    margin-top: 4rem !important; /* Reduced from 6rem */
+    padding-top: 2.5rem !important; /* Reduced from 4rem */
+}
+
+/* ======================================
+   IMPORTS
+====================================== */
+@import "/css/reset.css";
+@import "/css/predef.css";
+@import "/css/default.css";
+@import "/css/nav.css";
+
+/* Font */
+@import url('https://rsms.me/inter/inter.css');
+
+/* ======================================
+   GLOBAL
+====================================== */
+/* 1. INSTALL THE INK (Define the fonts) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(14px, 1vw, 16px);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'SaaSeriesEdot';
+    src: url('fonts/SaaSeriesEdot.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Flama';
+    src: url('fonts/Flama.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ======================================
+   TARGETED RESPONSIVE PADDING
+   ====================================== */
+
+/* Update this existing block near the top */
+.panel__text,
+.section--centered,
+.product-info__content,
+.checkout-left,
+.footer-container,
+.section--image-contained { /* <--- Add this class here */
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 2. Force all images to ignore padding and stay edge-to-edge */
+.margin__zero,
+.panel--image,
+.img__cover-100,
+.product-header__grid,
+article section img {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+/* 3. Keep the Product Grid centered with a small gap so it doesn't touch the glass */
+.product-grid {
+  padding: 0 1rem !important;
+}
+
+.product__name {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px; /* Optional: adds a bit of space after the image */
+}
+
+/* 2. USE THE INK (Assign the fonts) */
+
+/* Use Flama for the general body text and prevent horizontal scrolling */
+html, body {
+  font-family: 'Flama', sans-serif;
+  overflow-x: hidden;
+  margin: 0; /* Good practice to reset this */
+  padding: 0;
+}
+
+/* Use SaaSeriesEdot for all Titles/Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'SaaSeriesEdot', serif;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Prevents side-scrolling */
+    font-family: 'Flama', sans-serif; /* Default body font */
+    background-color: #fff;
+}
+
+
+/* Fixes images that might be causing the leak */
+img, .scroll-story, .panel {
+  max-width: 100%;
+}
+
+/* ======================================
+   ROOT VARIABLES
+====================================== */
+:root {
+  /* Colors */
+  --color-bg: rgb(255, 255, 255);
+  --color-fg: rgb(32, 32, 32);
+  --color-link: rgb(60, 55, 40);
+  --color-hover: rgb(160, 155, 140);
+
+  /* Menu */
+  --menu__color-bg: rgba(0, 0, 0, 0.7);
+  --menu__color-link: rgb(240, 240, 240);
+  --menu__color-hover: rgb(132, 132, 132);
+  --menu__color-current: rgb(120, 116, 102);
+  --menu__font-size: 1rem;
+  --menu__font-weight: 500;
+  --menu__mix-blend: difference;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 3rem;
+  --spacing-l: 6rem;
+  --spacing-xl: 12rem;
+
+  /* Widths */
+  --width-min: 60rem;
+  --width-max: 72rem;
+
+  /* Font sizes */
+  --font-size-xs: 0.6rem;
+  --font-size-s: 0.75rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2.5rem;
+  --font-size-2x: 3rem;
+  --font-size-4x: 6rem;
+  --font-size-8x: 12rem;
+  --font-size-10x: 15rem;
+
+  --landing-offset: 100vh;
+  --debug: 0px;
+}
+
+/* Fix for Logo Visibility and Stacking */
+.main__nav-bar {
+    padding: 1rem 2rem;
+    align-items: center;
+}
+
+.nav-logo-static {
+    height: 1000px; /* Adjust this until it looks right */
+    width: auto;  /* Maintains aspect ratio */
+    position: relative;
+    z-index: 10000;
+
+    /* This stops the logo from changing colors when overlapping images */
+    mix-blend-mode: normal !important;
+    filter: none !important;
+
+    /* Ensure it doesn't dim on hover unless you want it to */
+    opacity: 1 !important;
+
+    /* Clean appearance */
+    height: 100px;
+    width: 100px;
+    display: block;
+}
+
+/* Ensure the title container doesn't have any blending effects */
+.main__nav-title {
+    mix-blend-mode: normal !important;
+}
+
+/* Titles and Branding */
+.main__nav-title-item a,
+h1, h2, h3, .panel__text p {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase; /* Byredo vibes usually use uppercase */
+    letter-spacing: 1px;
+}
+
+/* Nav links and small details */
+.main__nav-item a,
+.cart-item-name,
+footer a {
+    font-family: 'Flama', sans-serif;
+    font-size: 3rem;
+    text-decoration: none;
+    color: #000;
+}
+
+/* Ensure the Nav Bar is a flexible line */
+.main__nav-bar {
+  display: flex;
+  justify-content: space-between; /* Logo on left, Links on right */
+  align-items: center;           /* VERTICAL ALIGNMENT - This is the fix! */
+  padding: 1.5rem 2rem;
+  width: 100%;
+  position: fixed;               /* Keeps nav at top */
+  top: 0;
+  z-index: 1000;
+  background: transparent
+}
+
+/* Remove default list styles */
+.main__nav-title,
+.main__nav-list {
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Space out the right-side links */
+.main__nav-list {
+  gap: 2rem;
+}
+
+/* THE LOGO FIX */
+.nav-logo {
+  height: 100px;     /* Set this to the size you want your logo wordmark */
+  width: auto;      /* Keeps the proportions correct */
+  display: block;   /* Removes the weird bottom gap images sometimes have */
+}
+
+/* Styling the text links to match the logo vibe */
+.main__nav-list a {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Flama', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* All images should behave as blocks, not text */
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.scroll-story {
+  width: 100%; /* Changed from 100vw to prevent overflow */
+  overflow-x: hidden;
+}
+
+.panel {
+  width: 100%; /* Changed from 100vw */
+}
+
+.panel--image img {
+  width: 100%; /* Changed from 100vw */
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* For the two side-by-side images */
+.panel--double {
+    display: flex;
+    gap: 10px; /* Adjust spacing between the two images */
+}
+
+.panel--double img {
+    width: 50%; /* Each takes half the screen */
+}
+
+/* For the Split Text/Image section */
+/* Ensure the split panel doesn't push outward */
+.panel--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.panel--split .panel--image,
+.panel--split .panel__text {
+    flex: 1; /* Both sides get 50% width */
+    padding: 40px;
+}
+
+/* ======================================
+   BYREDO STYLE SCROLL
+====================================== */
+.scroll-story {
+  width: 100vw;
+}
+
+.panel {
+  width: 100vw;
+}
+
+.panel--image img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* Split panel */
+.panel--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel--split video {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.panel__text {
+  display: flex;
+  align-items: center;
+  padding: 4rem;
+  background: #fff;
+  color: #000;
+}
+
+.panel__text p {
+  max-width: 420px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.panel__text a {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* Double image */
+.panel--double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel--double img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile */
+
+
+/* ======================================
+   PRODUCT GRID
+====================================== */
+.product {
+  position: relative;
+  list-style: none;
+}
+
+.product__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* Hover swap */
+.product__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease;
+}
+
+.product__image .img-hover {
+  opacity: 0;
+}
+
+.product__image:hover .img-hover {
+  opacity: 1;
+}
+
+.product__image:hover .img-default {
+  opacity: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* PRODUCT INSIGHT LAYOUT */
+.product-insight {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* MEDIA AREA */
+.product-insight__media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* IMAGES */
+.product-insight__media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.product-insight__info {
+  max-width: 420px;
+  margin-left: auto;
+}
+
+/* ===============================
+   PRODUCT HEADER
+=============================== */
+.product-header__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.product-header__grid img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* SLIDER */
+.product-header__slider {
+  position: relative;
+  cursor: none;
+}
+
+/* HOVER ZONES */
+.hover-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.hover-zone.left {
+  left: 0;
+  cursor: w-resize;
+}
+
+.hover-zone.right {
+  right: 0;
+  cursor: e-resize;
+}
+
+/* ===============================
+   PRODUCT INFO
+=============================== */
+.product-info__content {
+  grid-column: 2;
+  max-width: 420px;
+}
+
+.product-info__content .add-to-cart {
+  position: static;
+  margin-top: 2rem;
+  align-self: flex-start;
+}
+
+.product__text {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.add-to-cart {
+  margin-top: 2rem;
+  border: 1px solid #000;
+  background: transparent;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+
+/* STATIC IMAGE */
+.media-static img {
+  max-height: 520px;
+}
+
+/* SLIDER IMAGE */
+.media-slider {
+  position: relative;
+}
+
+.media-slider img {
+  max-height: 520px;
+}
+
+/* SLIDER BUTTONS */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.slider-btn.left {
+  left: -2rem;
+}
+
+.slider-btn.right {
+  right: -2rem;
+}
+
+/* TEXT SIDE */
+.product-insight__info {
+  max-width: 420px;
+}
+
+.product__name {
+  margin: 0.5rem 0;
+}
+
+.product__text {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+
+/* Add to cart button */
+.add-to-cart {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+.add-to-cart:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ======================================
+   CART OVERLAY
+====================================== */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+
+.cart-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Slide panel */
+.cart-panel {
+  width: 25vw;
+  min-width: 320px;
+  height: 100vh;
+  background: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cart-overlay.active .cart-panel {
+  transform: translateX(0);
+}
+
+/* Cart header */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cart items */
+.cart-items {
+  flex: 1;
+  margin-top: 2rem;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+/* Cart controls */
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* The "Your Cart" Header */
+.cart-header p {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.cart-item-info p:first-child {
+    font-family: 'SaaSeriesEdot', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem; /* Adjust size to fit the sidebar width */
+    margin-bottom: 4px;
+    color: #000;
+}
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cart-qty button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cart-remove {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+/* CART FOOTER STYLES */
+.cart-panel {
+  display: flex;
+  flex-direction: column; /* This allows margin-top: auto to work */
+}
+
+.cart-items {
+  flex: 1; /* This pushes the footer down */
+  overflow-y: auto;
+}
+
+.cart-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  font-family: 'Flama', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  font-family: 'Flama', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between; /* This creates the left/right split */
+  align-items: flex-start;
+  padding-bottom: 4rem;
+}
+
+.footer-logo {
+      height: 32px; /* Increased from 18px */
+      width: auto;
+      display: block;
+    }
+
+    /* 2. CUSTOMER SERVICE ALIGNMENT */
+/* ======================================
+   FOOTER ALIGNMENT FIX
+====================================== */
+
+.site-footer {
+  /* Match the side padding of .main__nav-bar (2rem) */
+  padding: 100px 2rem 40px 2rem;
+  border-top: 1px solid #eeeeee;
+  margin-top: 100px;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't add to width */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 80px 2rem; /* Matches your nav padding */
+}
+
+/* 1. KIZUKO LOGO BIGGER & ALIGNED LEFT */
+.footer-left {
+  height: 20px;
+  align-items: flex-start;
+  height:30px;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+  /* Remove any default margins that might push it */
+  margin: 0;
+}
+
+/* 2. CUSTOMER SERVICE ALIGNED RIGHT */
+.footer-right {
+  text-align: left; /* Aligns text within the block to the left */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-heading {
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 25px; /* Space between title and first link */
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Forces links to stack vertically */
+  gap: 12px; /* Uniform space between links instead of <br> tags */
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #777;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #000;
+}
+
+/* 3. CENTERED TOP BUTTON */
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+  padding-top: 40px;
+}
+
+    /* 3. CENTERED TOP BUTTON (SMALL) */
+    .footer-bottom {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      border-top: 1px solid #f9f9f9;
+      padding-top: 40px;
+    }
+
+    .back-to-top {
+      font-size: 10px; /* Small and minimalist */
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .back-to-top:hover {
+      color: #000;
+    }
+
+        /* Specific Checkout Layout Styles */
+    .checkout-container {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 80px;
+        padding-top: 120px;
+        min-height: 100vh;
+    }
+
+    .checkout-left { padding-bottom: 100px; }
+
+    .checkout-section {
+        margin-bottom: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 30px;
+    }
+
+    .checkout-section h2 {
+        font-family: 'SaaSeriesEdot', serif;
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .input-group { margin-bottom: 15px; }
+
+    input[type="text"], input[type="email"], select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        font-family: 'Flama', sans-serif;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .gift-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    /* Right Column: Order Summary */
+    .checkout-right {
+        background: #fafafa;
+        padding: 40px;
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+
+    .summary-total {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #000;
+        font-family: 'SaaSeriesEdot', serif;
+        font-size: 18px;
+        margin-bottom: 25px; /* Added space for the button */
+    }
+
+    /* Refined Button Style */
+    .complete-purchase-btn {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        padding: 15px;
+        border: none;
+        font-family: 'Flama', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    .complete-purchase-btn:hover {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+        .checkout-container { grid-template-columns: 1fr; gap: 40px; }
+        .checkout-right { position: static; width: 100%; }
+    }
+
+/* ======================================
+   MOBILE TYPOGRAPHY
+====================================== */
+@media (orientation: portrait) {
+  :root {
+    --font-size-l: 1.5rem;
+    --font-size-xl: 1.75rem;
+    --font-size-2x: 2rem;
+    --font-size-4x: 3rem;
+    --font-size-8x: 4rem;
+    --font-size-10x: 5rem;
+    --landing-offset: 100vh;
+  }
+
+  h1,
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ======================================
+   FINAL NAV OVERRIDE (NAV.CSS KILL SWITCH)
+====================================== */
+
+/* Kill blend modes globally inside nav */
+header,
+header *,
+.main__nav-bar,
+.main__nav-bar * {
+  mix-blend-mode: normal !important;
+}
+
+/* NAV BAR – aligned and centered */
+.main__nav-bar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem; /* Reduced top padding slightly */
+
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important; /* THIS PULLS LINKS DOWN TO LOGO LEVEL */
+
+  z-index: 99999 !important;
+  background: transparent !important;
+  box-sizing: border-box;
+}
+/* ---------- LOGO ---------- */
+
+/* Force logo to match footer size */
+.main__nav-title img,
+.nav-logo,
+.nav-logo-static {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  position: relative;
+  z-index: 100000 !important;
+
+  height: 50px !important;
+  width: auto !important;
+  display: block;
+
+  /* ADD THIS LINE BELOW TO PUSH IT DOWN */
+  transform: translateY(10px); /* Adjust '10px' until it sits perfectly */
+
+  transition: opacity 0.2s ease;
+}
+/* ---------- NAV LINKS ---------- */
+
+.main__nav-list a {
+  text-decoration: none !important; /* NO UNDERLINE */
+  color: #000 !important;
+
+  font-family: 'Flama', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  transition: color 0.2s ease;
+}
+
+/* Hover = color change only */
+.main__nav-list a:hover {
+  text-decoration: none !important;
+  color: var(--color-hover) !important;
+}
+
+/* Active page */
+.main__nav-list a.active {
+  color: var(--menu__color-current) !important;
+}
+
+.nav-logo,
+.nav-logo-static {
+  filter: invert(1);
+}
+
+.drag__gallery-image {
+  width: 220px !important;
+  height: auto;
+}
+
+.section--centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section--centered {
+  min-height: auto;        /* REMOVE full-screen height */
+  padding: 80px 0;         /* controlled spacing */
+  display: flex;
+  justify-content: center;
+}
+
+.section-text {
+  width: 520px;        /* ← match your other text blocks */
+  max-width: 90vw;     /* mobile safety */
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+
+
+/* Clean CTA styling */
+.panel__link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: 'Flama', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+}
+
+/* ===============================
+   PANEL TEXT – CLEAN VERSION
+=============================== */
+
+
+/* Reset panel text container behavior */
+.panel__text {
+  display: block;       /* kills flex interference */
+  padding: 4rem;        /* keeps your spacing */
+  background: #fff;
+  color: #000;
+}
+
+/* Intro line — SaaSeriesEdot */
+.panel__intro {
+  font-family: 'SaaSeriesEdot', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Body copy — Flama */
+.panel__body {
+  font-family: 'Flama', sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-top: 1.5rem;
+  max-width: 420px;     /* keeps same readable width as before */
+}
+
+/* CTA */
+.panel__link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: 'Flama', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+}
+
+/* Center text vertically in split panel */
+.panel--split .panel__text {
+  align-self: center;
+}
+
+/* Accordion container */
+.product-accordion {
+  margin-top: 3rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Accordion button */
+.accordion-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Arrow */
+.accordion-icon {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Content panel */
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* Panel text */
+.accordion-panel p {
+  margin: 1rem 0 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Open state */
+.accordion-item.active .accordion-icon {
+  transform: rotate(90deg);
+}
+
+.accordion-item.active + .accordion-panel {
+  max-height: 300px;
+}
+
+/* Container for the area below the images */
+.product-details__footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50/50 Split */
+  gap: 1.5rem;                    /* Matches image gap */
+  margin-top: 3rem;               /* Space between images and text */
+  align-items: start;
+}
+
+/* LEFT SIDE: Info Content */
+.product-info__content {
+  /* REMOVE grid-column: 2; if it was here! */
+  grid-column: 1;                 /* Explicitly set to left column */
+  max-width: 420px;
+  padding-top: 0;
+}
+
+/* RIGHT SIDE: Accordion */
+.product-accordion {
+  grid-column: 2;                 /* Explicitly set to right column */
+  margin-top: 0;
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
+}
+
+/* Correcting the Add to Cart button behavior */
+.product-info__content .add-to-cart {
+  position: relative;             /* Removes it from absolute corners */
+  margin-top: 2rem;
+  display: inline-block;
+  width: auto;
+  left: 0;
+  bottom: 0;
+}
+/* Container to provide vertical breathing room */
+.section--image-contained {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+}
+
+.image-container {
+  max-width: 90vw; /* Keeps it from hitting screen edges on mobile */
+  display: flex;
+  justify-content: center;
+}
+
+.img-natural {
+  /* This prevents the image from stretching beyond its real size */
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+
+  /* Optional: if you want a specific elegant width like the text blocks */
+  /* max-width: 600px; */
+}
+
+.main__nav-title img,
+.nav-logo,
+.nav-logo-static {
+  height: 40px !important;
+  width: auto !important;
+}
+
+/* REMOVE underline / strike-through animation on nav hover */
+.main__nav-list a::after,
+.main__nav-list a::before {
+  display: none !important;
+  content: none !important;
+}
+
+.main__nav-list a {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.main__nav-title a::before,
+.main__nav-title a::after {
+  display: none !important;
+  content: none !important;
+}
+
+.main__nav-title a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* ===============================
+   ABOUT PAGE CENTERING FIXES
+   =============================== */
+
+/* Centers the paragraph block */
+.section--centered {
+  min-height: auto;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Horizontal Center */
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* Centers the Portrait Image */
+.section--image-contained {
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Prevents the portrait from stretching to 100% width */
+.img-natural {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ============================================================
+   KIZUKO MOBILE MASTER FIX (Nav + Layout + Grid)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* --- 1. NAVIGATION FIX --- */
+  /* Hidden by default, covers the whole screen when active */
+  .main__nav-list {
+    display: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 999998 !important; /* Layered just below the button */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Show the menu when JS adds the .active class */
+  .main__nav-list.active {
+    display: flex !important;
+  }
+
+  /* Force the toggle button to the top layer */
+  .nav-toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 999999 !important; /* The highest layer on the page */
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  /* Icon visibility logic */
+  .nav-toggle .icon-close { display: none; font-size: 35px; color: #000; }
+  .nav-toggle .icon-open { display: block; font-size: 30px; color: #000; }
+
+  /* Swaps icons when button has the .is-open class */
+  .nav-toggle.is-open .icon-open { display: none !important; }
+  .nav-toggle.is-open .icon-close { display: block !important; }
+
+  /* Mobile menu typography and gaps */
+  .main__nav-list li { margin: 15px 0; }
+  .main__nav-list a {
+    font-size: 1rem !important;
+    color: #000 !important;
+    text-decoration: none;
+    font-family: 'SaaSeriesEdot';
+  }
+  .nav-spacer { height: 50px !important; display: block !important; }
+  .nav-cart a { font-size: 1rem !important; opacity: 0.6; }
+
+
+  /* --- 2. LAYOUT FIX (STACKING) --- */
+  /* Stack the side-by-side Desktop sections vertically */
+  .panel--split {
+    flex-direction: column !important;
+  }
+
+  .panel--split .panel--image,
+  .panel--split .panel__text {
+    width: 100% !important;
+    padding: 2.5rem 1.5rem !important; /* Nice breathing room for mobile */
+  }
+
+  .panel--image img {
+    height: 60vh !important; /* Don't make images too tall on phones */
+  }
+
+
+  /* --- 3. PRODUCT GRID FIX --- */
+  /* Show 2 products per row on mobile instead of 4 */
+  .product-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+
+  /* Adjust product text for smaller screens */
+  .product__name {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* --- 4. EXTRA SMALL PHONES --- */
+@media (max-width: 480px) {
+  /* Stack products in 1 single column on very small devices */
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ======================================
+   EMERGENCY CENTERING OVERRIDE
+   ====================================== */
+
+/* 1. Force the Paragraph Section to Center Everything Inside */
+.section--centered {
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+    padding: 60px 0 !important;
+    margin: 0 !important;
+}
+
+/* 2. Force the inner div to be centered */
+.section--centered > div {
+    display: inline-block !important; /* Shrinks to text width */
+    margin: 0 auto !important;
+    text-align: center !important;
+    float: none !important; /* Removes any accidental leaning */
+    max-width: 90% !important; /* Prevents it from hitting edges */
+}
+
+/* 3. Force the Portrait Image Section to center */
+.section--image-contained {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.image-container {
+    display: inline-block !important;
+    margin: 0 auto !important;
+    width: auto !important;
+}
+
+/* 4. The "Natural" Image Fix */
+.img-natural {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: auto !important;      /* Stops the 100% stretch */
+    max-width: 280px !important; /* Forces it to be a nice Portrait size on phone */
+    height: auto !important;
+}
+
+@media (min-width: 769px) {
+    .img-natural {
+        max-width: 500px !important; /* Bigger on Desktop */
+    }
+}
+
+/* ============================================================
+   PRODUCT PAGE: PRIORITY STACKING & WIDTH FIX
+   ============================================================ */
+
+/* 1. Desktop: Keep the side-by-side but favor the description */
+@media (min-width: 769px) {
+    .product-details__footer-grid {
+        display: grid !important;
+        grid-template-columns: 1.2fr 0.8fr !important; /* Description gets 60%, Accordion gets 40% */
+        gap: 3rem !important;
+        width: 100% !important;
+        margin-top: 40px !important;
+        align-items: start !important;
+    }
+
+    .product-info__content {
+        max-width: 520px !important; /* Elegant reading width */
+    }
+}
+
+/* 2. Mobile: The "Priority Swap" Logic */
+@media (max-width: 768px) {
+    .product-details__footer-grid {
+        display: flex !important;
+        flex-direction: column !important; /* Stack vertically */
+        padding: 0 1.5rem !important;
+        gap: 2rem !important;
+    }
+
+    /* Keep the Description at the TOP */
+    .product-info__content {
+        order: 1 !important;
+        width: 100% !important;
+    }
+
+    /* Move the Accordion to the BOTTOM */
+    .product-accordion {
+        order: 2 !important;
+        width: 100% !important;
+        margin-top: 2rem !important;
+        border-top: 1px solid #eee !important;
+    }
+
+    /* Ensure the Add to Cart button is prominent */
+    .product-info__content .add-to-cart {
+        width: 100% !important; /* Full width button on phone is easier to tap */
+        margin-top: 2.5rem !important;
+        padding: 1rem !important;
+    }
+}
+
+/* 3. Global fix to stop the "Skinny" look */
+.product__text {
+    line-height: 1.6 !important;
+    font-size: 1rem !important;
+    margin-bottom: 20px !important;
+}
+
+/* ============================================================
+   PRODUCT PAGE: MOBILE TYPOGRAPHY OVERRIDE
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. Force Product Name to Desktop size (approx 2.5rem - 3rem) */
+    .product__name#product-name {
+        font-size: 2.1rem !important; /* Force large size */
+        line-height: 1.1 !important;
+        margin-top: 10px !important;
+        margin-bottom: 15px !important;
+        display: block !important;
+        text-align: left !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* 2. Adjust Product Type (Eau De Parfum) to match the scale */
+    .product__desc#product-type {
+        font-size: 0.9rem !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* 3. Adjust Price visibility */
+    .product__price#product-price {
+        font-size: 1.1rem !important;
+        margin-bottom: 25px !important;
+        color: #000 !important;
+    }
+}
+
+/* 4. Ensure the container doesn't squish the text */
+@media (max-width: 480px) {
+    .product__name#product-name {
+        font-size: 2.4rem !important; /* Slightly smaller for very thin phones to prevent clipping */
+    }
+}
+
+/* ============================================================
+   CHECKOUT HEADER: BACK BUTTON OVERRIDE
+   ============================================================ */
+
+/* 1. Center the logo and place the back button on the left */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1rem 1.5rem !important;
+}
+
+/* 2. Style the Back Button (<) */
+.back-link {
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 2.5rem !important; /* Large, elegant chevron */
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Optimal tap target size */
+    height: 44px;
+    transition: opacity 0.2s ease;
+}
+
+.back-link:hover {
+    opacity: 0.5;
+}
+
+/* ============================================================
+   KIZUKO FINAL NAV: LEFT-ALIGNED & MINIMALIST
+   ============================================================ */
+
+/* 1. The Header: Keep Logo Centered, Meta on Right */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+
+.nav-left, .nav-right { flex: 1 !important; display: flex !important; }
+.nav-right { justify-content: flex-end !important; gap: 1.5rem !important; }
+.nav-logo-container { flex: 0 !important; }
+
+/* Account & Cart Labels */
+.nav-account-link, .nav-cart-link, .menu-trigger {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* 2. The Menu Overlay: Left Aligned & Small Flama Font */
+.menu-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: #fff !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Top align */
+    align-items: flex-start !important;    /* Left align */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* The X and the Links: Same Font, Same Size, Same Left Grid */
+.menu-close-btn,
+.menu-links a {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important; /* THE FIX: Small & sophisticated */
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #000 !important;
+    text-decoration: none !important;
+    text-align: left !important;
+}
+
+.menu-overlay-header {
+    padding: 1.5rem 2.5rem !important; /* Matches main nav padding exactly */
+}
+
+.menu-close-btn {
+    font-size: 1.2rem !important; /* Slightly larger for the X icon itself */
+    line-height: 1 !important;
+}
+
+.menu-content {
+    padding: 1rem 2.5rem !important; /* Stacks links directly under the X */
+}
+
+.menu-links { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+.menu-links li { margin-bottom: 1.2rem !important; text-align: left !important; }
+
+/* Mobile logic: Keep the Left alignment */
+@media (max-width: 768px) {
+    .main__nav-bar, .menu-overlay-header, .menu-content {
+        padding: 1.5rem 1.5rem !important;
+    }
+    .nav-account-link { display: none !important; } /* Hide account on mobile to prevent logo crowding */
+}
+
+/* ============================================================
+   KIZUKO NAV: REMOVE GREY BOX / FOCUS RING
+   ============================================================ */
+
+/* Targets the X button and the Menu button */
+.menu-close-btn,
+.menu-trigger {
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important; /* Fix for mobile tap grey box */
+}
+
+/* Specific fix for the "Active/Focus" states */
+.menu-close-btn:focus,
+.menu-close-btn:active,
+.menu-trigger:focus,
+.menu-trigger:active {
+    background: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+}
+
+/* ============================================================
+   KIZUKO EDITORIAL MENU STYLING
+   ============================================================ */
+
+/* 1. Header Meta Links Spacing */
+.nav-meta-links {
+    display: flex !important;
+    gap: 1.5rem !important;
+    align-items: center !important;
+}
+
+/* 2. Menu Labels (Grey, Small, Non-clickable) */
+#full-menu-overlay .menu-label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    color: #999 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 12px !important;
+    pointer-events: none !important; /* Prevents clicking */
+}
+
+/* 3. The Links inside the Overlay */
+#full-menu-overlay .menu-links a {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important;
+    line-height: 2.2 !important; /* Extra air between links */
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+/* 4. The Spacer (The <br><br> replacement) */
+#full-menu-overlay .menu-spacer {
+    height: 40px !important; /* Adjust this to control the gap size */
+}
+
+/* 5. Force Left Alignment */
+#full-menu-overlay .menu-content {
+    padding: 1rem 2.5rem !important;
+    text-align: left !important;
+}
+
+#full-menu-overlay .menu-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   BYREDO MENU: GRID ALIGNMENT & RIGHT-ALIGNED LABELS
+   ============================================================ */
+
+/* 1. THE HEADER: The Grid Pivot */
+.menu-overlay-header {
+    display: flex !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    width: 100% !important;
+}
+
+/* THE ANCHOR: The start of the 'W' */
+.menu-search-container {
+    margin-left: 6rem !important;
+    flex: 1 !important;
+}
+
+.menu-search-input {
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    outline: none !important;
+    color: #000;
+}
+
+/* 2. THE CONTENT: Snap 'About' to the 'W' */
+.menu-content-wrapper {
+    display: flex !important;
+    flex: 1 !important;
+    /* 8.5rem aligns the links precisely under the search input start */
+    padding: 2rem 2.5rem 2rem 8.5rem !important;
+    gap: 12% !important;
+}
+
+.menu-column-links {
+    flex: 0 0 250px !important;
+}
+
+/* 3. FEATURED IMAGES & RIGHT-ALIGNED 'DISCOVER' */
+.menu-column-featured {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3rem !important;
+    max-width: 420px !important;
+}
+
+.featured-item {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    overflow: hidden !important; /* Clips the zoom effect */
+}
+
+.featured-item img {
+    width: 100% !important;
+    height: 320px !important;
+    object-fit: cover !important;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+/* The Byredo Zoom Effect */
+.featured-item:hover img {
+    transform: scale(1.08) !important;
+}
+
+/* THE FIX: Discover label moved to the BOTTOM RIGHT */
+.featured-label {
+    position: absolute !important;
+    bottom: 25px !important;
+    right: 25px !important; /* Moved from left to right */
+    color: #fff !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    z-index: 2;
+}
+
+/* Gradient Overlay for legibility */
+.featured-item::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* Gradient flows to the bottom right for the label */
+    background: radial-gradient(circle at bottom right, rgba(0,0,0,0.4) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+/* 4. MOBILE: Reset for vertical screens */
+@media (max-width: 900px) {
+    .menu-content-wrapper {
+        padding: 2rem 1.5rem !important;
+        flex-direction: column !important;
+    }
+    .menu-search-container {
+        margin-left: 2rem !important;
+    }
+    .menu-column-featured {
+        display: none !important; /* Standard luxury mobile UX */
+    }
+}
+
+/* ============================================================
+   HEADER LOGO RESTORATION & CENTERING
+   ============================================================ */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+    background: #fff !important; /* Ensure visibility */
+}
+
+/* Force 3 equal columns for mathematical centering */
+.nav-left, .nav-right {
+    flex: 1 1 0% !important;
+    display: flex !important;
+}
+
+.nav-right {
+    justify-content: flex-end !important;
+    gap: 1.5rem !important;
+}
+
+.nav-logo-container {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.nav-logo {
+    height: 40px !important; /* Optimal luxury height */
+    width: auto !important;
+    display: block !important;
+    filter: none !important; /* Remove any accidental inversion */
+}
+
+/* ============================================================
+   ACCOUNT PAGE: BYREDO MINIMALISM
+   ============================================================ */
+.account-container {
+    padding-top: 150px; /* Space for the fixed header */
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 90%;
+    gap: 100px;
+}
+
+.account-title {
+    font-family: 'SaaSeriesEdot', serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.account-text {
+    font-family: 'Flama', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Form Styling */
+.input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+.account-form input {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-family: 'Flama', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.account-form input:focus {
+    border-bottom: 1px solid #000;
+}
+
+/* Buttons */
+.black-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-family: 'Flama';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.outline-btn {
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+    padding: 15px 40px;
+    font-family: 'Flama';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.forgot-link {
+    font-size: 0.7rem;
+    color: #999;
+    text-decoration: underline;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .account-section.border-left {
+        border-top: 1px solid #eee;
+        padding-top: 60px;
+    }
+}
+
+/* ============================================================
+   ACCOUNT & CHECKOUT: SHARED MINIMALIST HEADER
+   ============================================================ */
+
+/* 1. Reset Header for Account/Checkout to ensure Logo is dead center */
+.main__nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem 2.5rem !important;
+}
+
+.nav-left, .nav-right {
+    flex: 1 !important; /* Forces equal side-widths */
+    display: flex !important;
+}
+
+.nav-right {
+    justify-content: flex-end !important;
+}
+
+.nav-logo-container {
+    flex: 0 0 auto !important;
+}
+
+/* 2. The Back Chevron Styling */
+.back-link {
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 2rem !important; /* Elegant large chevron */
+    line-height: 1 !important;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.back-link:hover {
+    opacity: 0.5;
+}
+
+/* 3. Account Input Line Styling (Matches Byredo's minimalist style) */
+.account-form input {
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    padding: 12px 0 !important;
+    width: 100% !important;
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.9rem !important;
+    outline: none !important;
+    background: transparent !important;
+}
+
+.account-form input:focus {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* ============================================================
+   KIZUKO: CLEAN TRANSPARENT NAVIGATION
+   ============================================================ */
+
+/* 1. Remove all backgrounds and overlays */
+.main__nav-bar {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* 2. Reset text and logo to solid black */
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    color: #000 !important;
+    mix-blend-mode: normal !important; /* Disables the "difference" effect */
+}
+
+.nav-logo {
+    filter: none !important; /* Ensures the logo shows its natural colors */
+    mix-blend-mode: normal !important;
+}
+
+/* 3. Ensure the Menu Overlay still has its white background */
+/* We only want the top bar to be transparent, not the menu itself! */
+.menu-overlay {
+    background-color: #ffffff !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: TYPOGRAPHY BUMP
+   ============================================================ */
+
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    font-family: 'Flama', sans-serif !important;
+
+    /* Increased from 0.7rem/0.75rem to 0.85rem for better presence */
+    font-size: 0.80rem !important;
+
+    text-transform: uppercase !important;
+
+    /* Slightly wider tracking for a more "architectural" look */
+    letter-spacing: 0.50px !important;
+
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    opacity: 0.5 !important;
+}
+
+/* Ensure the cart count stays proportional */
+#cart-count {
+    font-size: 0.85rem !important;
+}
+
+/* ============================================================
+   KIZUKO LEFT-SIDE BRANDING FIX
+   ============================================================ */
+
+/* 1. Stop forcing the logo to the center */
+.main__nav-bar {
+    justify-content: space-between !important;
+    padding: 1.5rem 2.5rem !important;
+}
+
+/* 2. Put Menu and Logo side-by-side */
+.nav-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important; /* Space between the 3 bars and your logo */
+    flex: 1 !important;
+}
+
+.nav-logo-container {
+    margin: 0 !important; /* Removes any auto-centering margins */
+}
+
+.nav-logo {
+    height: 35px !important; /* Adjust height to fit the vibe */
+}
+
+/* 3. Create the 3-Bar Icon (Hamburger) */
+.hamburger-icon {
+    width: 20px;
+    height: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-icon span {
+    display: block;
+    height: 1px; /* Very thin, luxury line */
+    width: 100%;
+    background-color: #000;
+}
+
+/* Ensure the button is invisible, only showing the spans */
+.menu-trigger {
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* ============================================================
+   MENU OVERLAY: MILKY TRANSPARENT (FROSTED GLASS)
+   ============================================================ */
+
+.menu-overlay {
+    /* 1. Milky White Transparency (85% opacity) */
+    background-color: rgba(255, 255, 255, 0.75) !important;
+
+    /* 2. The "Blur" effect that makes it look milky */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important; /* Safari support */
+
+    /* 3. Ensure it still covers the whole screen smoothly */
+    transition: opacity 0.4s ease, visibility 0.4s ease !important;
+}
+
+/* Ensure the search bar and links remain crisp against the blur */
+.menu-search-input,
+.menu-links a {
+    color: #000 !important;
+    text-shadow: 0 0 1px rgba(255,255,255,0.1); /* Subtle sharpening */
+}
+
+/* ============================================================
+   COHESIVE OVERLAYS: SLIDE & POP LOGIC
+   ============================================================ */
+
+/* --- MENU OVERLAY (Milky + Slide) --- */
+.menu-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9999 !important;
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* THE SLIDE EFFECT: Starts off-screen to the left */
+    transform: translateX(-100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    /* Cubic-bezier gives it that "luxury pop" feel */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.5s ease,
+                visibility 0.5s ease !important;
+}
+
+.menu-overlay.is-active {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* --- CART PANEL: SHORTER WIDTH --- */
+.cart-panel {
+    /* THE FIX: Shorter, more elegant drawer width */
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+
+    height: 100vh !important;
+    background: #fff !important;
+    padding: 2.5rem !important;
+
+    /* Ensure it slides from the right */
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+
+    transform: translateX(100%) !important;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cart-overlay.active .cart-panel {
+    transform: translateX(0) !important;
+}
+
+/* Mobile Adjustments for Overlays */
+@media (max-width: 768px) {
+    .cart-panel {
+        width: 85vw !important; /* Slightly more room on small phones */
+        min-width: unset !important;
+    }
+}
+
+/* ============================================================
+   MASTER OVERRIDE: MILKY GLASS CART & UNIFIED TYPOGRAPHY
+   ============================================================ */
+
+/* 1. THE CART DRAWER: Milky Glass + Flama */
+.cart-panel {
+    /* Milky White Transparency (75% to match Menu) */
+    background-color: rgba(255, 255, 255, 0.65) !important;
+
+    /* The Frosted Blur */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Shorter, elegant width */
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+
+    /* Global Font Change to Flama */
+    font-family: 'Flama', sans-serif !important;
+
+    /* Animation matching the Menu pop */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* 2. THE TYPOGRAPHY: Forcing everything in the Cart to Flama */
+.cart-header p,
+.cart-item-info p,
+.cart-qty span,
+.cart-total span,
+.checkout-btn,
+.cart-remove {
+    font-family: 'Flama', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+/* Refined Header (The "Your Cart" text) */
+.cart-header p {
+    font-size: 0.85rem !important;
+    font-weight: normal !important;
+}
+
+/* Refined Item Names */
+.cart-item-info p:first-child {
+    font-size: 0.75rem !important;
+    margin-bottom: 5px !important;
+}
+
+/*
+
+/* ============================================================
+   CART OVERRIDE: BUTTON & ICON SYMMETRY
+   ============================================================ */
+
+/* 1. The Cart Close Button (X) - Matching Menu Style */
+.cart-header button {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1.2rem !important; /* Matches your menu-close-btn size */
+    font-weight: 300 !important;
+    background: none !important;
+    border: none !important;
+    color: #000 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    transition: opacity 0.3s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.cart-header button:hover {
+    opacity: 0.5 !important;
+}
+
+/* 2. Positioning the Cart Header to match Menu Header padding */
+.cart-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important; /* Standard spacing */
+}
+
+/* 3. Ensure "Your Cart" title matches Menu Label styling */
+.cart-header p {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   VERSION 2: MENU AS SIDE DRAWER (CART SYMMETRY)
+   ============================================================ */
+
+.menu-overlay.side-drawer {
+    /* Position exactly like the Cart */
+    left: auto !important;
+    right: 0 !important;
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+    height: 100vh !important;
+
+    /* Animation: Slide from right (like Cart) */
+    transform: translateX(100%) !important;
+    opacity: 1 !important; /* Keep opacity solid for the slide effect */
+    visibility: visible !important;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.menu-overlay.side-drawer.is-active {
+    transform: translateX(0) !important;
+}
+
+/* Header & Content inside the drawer */
+.menu-drawer-content {
+    padding: 2.5rem !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-search-container-drawer {
+    margin-bottom: 3rem !important;
+    border-bottom: 1px solid #000;
+}
+
+.menu-search-input {
+    width: 100% !important;
+    padding: 10px 0 !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 2px !important;
+}
+
+.menu-spacer-small {
+    height: 25px !important;
+}
+
+/* Ensure the nav-left only contains the logo */
+.nav-left {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: BALANCED MEDIUM TYPOGRAPHY
+   ============================================================ */
+
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link {
+    /* 1. Size & Weight */
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1rem !important;      /* Increased to match logo scale */
+    font-weight: 500 !important;     /* Medium weight for presence */
+
+    /* 2. Spacing & Alignment */
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important; /* Elegant tracking */
+
+    /* 3. Reset Button/Link styles */
+    color: #000 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: opacity 0.3s ease !important;
+}
+
+/* Ensure the cart count stays the same size as the labels */
+#cart-count {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+}
+
+/* Optional: Slight dim on hover for interactivity */
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    opacity: 0.6 !important;
+}
+
+/* ============================================================
+   KIZUKO NAV: PERFECT VERTICAL ALIGNMENT
+   ============================================================ */
+
+.main__nav-bar {
+    display: flex !important;
+    align-items: center !important; /* This is the "Magic" line for vertical centering */
+    justify-content: space-between !important;
+    padding: 1.5rem 2.5rem !important;
+    min-height: 80px !important; /* Ensures enough breathing room for the logo */
+}
+
+/* Ensure the left group (Logo) and right group (Links) are centered internally */
+.nav-left,
+.nav-right {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+/* If the text still feels a pixel or two too high, we use a subtle offset */
+.nav-meta-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2rem !important;
+    /* Move this number (1px or 2px) if it still looks slightly off */
+    transform: translateY(2px);
+}
+
+/* Ensure the logo doesn't have accidental bottom margins */
+.nav-logo {
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   KIZUKO BRAND COLOR UPDATE: #11182b
+   ============================================================ */
+
+/* 1. UNIVERSAL TYPOGRAPHY */
+html, body, p, h1, h2, h3, h4, h5, h6, a, span, label, input, textarea {
+    color: #11182b !important;
+}
+
+/* 2. NAVIGATION & LINKS */
+.menu-trigger,
+.nav-account-link,
+.nav-cart-link,
+.back-link,
+.footer-links a,
+.panel__link,
+.cart-remove,
+.forgot-link {
+    color: #11182b !important;
+    border-color: #11182b !important; /* For links with underlines */
+}
+
+/* 3. SOLID BUTTONS (Backgrounds) */
+.checkout-btn,
+.black-btn,
+.add-to-cart,
+.complete-purchase-btn {
+    background-color: #11182b !important;
+    color: #ffffff !important; /* Keep text white for readability on dark backgrounds */
+    border: 1px solid #11182b !important;
+}
+
+/* 4. OUTLINE BUTTONS */
+.outline-btn {
+    border: 1px solid #11182b !important;
+    color: #11182b !important;
+    background: transparent !important;
+}
+
+/* 5. UI ELEMENTS (Icons, Borders, Spans) */
+.hamburger-icon span {
+    background-color: #11182b !important;
+}
+
+.cart-qty button {
+    border: 0.5px solid #11182b !important;
+    color: #11182b !important;
+}
+
+.menu-search-container-drawer,
+.input-group input,
+.account-form input {
+    border-bottom-color: #11182b !important;
+}
+
+.accordion-item {
+    border-bottom-color: #11182b33 !important; /* 20% opacity of the brand color for lines */
+}
+
+/* 6. HOVER STATES */
+.checkout-btn:hover,
+.black-btn:hover,
+.add-to-cart:hover {
+    opacity: 0.9 !important;
+    background-color: #11182b !important;
+}
+
+.menu-trigger:hover,
+.nav-account-link:hover,
+.nav-cart-link:hover {
+    color: #11182b !important;
+    opacity: 0.6 !important;
+}
+
+/* ============================================================
+   KIZUKO ACCOUNT: WIDE & LEFT-ALIGNED CENTERED BOX
+   ============================================================ */
+
+/* 1. Viewport Container: Mathematical center for the box */
+.account-container.centered-layout {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 90vh !important;
+    padding: 120px 2.5rem 80px 2.5rem !important;
+}
+
+/* 2. Wide Wrapper: Increased to 650px for more typing space */
+.login-wrapper-wide {
+    width: 100% !important;
+    max-width: 650px !important;
+    background: transparent;
+}
+
+/* 3. Left Alignment for Form Groups */
+.account-form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Forces items to stay left */
+}
+
+.input-group {
+    width: 100% !important;
+    text-align: left !important;
+}
+
+/* 4. Spaced Inputs with Midnight Blue color */
+.input-group input {
+    text-align: left !important;
+    font-family: 'Flama', sans-serif !important;
+    padding: 18px 0 !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+    color: #11182b !important;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #11182b !important;
+}
+
+/* 5. Left-Aligned Actions */
+.form-footer-left {
+    margin-top: 4rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+/* 6. Subtle mobile safety */
+@media (max-width: 768px) {
+    .login-wrapper-wide {
+        max-width: 100% !important;
+    }
+    .form-footer-left button,
+    .create-account-prompt-left button {
+        width: 100% !important; /* Full width button on phone is better for thumbs */
+        max-width: 100% !important;
+    }
+}
+
+/* ============================================================
+   KIZUKO ACCOUNT: TIGHTENED VERTICAL SPACING
+   ============================================================ */
+
+/* 1. Viewport Container: Reduced top padding and height stretching */
+.account-container.centered-layout {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important; /* Changed from center to prevent excessive float */
+    min-height: 80vh !important;
+    padding: 160px 2.5rem 60px 2.5rem !important; /* Fixed padding from top logo */
+}
+
+/* 2. Wide Wrapper */
+.login-wrapper-wide {
+    width: 100% !important;
+    max-width: 650px !important;
+    background: transparent;
+}
+
+/* 3. Form Layout */
+.account-form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+.input-group {
+    width: 100% !important;
+}
+
+/* 4. Tighter Inputs */
+.input-group input {
+    text-align: left !important;
+    font-family: 'Flama', sans-serif !important;
+    padding: 14px 0 !important; /* Slimmer padding */
+    font-size: 1rem !important;
+    width: 100% !important;
+    color: #11182b !important;
+}
+
+.input-group label {
+    font-family: 'Flama', sans-serif !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #11182b !important;
+}
+
+/* 5. Left-Aligned Actions (Tightened) */
+.form-footer-left {
+    margin-top: 2.5rem !important; /* Reduced from 4rem */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+/* 6. Registration Section (Tightened) */
+.create-account-prompt-left {
+    margin-top: 4rem !important; /* Reduced from 6rem */
+    padding-top: 2.5rem !important; /* Reduced from 4rem */
+}
+
+/* --- UNIFIED OVERLAY SYSTEM (Backdrop) --- */
+.unified-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: transparent !important;
+    z-index: 9999 !important;
+
+    /* Initially Hidden */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease, visibility 0.5s ease !important;
+
+    display: flex !important;
+    justify-content: flex-end !important; /* Forces drawer to the right */
+}
+
+/* --- THE SLIDING DRAWER --- */
+.menu-drawer-panel {
+    width: 30vw !important;
+    min-width: 350px !important;
+    max-width: 450px !important;
+    height: 100vh !important;
+
+    /* Milky Glass Look */
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Slide Logic (Starts off-screen right) */
+    transform: translateX(100%) !important;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- ACTIVE STATE --- */
+#full-menu-overlay.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#full-menu-overlay.is-active .menu-drawer-panel {
+    transform: translateX(0) !important;
+}
+
+/* --- DRAWER HEADER & ALIGNMENT --- */
+.overlay-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+}
+
+.menu-close-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #11182b;
+}
+
+.menu-content-wrapper {
+    padding: 1rem 2.5rem;
+}
+
+.menu-links { list-style: none; padding: 0; margin: 0; }
+.menu-links li { margin-bottom: 1rem; }
+.menu-links a { text-decoration: none; font-family: 'Flama', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
+.menu-label { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; display: block; }
+.menu-spacer { height: 30px; }
+
+/* --- THE DRAWER PANEL --- */
+.menu-drawer-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important; /* Allows header and content to use full width */
+}
+
+/* --- THE HEADER: Keeps X on the right --- */
+.menu-overlay-header {
+    display: flex !important;
+    justify-content: flex-end !important; /* Pushes button to the right */
+    align-items: center !important;
+    width: 100% !important;
+    height: 80px !important; /* Fixed height for symmetry with Cart */
+    padding: 0 2.5rem !important; /* Right margin for the X */
+}
+
+.menu-close-btn {
+    margin-left: auto !important; /* Extra insurance for right-alignment */
+}
+
+/* --- THE CONTENT: Pinned to the Left --- */
+.menu-content-wrapper {
+    padding: 1rem 2.5rem !important; /* SAME LEFT MARGIN AS CART */
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.menu-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Pins links to the left */
+}
+
+.menu-links li {
+    width: 100% !important;
+    text-align: left !important;
+}
+
+.menu-label {
+    display: block !important;
+    text-align: left !important;
+    margin-bottom: 10px !important;
+}
+
+.product-link {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+.product__image {
+    position: relative;
+    pointer-events: none; /* This allows the click to go through the image to the link */
+}
+
+/* Target the image specifically inside the split panel */
+.panel--split .panel--image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10% !important; /* Increase this % to make the image smaller */
+    background-color: #fff;  /* Matches the site background */
+}
+
+.panel--split .panel--image img {
+    width: 80% !important;   /* Adjust this to set the exact image size */
+    height: auto !important; /* Maintains natural proportions */
+    object-fit: contain !important;
+}
+
+.drag__gallery-image {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  /* GPU Acceleration */
+  will-change: transform;
+
+  /* Smooth "Settle" Animation */
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.drag__gallery-image:active {
+  cursor: grabbing;
+  /* Remove transition while active dragging so it follows your finger/mouse instantly */
+  transition: none;
+}
+
+.cart-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  /* Updated from #eee to your brand color #11182b */
+  border-top: 1px solid #11182b !important;
+}
+
+/* 1. Set the stage: Hide the hover image */
+.product__image {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.product__image img {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.5s ease; /* This creates the smooth luxury fade */
+}
+
+.product__image .img-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; /* Hidden by default */
+  z-index: 1;
+}
+
+.product__image .img-default {
+  position: relative;
+  z-index: 2;
+}
+
+/* 2. THE TRIGGER: When the user hovers the product, swap opacities */
+.product:hover .img-default {
+  opacity: 0;
+}
+
+.product:hover .img-hover {
+  opacity: 1;
+}
+
+/* 1. Set the original Brand Color */
+.footer-links a {
+    color: #11182b !important; /* Your signature Midnight Blue */
+    transition: color 0.3s ease !important; /* Smooth fade effect */
+    text-decoration: none !important;
+}
+
+/* 2. Set the Hover state to a Greyish color */
+.footer-links a:hover {
+    color: #999999 !important; /* Sophisticated grey */
+}

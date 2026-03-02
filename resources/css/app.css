@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Flama Book', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* SaaSeriesEDOT */
+    --font-saa-series-e-dot: 'SaaSeriesEDOT', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer components {
+    .drag-element{
+        @apply z-10 absolute transition-transform duration-300 cursor-grab select-none;
+    }
+    .drag-element:active {
+        @apply z-20 cursor-grabbing;
+    }
+
+    .product-detail-dropdown-wrapper {
+        @apply hover:bg-gray-50 px-4 py-6 border-gray-200 border-t transition-all;
+    }
+
+    .product-detail-dropdown-wrapper:last-child {
+        @apply border-b;
+    }
+
+    .product-detail-dropdown-wrapper .product-detail-dropdown-link{
+        @apply flex justify-between items-center;
+    }
+
+    .product-detail-dropdown-wrapper .product-detail-dropdown-item{
+        @apply mt-10 text-slate-400;
+    }
+
+}

@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'Flama';
+    src: url('Flama-Bold.woff2') format('woff2'),
+        url('Flama-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Flama Book';
+    src: url('Flama-Book.woff2') format('woff2'),
+        url('Flama-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Flama';
+    src: url('Flama-Light.woff2') format('woff2'),
+        url('Flama-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SaaSeriesBDOT';
+    src: url('SaaSeriesBDOT.woff2') format('woff2'),
+        url('SaaSeriesBDOT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SaaSeriesEDOT';
+    src: url('SaaSeriesEDOT.woff2') format('woff2'),
+        url('SaaSeriesEDOT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SaaSeriesFDOT';
+    src: url('SaaSeriesFDOT.woff2') format('woff2'),
+        url('SaaSeriesFDOT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
