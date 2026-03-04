@@ -184,7 +184,7 @@ new class extends Component
                                 <button
                                     wire:click="removeFromCart('{{ $item['slug'] }}')"
                                     class="mt-4 text-right underline cursor-pointer">
-                                    REMOVE
+                                    @lang("REMOVE")
                                 </button>
 
                             </div>
@@ -212,9 +212,9 @@ new class extends Component
                 </div>
 
                 <!-- Tombol Checkout -->
-                <button class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300">
+                <button class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer">
                     <span class="font-semibold text-xs uppercase tracking-[0.3em]">
-                        Proceed to Checkout
+                        @lang("Proceed to Checkout")
                     </span>
                 </button>
             </div>

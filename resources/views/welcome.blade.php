@@ -59,7 +59,7 @@
 
                     <br>
 
-                    <a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="mt-2 underline underline-offset-1">VIEW PRODUCTS</a>
+                    <a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="mt-2 underline underline-offset-1">@lang("VIEW PRODUCTS")</a>
                 </div>
             </div>
 

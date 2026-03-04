@@ -3,12 +3,12 @@
     <div class="mx-auto container">
         <div class="flex flex-col items-end">
             <div class="">
-                <p class="font-saa-series-e-dot">CUSTOMER SERVICE</p>
+                <p class="font-saa-series-e-dot">@lang('CUSTOMER SERVICE')</p>
                 <ul class="mt-4">
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">FAQ</a></li>
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">CONTACT</a></li>
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">SHIPPING</a></li>
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">TRACK MY ORDER</a></li>
+                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("FAQ")</a></li>
+                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("CONTACT")</a></li>
+                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("SHIPPING")</a></li>
+                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("TRACK MY ORDER")</a></li>
                 </ul>
             </div>
         </div>

@@ -37,7 +37,7 @@ new class extends Component
 
     {{-- Create dynamic add to cart button --}}
     <button
-        title="Add to cart"
+        title="{{ __('Add to cart') }}"
         wire:loading.attr="disabled"
         wire:click.prevent="addToCart"
 

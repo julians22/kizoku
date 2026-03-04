@@ -33,7 +33,7 @@
             </div>
 
             <!-- cart button -->
-            <livewire:utils.add-to-cart-button slug="{{ $selectedParfume['slug'] }}" text="ADD TO CART"/>
+            <livewire:utils.add-to-cart-button slug="{{ $selectedParfume['slug'] }}" text="{{__('ADD TO CART')}}"/>
         </div>
 
         <div class="col-span-4">
