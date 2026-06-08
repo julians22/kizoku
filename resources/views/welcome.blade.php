@@ -6,7 +6,7 @@
     <!-- Section 1 -->
     <!-- Height: 100vh -->
     <section
-        class="flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[45/32]"
+        class="section-imaged"
         style="background-image: url({{ asset('img/S-1.png') }});"
     >
     </section>
@@ -14,7 +14,7 @@
     <!-- Section 2 -->
     <!-- Height: 100vh -->
     <section
-        class="flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[45/32]"
+        class="section-imaged"
         style="background-image: url({{ asset('img/S-2.png') }});"
     >
     </section>
@@ -22,7 +22,7 @@
     <!-- Section 3 -->
     <!-- Height: 100vh -->
     <section
-        class="flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[45/32]"
+        class="section-imaged"
         style="background-image: url({{ asset('img/S-3.png') }});"
     >
     </section>
@@ -30,7 +30,7 @@
     <!-- Section 4 -->
     <!-- Height: 100vh -->
     <section
-        class="flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[45/32]"
+        class="section-imaged"
         style="background-image: url({{ asset('img/S-4.png') }});"
     >
     </section>
@@ -49,10 +49,9 @@
             </div>
 
             <div class="flex flex-col justify-center col-span-7">
-                <div class="text-lg">
-                    <p>KIZUKO ISN'T JUST <br> A SCENT.</p>
+                <div class="font-saa-series-e-dot text-lg text-uppercase">
+                    <p>"KIZOKU isn’t just <br> a scent, it’s your signature"</p>
                     <br>
-                    <p>IT'S YOUR SIGNATURE.</p>
                     <p>ONE THAT DOESN'T FADE WITH TRENDS.</p>
                     <p>ONE THAT STAYS LIKE</p>
                     <p>A MEMORY.</p>

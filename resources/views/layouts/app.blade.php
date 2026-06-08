@@ -62,7 +62,11 @@
         @include('layouts.footer')
     </div>
 
-    @livewireScripts
+    @if (session('error'))
+        <span data-name="error" data-text="{{ session('error') }}" class="hidden"></span>
+    @endif
+
+    @livewireScriptConfig
 
     <script>
 
@@ -78,6 +82,18 @@
                         break;
                 }
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toastElements = document.querySelectorAll('[data-name="error"]');
+
+            toastElements.forEach(el => {
+                const message = el.getAttribute('data-text');
+                if (message) {
+                    toaster(message, 'error');
+                }
+            });
+
         });
 
     </script>

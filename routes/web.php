@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
-{
-
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => ['localize', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ], function() {
     Route::get('/', function () {
         return view('welcome');
     })
@@ -35,17 +37,21 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::get('{product}', [ProductController::class, 'show'])->name('detail');
     });
 
-
-    Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
-        Route::get('account', );
-    });
-
     Route::get('cart', function ($id) {
         //
     });
 
-    Route::get('checkout', function ($id) {
-        //
-    });
+    Route::post('checkout', [CheckoutController::class, 'index'])->middleware('should-have-carts')->name('checkout');
 
+    Route::get('login', [])
+        ->middleware('guest')
+        ->name('login');
+    Route::get('register', [])
+        ->middleware('guest')
+        ->name('register');
+});
+
+
+Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
+    Route::get('account', );
 });

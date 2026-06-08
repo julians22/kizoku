@@ -192,7 +192,11 @@ new class extends Component
                     @endforeach
                 </ul>
             @else
-                <p class="mt-10 text-gray-500 text-2xl text-center">Your cart is empty.</p>
+            <div class="flex justify-center items-center mt-10">
+                <p class="text-gray-500 text-xl text-center underline underline-offset-2">
+                    @lang('YOUR CART IS EMPTY')
+                </p>
+            </div>
             @endif
         </div>
 
@@ -211,12 +215,15 @@ new class extends Component
                     </span>
                 </div>
 
-                <!-- Tombol Checkout -->
-                <button class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer">
-                    <span class="font-semibold text-xs uppercase tracking-[0.3em]">
-                        @lang("Proceed to Checkout")
-                    </span>
-                </button>
+                <form action="{{ route('checkout') }}" method="POST">
+                    @csrf
+                    <!-- Tombol Checkout -->
+                    <button class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer">
+                        <span class="font-semibold text-xs uppercase tracking-[0.3em]">
+                            @lang("Proceed to Checkout")
+                        </span>
+                    </button>
+                </form>
             </div>
         @endif
 

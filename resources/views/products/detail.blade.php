@@ -39,73 +39,24 @@
         <div class="col-span-4">
             <div class="flex flex-col">
 
-                <!-- Item Menu: PERSONA -->
-                <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
-                    <a href="#" class="group product-detail-dropdown-link"
-                        @click.prevent="show = !show">
-                        <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">Persona</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                    <div class="product-detail-dropdown-item"
-                        x-transition
-                        x-cloak
-                        x-show="show">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit hic enim sit. Dolor odit maiores placeat minus modi commodi perferendis?
+                @foreach ($selectedParfume['product_features'] as $feature)
+                    <!-- Item Menu: {{ $feature['title'] }} -->
+                    <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
+                        <a href="#" class="group product-detail-dropdown-link"
+                            @click.prevent="show = !show">
+                            <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">{{ $feature['title'] }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <div class="product-detail-dropdown-item"
+                            x-transition
+                            x-cloak
+                            x-show="show">
+                            {{ $feature['description'] }}
+                        </div>
                     </div>
-                </div>
-
-                <!-- Item Menu: GOOD TO KNOW -->
-                <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
-                    <a href="#" class="group product-detail-dropdown-link"
-                        @click.prevent="show = !show">
-                        <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">Good To Know</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                    <div class="product-detail-dropdown-item"
-                        x-transition
-                        x-cloak
-                        x-show="show">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit hic enim sit. Dolor odit maiores placeat minus modi commodi perferendis?
-                    </div>
-                </div>
-
-                <!-- Item Menu: NOTES & ACCORDS -->
-                <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
-                    <a href="#" class="group product-detail-dropdown-link"
-                        @click.prevent="show = !show">
-                        <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">Notes & Accords</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                    <div class="product-detail-dropdown-item"
-                        x-transition
-                        x-cloak
-                        x-show="show">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit hic enim sit. Dolor odit maiores placeat minus modi commodi perferendis?
-                    </div>
-                </div>
-
-                <!-- Item Menu: INGREDIENTS -->
-                <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
-                    <a href="#" class="group product-detail-dropdown-link"
-                        @click.prevent="show = !show">
-                        <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">Ingredients</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                    <div class="product-detail-dropdown-item"
-                        x-transition
-                        x-cloak
-                        x-show="show">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit hic enim sit. Dolor odit maiores placeat minus modi commodi perferendis?
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
