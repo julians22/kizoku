@@ -1,16 +1,18 @@
 <div class="gap-16 grid grid-cols-1 lg:grid-cols-12">
     <section class="space-y-12 lg:col-span-7">
         @if ($completed)
-            <div class="bg-emerald-50 p-8 border border-emerald-200 rounded-2xl text-emerald-950">
-                <p class="font-semibold text-xs uppercase tracking-[0.2em]">Payment simulated</p>
-                <h2 class="mt-3 font-semibold text-2xl">Your order is confirmed.</h2>
-                <p class="mt-3 text-sm leading-6">
-                    Midtrans is still a blueprint here, so this flow uses a short loading delay to simulate the payment request.
-                </p>
-                <p class="mt-4 font-medium text-sm">
-                    Transaction reference: {{ $transactionReference }}
+        <div class="bg-mint-light mb-8 p-8 border border-mint-border rounded-lg">
+            <span class="block mb-2 font-label-caps text-label-caps text-mint-text uppercase tracking-widest">Payment Simulated</span>
+            <h1 class="mb-4 font-saa-series-e-dot text-mint-text text-5xl">Your order is confirmed.</h1>
+            <p class="opacity-80 mb-4 max-w-md text-mint-text">
+                Midtrans is still a blueprint here, so this flow uses a short loading delay to simulate the payment request.
+            </p>
+            <div class="mt-6 pt-4 border-mint-border/30 border-t">
+                <p class="opacity-70 text-mint-text">
+                    Transaction reference: <span class="font-saa-series-e-dot">{{ $transactionReference }}</span>
                 </p>
             </div>
+        </div>
         @else
             <form wire:submit.prevent="completePurchase" class="space-y-12">
                 <div class="space-y-4">

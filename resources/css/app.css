@@ -14,6 +14,10 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 
     --aspect-section-imaged-lg: 45 / 32;
+
+    --color-mint-light: #e8f7ee;
+    --color-mint-border: #b8dfc7;
+    --color-mint-text: #1b4d32;
 }
 
 @layer components {
