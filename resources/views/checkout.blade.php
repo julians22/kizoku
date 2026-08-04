@@ -33,7 +33,7 @@
         ></script>
     @endif
 </head>
-<body>
+<body class="flex flex-col bg-white min-h-screen text-black">
 
     <header class="flex justify-between items-center px-6 md:px-12 py-6 border-gray-100 border-b">
         <div class="font-light text-2xl uppercase tracking-[0.2em]">
