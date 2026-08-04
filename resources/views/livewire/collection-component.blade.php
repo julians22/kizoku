@@ -13,7 +13,7 @@
                             class="size-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="relative space-y-2 bg-white py-6">
-                        <h2>Eau De Parfume</h2>
+                        <h2>Extrait de Parfum</h2>
                         <h3 class="font-semibold text-gray-900 text-lg tracking-widest">{{ $collection['name'] }}</h3>
                         <p class="text-gray-900">IDR {{ number_format($collection['price'], 0) }}</p>
 

@@ -55,3 +55,6 @@ Route::group([
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::get('account', );
 });
+
+Route::post('payments/midtrans/notification', [CheckoutController::class, 'midtransNotification'])
+    ->name('payments.midtrans.notification');
