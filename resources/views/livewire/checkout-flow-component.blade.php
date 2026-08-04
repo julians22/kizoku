@@ -127,8 +127,8 @@
                     <span wire:loading wire:target="completePurchase">Preparing Payment...</span>
                 </button>
             @else
-                <div class="bg-emerald-50 px-4 py-3 border border-emerald-200 rounded-xl text-emerald-900 text-sm">
-                    Payment completed and cart cleared.
+                <div class="bg-mint-light/50 p-4 border border-mint-border/50 rounded text-center">
+                    <span class="font-body-md text-body-md text-mint-text text-sm">Payment completed and cart cleared.</span>
                 </div>
             @endif
         </div>

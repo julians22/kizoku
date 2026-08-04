@@ -55,6 +55,18 @@
             :taxes="$taxes"
         />
     </main>
+    <!-- Footer -->
+    <footer class="bg-slate-200 mt-auto border-gray-400 border-t w-full">
+        <div class="flex md:flex-row flex-col justify-between items-center gap-4 mx-auto px-16 py-8 container">
+            <div class="font-mono text-black text-sm uppercase tracking-tighter">
+                © {{ date('Y') }} KIZOKU. ALL RIGHTS RESERVED.
+            </div>
+            <nav class="flex flex-wrap justify-center gap-6">
+                <a class="hover:opacity-80 font-mono text-black text-sm underline transition-opacity" href="#">FAQ</a>
+                <a class="hover:opacity-80 font-mono text-black text-sm underline transition-opacity" href="#">Shipping Info</a>
+            </nav>
+        </div>
+    </footer>
 
     @livewireScripts
 </body>
