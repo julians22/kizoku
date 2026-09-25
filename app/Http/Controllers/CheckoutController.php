@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Livewire\Traits\ParfumeCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,6 +14,12 @@ class CheckoutController extends Controller
 
     public function index(Request $request)
     {
+        if (! Auth::check()) {
+            return redirect()->route('home', ['auth' => 'login'])
+                ->with('error', 'Silakan masuk terlebih dahulu untuk melanjutkan checkout.')
+                ->with('open_account_sidebar', true);
+        }
+
         $cartItems = session()->get('cart', []);
 
         $parfumes = $this->getParfumeCollections();

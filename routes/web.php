@@ -41,12 +41,19 @@ Route::group([
         //
     });
 
-    Route::post('checkout', [CheckoutController::class, 'index'])->middleware('should-have-carts')->name('checkout');
+    Route::post('checkout', [CheckoutController::class, 'index'])
+        ->middleware(['auth', 'should-have-carts'])
+        ->name('checkout');
 
-    Route::get('login', [])
+    Route::get('login', function () {
+        return redirect()->route('home', ['auth' => 'login']);
+    })
         ->middleware('guest')
         ->name('login');
-    Route::get('register', [])
+
+    Route::get('register', function () {
+        return redirect()->route('home', ['auth' => 'register']);
+    })
         ->middleware('guest')
         ->name('register');
 });

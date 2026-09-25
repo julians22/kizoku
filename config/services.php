@@ -45,4 +45,8 @@ return [
         'error_url' => env('MIDTRANS_ERROR_URL'),
     ],
 
+    'backend' => [
+        'base_url' => env('BACKEND_BASE_URL', 'http://karuizawa.test'),
+    ],
+
 ];

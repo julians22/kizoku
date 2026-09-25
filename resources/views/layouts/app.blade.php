@@ -34,11 +34,12 @@
 </head>
 <body
      x-data="{
-        openSidebar: false,
-        section: 'cart',
+        openSidebar: {{ session('open_account_sidebar') || request()->has('auth') ? 'true' : 'false' }},
+        section: '{{ (session('open_account_sidebar') || request()->has('auth')) ? 'account' : 'cart' }}',
         toggleSidebar(section) {
-            event.preventDefault();
-            this.section = section;
+            if (section) {
+                this.section = section;
+            }
             this.openSidebar = !this.openSidebar;
         },
         scrollToTop() {
@@ -71,16 +72,22 @@
     <script>
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('trigger-toast', ({type, message}) => {
-                switch (type) {
-                    case 'success':
-                        toaster(message, type);
-                        break;
-
-                    default:
-                        toaster('This is a default toast', 'info');
-                        break;
+            Livewire.on('trigger-toast', (data) => {
+                const type = data.type || (Array.isArray(data) && data[0]?.type) || 'info';
+                const message = data.message || (Array.isArray(data) && data[0]?.message) || '';
+                if (message) {
+                    toaster(message, type);
                 }
+            });
+
+            Livewire.on('customer-authenticated', () => {
+                // Optionally close sidebar after short delay on login/register
+                setTimeout(() => {
+                    const body = document.querySelector('body');
+                    if (body && body.__x) {
+                        body.__x.$data.openSidebar = false;
+                    }
+                }, 1000);
             });
         });
 

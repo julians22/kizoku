@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Midtrans\Config;
@@ -41,6 +42,17 @@ class CheckoutFlowComponent extends Component
         $this->selectedParfumes = $selectedParfumes;
         $this->subtotal = $subtotal;
         $this->taxes = $taxes;
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $this->email = (string) ($user->email ?? '');
+
+            $nameParts = explode(' ', trim((string) ($user->full_name ?? '')), 2);
+            $this->firstName = $nameParts[0] ?? '';
+            $this->lastName = $nameParts[1] ?? ($nameParts[0] ?? '');
+
+            $this->shippingAddress = (string) ($user->address ?? '');
+        }
     }
 
     public function completePurchase(): void
