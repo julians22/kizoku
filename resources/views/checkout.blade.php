@@ -42,9 +42,11 @@
             </span>
         </div>
         <div>
-            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
+            <a href="{{ url()->previous() }}" class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </a>
         </div>
     </header>
 

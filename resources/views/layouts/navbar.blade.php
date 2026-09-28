@@ -14,9 +14,9 @@
                 <a href="#" class="text-lg" @click="toggleSidebar('menu')">@lang("MENU")</a>
             </li>
             <li>
-                <a href="#" class="text-lg flex items-center space-x-1" @click="toggleSidebar('account')">
+                <a href="#" class="flex items-center space-x-1 text-lg" @click="toggleSidebar('account')">
                     @auth
-                        <span>{{ Str::limit(auth()->user()->full_name ?? 'ACCOUNT', 12) }}</span>
+                        <span class="bg-black px-4 py-2 rounded-full text-white text-sm capitalize" >{{ Str::limit(auth()->user()->full_name ?? 'ACCOUNT', 12) }}</span>
                     @else
                         <span>@lang("ACCOUNT")</span>
                     @endauth
@@ -118,10 +118,10 @@
         </div>
 
         <div
-            class="h-full overflow-y-auto pb-16"
+            class="pb-16 h-full overflow-y-auto"
             x-show="section === 'account'">
 
-            <h4 class="text-xl mb-6">@lang("ACCOUNT")</h4>
+            <h4 class="mb-6 text-xl">@lang("ACCOUNT")</h4>
 
             <div class="flex justify-center items-start">
                 <div class="w-full max-w-md">

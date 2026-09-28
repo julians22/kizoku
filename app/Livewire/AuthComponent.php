@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Customer;
+use App\Models\CustomerAddress;
+use App\Services\Backend\BiteshipService;
 use App\Services\Backend\CustomerAuthService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +15,17 @@ use Livewire\Component;
 
 class AuthComponent extends Component
 {
-    // Mode: 'login', 'register', 'forgot_password', 'set_password', 'profile'
+    // Mode: 'login', 'register', 'forgot_password', 'profile'
     public string $mode = 'login';
+    public string $profileView = 'main';
 
     // Step indicators
-    public string $loginStep = 'credentials'; // 'credentials' | 'otp'
     public string $registerStep = 'email'; // 'email' | 'details'
     public string $forgotStep = 'email'; // 'email' | 'reset'
-    public string $setStep = 'email'; // 'email' | 'set'
 
     // Form attributes
     public string $loginEmail = '';
     public string $loginPassword = '';
-    public string $loginOtp = '';
 
     public string $registerEmail = '';
     public string $registerOtp = '';
@@ -33,7 +33,6 @@ class AuthComponent extends Component
     public string $registerPassword = '';
     public string $registerPasswordConfirmation = '';
     public string $registerPhone = '';
-    public string $registerAddress = '';
     public string $registerGender = 'male';
 
     public string $forgotEmail = '';
@@ -41,11 +40,19 @@ class AuthComponent extends Component
     public string $forgotPassword = '';
     public string $forgotPasswordConfirmation = '';
 
-    public string $setEmail = '';
-    public string $setOtp = '';
-    public string $setPassword = '';
-    public string $setPasswordConfirmation = '';
-    public string $setFullName = '';
+    public string $addressLabel = '';
+    public string $addressRecipientName = '';
+    public string $addressRecipientPhone = '';
+    public string $addressRecipientEmail = '';
+    public string $addressFull = '';
+    public string $addressNote = '';
+    public string $addressAreaId = '';
+    public string $addressAreaName = '';
+    public string $addressPostalCode = '';
+    public string $addressAreaSearch = '';
+    public array $addressAreaResults = [];
+    public bool $addressIsPrimary = false;
+    public ?int $editingAddressId = null;
 
     public bool $showPassword = false;
     public ?string $errorMessage = null;
@@ -69,6 +76,145 @@ class AuthComponent extends Component
         $this->mode = $mode;
     }
 
+    public function showAddresses(): void
+    {
+        $this->profileView = 'addresses';
+        $this->resetAddressForm();
+    }
+
+    public function backToProfile(): void
+    {
+        $this->profileView = 'main';
+        $this->resetAddressForm();
+    }
+
+    public function newAddress(): void
+    {
+        $this->profileView = 'address_form';
+        $this->resetAddressForm();
+    }
+
+    public function editAddress(int $addressId): void
+    {
+        $address = $this->customerAddressQuery()->findOrFail($addressId);
+
+        $this->editingAddressId = $address->id;
+        $this->addressLabel = (string) ($address->label ?? '');
+        $this->addressRecipientName = (string) ($address->recipient_name ?? '');
+        $this->addressRecipientPhone = (string) ($address->recipient_phone ?? '');
+        $this->addressRecipientEmail = (string) ($address->recipient_email ?? '');
+        $this->addressFull = $address->full_address;
+        $this->addressNote = (string) ($address->note ?? '');
+        $this->addressAreaId = (string) ($address->area_id ?? '');
+        $this->addressAreaName = (string) ($address->area_name ?? '');
+        $this->addressPostalCode = (string) ($address->postal_code ?? '');
+        $this->addressAreaSearch = $this->addressAreaName;
+        $this->addressIsPrimary = (bool) $address->is_primary;
+        $this->addressAreaResults = [];
+        $this->profileView = 'address_form';
+    }
+
+    public function searchAddressAreas(BiteshipService $biteshipService): void
+    {
+        try {
+            $this->addressAreaResults = $biteshipService->searchAreas($this->addressAreaSearch);
+        } catch (Exception $exception) {
+            $this->addressAreaResults = [];
+            $this->dispatch('trigger-toast', [
+                'type' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    public function selectAddressArea(array $area): void
+    {
+        $this->addressAreaId = (string) ($area['id'] ?? '');
+        $this->addressAreaName = (string) ($area['name'] ?? '');
+        $this->addressPostalCode = (string) ($area['postal_code'] ?? '');
+        $this->addressAreaSearch = $this->addressAreaName;
+        $this->addressAreaResults = [];
+    }
+
+    public function saveAddress(): void
+    {
+        $this->validate([
+            'addressLabel' => ['nullable', 'string', 'max:100'],
+            'addressRecipientName' => ['nullable', 'string', 'max:255'],
+            'addressRecipientPhone' => ['nullable', 'string', 'min:10', 'max:20'],
+            'addressRecipientEmail' => ['nullable', 'email', 'max:255'],
+            'addressFull' => ['required', 'string', 'max:2000'],
+            'addressNote' => ['nullable', 'string', 'max:500'],
+            'addressAreaId' => ['nullable', 'string', 'max:255'],
+            'addressAreaName' => ['nullable', 'string', 'max:255'],
+            'addressPostalCode' => ['nullable', 'string', 'max:10'],
+        ]);
+
+        $customerId = Auth::id();
+        $addressCount = CustomerAddress::where('customer_id', $customerId)->count();
+        $existingAddress = $this->editingAddressId
+            ? $this->customerAddressQuery()->findOrFail($this->editingAddressId)
+            : null;
+        $shouldBePrimary = $this->addressIsPrimary || $addressCount === 0 || (bool) $existingAddress?->is_primary;
+
+        if ($shouldBePrimary) {
+            CustomerAddress::where('customer_id', $customerId)->update(['is_primary' => false]);
+        }
+
+        $address = $existingAddress ?: new CustomerAddress(['customer_id' => $customerId]);
+
+        $address->fill([
+            'label' => $this->addressLabel ?: null,
+            'recipient_name' => $this->addressRecipientName ?: null,
+            'recipient_phone' => $this->addressRecipientPhone ?: null,
+            'recipient_email' => $this->addressRecipientEmail ?: null,
+            'full_address' => $this->addressFull,
+            'note' => $this->addressNote ?: null,
+            'area_id' => $this->addressAreaId ?: null,
+            'area_name' => $this->addressAreaName ?: null,
+            'postal_code' => $this->addressPostalCode ?: null,
+            'is_primary' => $shouldBePrimary,
+        ]);
+        $address->save();
+
+        $this->profileView = 'addresses';
+        $this->resetAddressForm();
+        $this->dispatch('trigger-toast', [
+            'type' => 'success',
+            'message' => 'Alamat berhasil disimpan.',
+        ]);
+    }
+
+    public function setPrimaryAddress(int $addressId): void
+    {
+        $address = $this->customerAddressQuery()->findOrFail($addressId);
+
+        CustomerAddress::where('customer_id', Auth::id())->update(['is_primary' => false]);
+        $address->update(['is_primary' => true]);
+
+        $this->dispatch('trigger-toast', [
+            'type' => 'success',
+            'message' => 'Alamat utama berhasil diperbarui.',
+        ]);
+    }
+
+    public function deleteAddress(int $addressId): void
+    {
+        $address = $this->customerAddressQuery()->findOrFail($addressId);
+        $wasPrimary = $address->is_primary;
+        $address->delete();
+
+        if ($wasPrimary) {
+            $replacement = $this->customerAddressQuery()->oldest('id')->first();
+            $replacement?->update(['is_primary' => true]);
+        }
+
+        $this->dispatch('trigger-toast', [
+            'type' => 'success',
+            'message' => 'Alamat berhasil dihapus.',
+        ]);
+    }
+
     public function togglePasswordVisibility(): void
     {
         $this->showPassword = ! $this->showPassword;
@@ -79,20 +225,51 @@ class AuthComponent extends Component
         $this->resetErrorBag();
         $this->errorMessage = null;
         $this->infoMessage = null;
-        $this->loginStep = 'credentials';
         $this->registerStep = 'email';
         $this->forgotStep = 'email';
-        $this->setStep = 'email';
-        $this->loginOtp = '';
         $this->registerOtp = '';
         $this->forgotOtp = '';
-        $this->setOtp = '';
+        $this->profileView = 'main';
+        $this->resetAddressForm();
+    }
+
+    private function resetAddressForm(): void
+    {
+        $this->addressLabel = '';
+        $this->addressRecipientName = '';
+        $this->addressRecipientPhone = '';
+        $this->addressRecipientEmail = '';
+        $this->addressFull = '';
+        $this->addressNote = '';
+        $this->addressAreaId = '';
+        $this->addressAreaName = '';
+        $this->addressPostalCode = '';
+        $this->addressAreaSearch = '';
+        $this->addressAreaResults = [];
+        $this->addressIsPrimary = false;
+        $this->editingAddressId = null;
+        $this->resetValidation([
+            'addressLabel',
+            'addressRecipientName',
+            'addressRecipientPhone',
+            'addressRecipientEmail',
+            'addressFull',
+            'addressNote',
+            'addressAreaId',
+            'addressAreaName',
+            'addressPostalCode',
+        ]);
+    }
+
+    private function customerAddressQuery()
+    {
+        return CustomerAddress::query()->where('customer_id', Auth::id());
     }
 
     /**
-     * LOGIN: Step 1 - Request Login OTP
+     * Login with the customer's email and password.
      */
-    public function requestLoginOtp(CustomerAuthService $authService): void
+    public function login(): void
     {
         $this->resetErrorBag();
         $this->errorMessage = null;
@@ -105,114 +282,37 @@ class AuthComponent extends Component
 
         $email = Str::lower(trim($this->loginEmail));
 
-        // Check if customer exists in database
         $customer = Customer::where('email', $email)->first();
-        if ($customer && empty($customer->password)) {
-            // Customer exists but has no password set
-            $this->setEmail = $email;
-            $this->setFullName = $customer->full_name ?? '';
-            $this->mode = 'set_password';
-            $this->setStep = 'email';
-            $this->infoMessage = 'Akun Anda belum memiliki kata sandi. Silakan buat kata sandi terlebih dahulu.';
+        if ($customer && blank($customer->password)) {
+            $this->forgotEmail = $email;
+            $this->mode = 'forgot_password';
+            $this->forgotStep = 'email';
+            $this->infoMessage = 'Akun Anda belum memiliki kata sandi. Silakan reset kata sandi terlebih dahulu.';
             $this->dispatch('trigger-toast', [
                 'type' => 'warning',
-                'message' => 'Akun belum memiliki kata sandi. Silakan atur kata sandi terlebih dahulu.',
+                'message' => 'Akun belum memiliki kata sandi. Silakan reset kata sandi terlebih dahulu.',
             ]);
             return;
         }
 
-        try {
-            $response = $authService->requestLoginOtp($email);
-            $this->loginStep = 'otp';
-            $this->infoMessage = $response['message'] ?? 'Kode OTP login telah dikirim ke email Anda.';
-            $this->dispatch('trigger-toast', [
-                'type' => 'success',
-                'message' => 'Kode OTP login telah dikirim ke email Anda.',
-            ]);
-        } catch (Exception $e) {
-            $msg = $e->getMessage();
-            if (str_contains(strtolower($msg), 'password belum dibuat')) {
-                $this->setEmail = $email;
-                $this->mode = 'set_password';
-                $this->setStep = 'email';
-                $this->infoMessage = 'Akun Anda belum memiliki kata sandi. Silakan buat kata sandi terlebih dahulu.';
-                $this->dispatch('trigger-toast', [
-                    'type' => 'warning',
-                    'message' => 'Akun belum memiliki kata sandi. Silakan atur kata sandi terlebih dahulu.',
-                ]);
-                return;
-            }
-
-            $this->errorMessage = $msg;
+        if (! $customer || ! Hash::check($this->loginPassword, $customer->password)) {
+            $this->errorMessage = 'Email atau kata sandi tidak valid.';
             $this->dispatch('trigger-toast', [
                 'type' => 'error',
-                'message' => $msg,
+                'message' => $this->errorMessage,
             ]);
+            return;
         }
-    }
 
-    /**
-     * LOGIN: Step 2 - Verify OTP and complete login
-     */
-    public function submitLogin(CustomerAuthService $authService): void
-    {
-        $this->resetErrorBag();
-        $this->errorMessage = null;
+        Auth::login($customer, true);
+        $this->mode = 'profile';
+        $this->resetState();
 
-        $this->validate([
-            'loginEmail' => ['required', 'email'],
-            'loginPassword' => ['required', 'string'],
-            'loginOtp' => ['required', 'digits:6'],
+        $this->dispatch('customer-authenticated');
+        $this->dispatch('trigger-toast', [
+            'type' => 'success',
+            'message' => 'Selamat datang kembali, ' . ($customer->full_name ?? 'Pelanggan') . '!',
         ]);
-
-        $email = Str::lower(trim($this->loginEmail));
-
-        try {
-            $result = $authService->login($email, $this->loginPassword, $this->loginOtp);
-
-            // Fetch or synchronize local Customer model
-            $customer = Customer::where('email', $email)->first();
-
-            if (! $customer) {
-                $apiCustomer = $result['data']['customer'] ?? [];
-                $customer = Customer::create([
-                    'full_name' => $apiCustomer['full_name'] ?? 'Customer',
-                    'email' => $email,
-                    'password' => Hash::make($this->loginPassword),
-                    'phone' => $apiCustomer['phone'] ?? null,
-                    'address' => $apiCustomer['address'] ?? null,
-                    'is_male' => $apiCustomer['is_male'] ?? true,
-                ]);
-            } else {
-                // Keep password up to date locally
-                $customer->update([
-                    'password' => Hash::make($this->loginPassword),
-                ]);
-            }
-
-            // Authenticate web session
-            Auth::login($customer, true);
-
-            // Store API token in cookie for backend API consumption if needed
-            if (!empty($result['data']['token'])) {
-                Cookie::queue(Cookie::make('customer_token', $result['data']['token'], 60 * 24 * 30, '/', null, false, true));
-            }
-
-            $this->mode = 'profile';
-            $this->resetState();
-
-            $this->dispatch('customer-authenticated');
-            $this->dispatch('trigger-toast', [
-                'type' => 'success',
-                'message' => 'Selamat datang kembali, ' . ($customer->full_name ?? 'Pelanggan') . '!',
-            ]);
-        } catch (Exception $e) {
-            $this->errorMessage = $e->getMessage();
-            $this->dispatch('trigger-toast', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
     }
 
     /**
@@ -262,7 +362,6 @@ class AuthComponent extends Component
             'registerPassword' => ['required', 'string', 'min:8'],
             'registerPasswordConfirmation' => ['required', 'same:registerPassword'],
             'registerPhone' => ['nullable', 'string', 'max:50'],
-            'registerAddress' => ['nullable', 'string', 'max:255'],
             'registerGender' => ['required', 'in:male,female'],
         ]);
 
@@ -276,7 +375,6 @@ class AuthComponent extends Component
             'password' => $this->registerPassword,
             'password_confirmation' => $this->registerPasswordConfirmation,
             'phone' => $this->registerPhone ?: null,
-            'address' => $this->registerAddress ?: null,
             'is_male' => $isMale,
         ];
 
@@ -291,7 +389,6 @@ class AuthComponent extends Component
                     'email' => $email,
                     'password' => Hash::make($this->registerPassword),
                     'phone' => $this->registerPhone ?: null,
-                    'address' => $this->registerAddress ?: null,
                     'is_male' => $isMale,
                 ]);
             }
@@ -384,93 +481,11 @@ class AuthComponent extends Component
 
             $this->loginEmail = $email;
             $this->mode = 'login';
-            $this->loginStep = 'credentials';
             $this->resetState();
 
             $this->dispatch('trigger-toast', [
                 'type' => 'success',
                 'message' => 'Kata sandi berhasil direset. Silakan masuk menggunakan kata sandi baru.',
-            ]);
-        } catch (Exception $e) {
-            $this->errorMessage = $e->getMessage();
-            $this->dispatch('trigger-toast', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * SET PASSWORD: Step 1 - Request OTP
-     */
-    public function requestSetOtp(CustomerAuthService $authService): void
-    {
-        $this->resetErrorBag();
-        $this->errorMessage = null;
-        $this->infoMessage = null;
-
-        $this->validate([
-            'setEmail' => ['required', 'email'],
-        ]);
-
-        $email = Str::lower(trim($this->setEmail));
-
-        try {
-            $response = $authService->requestSetPasswordOtp($email, $this->setFullName ?: null);
-            $this->setStep = 'set';
-            $this->infoMessage = $response['message'] ?? 'Kode OTP pembuatan kata sandi telah dikirim ke email Anda.';
-            $this->dispatch('trigger-toast', [
-                'type' => 'success',
-                'message' => 'Kode OTP telah dikirim ke email Anda.',
-            ]);
-        } catch (Exception $e) {
-            $this->errorMessage = $e->getMessage();
-            $this->dispatch('trigger-toast', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * SET PASSWORD: Step 2 - Submit new password with OTP
-     */
-    public function submitSetPassword(CustomerAuthService $authService): void
-    {
-        $this->resetErrorBag();
-        $this->errorMessage = null;
-
-        $this->validate([
-            'setEmail' => ['required', 'email'],
-            'setOtp' => ['required', 'digits:6'],
-            'setPassword' => ['required', 'string', 'min:8'],
-            'setPasswordConfirmation' => ['required', 'same:setPassword'],
-        ]);
-
-        $email = Str::lower(trim($this->setEmail));
-
-        try {
-            $authService->setPassword(
-                $email,
-                $this->setOtp,
-                $this->setPassword,
-                $this->setPasswordConfirmation,
-                $this->setFullName ?: null
-            );
-
-            // Update or create local customer password
-            Customer::where('email', $email)->update([
-                'password' => Hash::make($this->setPassword),
-            ]);
-
-            $this->loginEmail = $email;
-            $this->mode = 'login';
-            $this->loginStep = 'credentials';
-            $this->resetState();
-
-            $this->dispatch('trigger-toast', [
-                'type' => 'success',
-                'message' => 'Kata sandi berhasil dibuat! Silakan masuk dengan akun Anda.',
             ]);
         } catch (Exception $e) {
             $this->errorMessage = $e->getMessage();
@@ -514,6 +529,9 @@ class AuthComponent extends Component
     {
         return view('livewire.auth-component', [
             'customer' => Auth::user(),
+            'addresses' => Auth::check()
+                ? $this->customerAddressQuery()->orderByDesc('is_primary')->latest('id')->get()
+                : collect(),
         ]);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\CustomerAddress;
+use App\Services\Backend\BiteshipService;
+use Throwable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -24,6 +27,34 @@ class CheckoutFlowComponent extends Component
     public string $lastName = '';
 
     public string $shippingAddress = '';
+
+    public ?int $selectedAddressId = null;
+
+    public bool $showNewAddressForm = false;
+
+    public string $newAddressLabel = 'Rumah';
+
+    public string $newRecipientName = '';
+
+    public string $newRecipientPhone = '';
+
+    public string $newRecipientEmail = '';
+
+    public string $newAddressFull = '';
+
+    public string $newAddressNote = '';
+
+    public string $newAddressAreaId = '';
+
+    public string $newAddressAreaName = '';
+
+    public string $newAddressPostalCode = '';
+
+    public string $newAddressAreaSearch = '';
+
+    public array $newAddressAreaResults = [];
+
+    public bool $newAddressIsPrimary = false;
 
     public bool $giftWrapping = false;
 
@@ -51,8 +82,121 @@ class CheckoutFlowComponent extends Component
             $this->firstName = $nameParts[0] ?? '';
             $this->lastName = $nameParts[1] ?? ($nameParts[0] ?? '');
 
-            $this->shippingAddress = (string) ($user->address ?? '');
+            $address = CustomerAddress::where('customer_id', $user->getAuthIdentifier())
+                ->orderByDesc('is_primary')
+                ->oldest('id')
+                ->first();
+
+            if ($address) {
+                $this->selectedAddressId = $address->id;
+                $this->shippingAddress = $address->full_address;
+            } else {
+                $this->showNewAddressForm = true;
+            }
         }
+    }
+
+    public function updatedSelectedAddressId($addressId): void
+    {
+        if (! $addressId || ! Auth::check()) {
+            return;
+        }
+
+        $address = CustomerAddress::where('customer_id', Auth::id())->find($addressId);
+        if ($address) {
+            $this->shippingAddress = $address->full_address;
+        }
+    }
+
+    public function searchNewAddressAreas(BiteshipService $biteshipService): void
+    {
+        try {
+            $this->newAddressAreaResults = $biteshipService->searchAreas($this->newAddressAreaSearch);
+        } catch (Throwable $exception) {
+            $this->newAddressAreaResults = [];
+            $this->dispatch('trigger-toast', [
+                'type' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    public function selectNewAddressArea(array $area): void
+    {
+        $this->newAddressAreaId = (string) ($area['id'] ?? '');
+        $this->newAddressAreaName = (string) ($area['name'] ?? '');
+        $this->newAddressPostalCode = (string) ($area['postal_code'] ?? '');
+        $this->newAddressAreaSearch = $this->newAddressAreaName;
+        $this->newAddressAreaResults = [];
+    }
+
+    public function saveNewAddress(): void
+    {
+        $this->validate([
+            'newAddressLabel' => ['nullable', 'string', 'max:100'],
+            'newRecipientName' => ['nullable', 'string', 'max:255'],
+            'newRecipientPhone' => ['nullable', 'string', 'min:10', 'max:20'],
+            'newRecipientEmail' => ['nullable', 'email', 'max:255'],
+            'newAddressFull' => ['required', 'string', 'max:2000'],
+            'newAddressNote' => ['nullable', 'string', 'max:500'],
+            'newAddressAreaId' => ['nullable', 'string', 'max:255'],
+            'newAddressAreaName' => ['nullable', 'string', 'max:255'],
+            'newAddressPostalCode' => ['nullable', 'string', 'max:10'],
+        ]);
+
+        $customerId = Auth::id();
+        $hasAddresses = CustomerAddress::where('customer_id', $customerId)->exists();
+        $isPrimary = $this->newAddressIsPrimary || ! $hasAddresses;
+
+        if ($isPrimary) {
+            CustomerAddress::where('customer_id', $customerId)->update(['is_primary' => false]);
+        }
+
+        $address = CustomerAddress::create([
+            'customer_id' => $customerId,
+            'label' => $this->newAddressLabel ?: null,
+            'recipient_name' => $this->newRecipientName ?: null,
+            'recipient_phone' => $this->newRecipientPhone ?: null,
+            'recipient_email' => $this->newRecipientEmail ?: null,
+            'full_address' => $this->newAddressFull,
+            'note' => $this->newAddressNote ?: null,
+            'area_id' => $this->newAddressAreaId ?: null,
+            'area_name' => $this->newAddressAreaName ?: null,
+            'postal_code' => $this->newAddressPostalCode ?: null,
+            'is_primary' => $isPrimary,
+        ]);
+
+        $this->selectedAddressId = $address->id;
+        $this->shippingAddress = $address->full_address;
+        $this->showNewAddressForm = false;
+        $this->newAddressLabel = 'Rumah';
+        $this->newRecipientName = '';
+        $this->newRecipientPhone = '';
+        $this->newRecipientEmail = '';
+        $this->newAddressFull = '';
+        $this->newAddressNote = '';
+        $this->newAddressAreaId = '';
+        $this->newAddressAreaName = '';
+        $this->newAddressPostalCode = '';
+        $this->newAddressAreaSearch = '';
+        $this->newAddressAreaResults = [];
+        $this->newAddressIsPrimary = false;
+        $this->resetValidation([
+            'newAddressLabel',
+            'newRecipientName',
+            'newRecipientPhone',
+            'newRecipientEmail',
+            'newAddressFull',
+            'newAddressNote',
+            'newAddressAreaId',
+            'newAddressAreaName',
+            'newAddressPostalCode',
+        ]);
+
+        $this->dispatch('trigger-toast', [
+            'type' => 'success',
+            'message' => 'Alamat berhasil ditambahkan.',
+        ]);
     }
 
     public function completePurchase(): void
@@ -158,6 +302,10 @@ class CheckoutFlowComponent extends Component
 
     public function render()
     {
-        return view('livewire.checkout-flow-component');
+        return view('livewire.checkout-flow-component', [
+            'addresses' => Auth::check()
+                ? CustomerAddress::where('customer_id', Auth::id())->orderByDesc('is_primary')->latest('id')->get()
+                : collect(),
+        ]);
     }
 }

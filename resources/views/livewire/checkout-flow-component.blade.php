@@ -53,9 +53,85 @@
                         </div>
                     </div>
 
-                    <div class="space-y-1">
-                        <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">Shipping Address</label>
-                        <input type="text" wire:model.defer="shippingAddress" class="pt-1 pb-2 border-gray-300 focus:border-black border-b focus:outline-none w-full text-sm transition-colors">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">Shipping Address</label>
+                            <button type="button" wire:click="$toggle('showNewAddressForm')" class="text-[10px] text-gray-600 hover:text-black underline uppercase tracking-wider">
+                                {{ $showNewAddressForm ? 'Batal' : '+ Tambah Alamat' }}
+                            </button>
+                        </div>
+
+                        @if ($addresses->isNotEmpty())
+                            <select wire:model="selectedAddressId" class="bg-white px-3 py-3 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm transition-colors">
+                                @foreach ($addresses as $address)
+                                    <option value="{{ $address->id }}">
+                                        {{ $address->label ?: 'Alamat' }}{{ $address->is_primary ? ' - Utama' : '' }}: {{ $address->full_address }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endif
+
+                        @if ($showNewAddressForm)
+                            <div class="space-y-3 bg-gray-50 p-4 border border-gray-200">
+                                <p class="font-semibold text-[10px] text-gray-500 uppercase tracking-wider">Alamat Baru</p>
+                                <div class="gap-2 grid grid-cols-1 sm:grid-cols-2">
+                                    <input type="text" wire:model="newRecipientName" placeholder="Nama penerima" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
+                                    <input type="tel" wire:model="newRecipientPhone" placeholder="Nomor telepon" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
+                                </div>
+                                @error('newRecipientName') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                @error('newRecipientPhone') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <input type="email" wire:model="newRecipientEmail" placeholder="Email penerima (opsional)" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
+                                @error('newRecipientEmail') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <input type="text" wire:model="newAddressLabel" placeholder="Label, contoh: Rumah" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
+                                @error('newAddressLabel') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <div class="relative">
+                                    <input
+                                        type="search"
+                                        wire:model.live.debounce.400ms="newAddressAreaSearch"
+                                        wire:input.debounce.400ms="searchNewAddressAreas"
+                                        placeholder="Cari kota / area, contoh: Jakarta Selatan"
+                                        autocomplete="off"
+                                        class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm"
+                                    >
+                                    @if ($newAddressAreaResults)
+                                        <div class="top-full right-0 left-0 z-10 absolute bg-white shadow-lg mt-1 border border-gray-200 max-h-48 overflow-y-auto">
+                                            @foreach ($newAddressAreaResults as $area)
+                                                <button type="button" wire:click="selectNewAddressArea(@js($area))" class="block hover:bg-gray-50 px-3 py-2 w-full text-xs text-left">
+                                                    <span class="block font-medium text-gray-800">{{ $area['name'] }}</span>
+                                                    @if ($area['postal_code']) <span class="text-gray-400">{{ $area['postal_code'] }}</span> @endif
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    <input type="hidden" wire:model="newAddressAreaId">
+                                    <input type="hidden" wire:model="newAddressAreaName">
+                                    <input type="hidden" wire:model="newAddressPostalCode">
+                                    @if ($newAddressAreaName)
+                                        <p class="mt-1 text-[11px] text-gray-500">Terpilih: {{ $newAddressAreaName }}{{ $newAddressPostalCode ? ' - ' . $newAddressPostalCode : '' }}</p>
+                                    @endif
+                                </div>
+                                @error('newAddressAreaId') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <textarea wire:model="newAddressFull" rows="3" required placeholder="Alamat lengkap" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm resize-none"></textarea>
+                                @error('newAddressFull') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <textarea wire:model="newAddressNote" rows="2" placeholder="Catatan kurir (opsional)" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm resize-none"></textarea>
+                                @error('newAddressNote') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                                <label class="flex items-center gap-2 text-gray-600 text-xs">
+                                    <input type="checkbox" wire:model="newAddressIsPrimary" class="border-gray-400 rounded-none focus:ring-0 accent-black">
+                                    Jadikan alamat utama
+                                </label>
+                                <button type="button" wire:click="saveNewAddress" wire:loading.attr="disabled" class="bg-black hover:bg-neutral-800 px-4 py-3 w-full text-white text-xs uppercase tracking-wider">
+                                    <span wire:loading.remove wire:target="saveNewAddress">Simpan dan Gunakan Alamat</span>
+                                    <span wire:loading wire:target="saveNewAddress">Menyimpan...</span>
+                                </button>
+                            </div>
+                        @elseif ($selectedAddressId)
+                            <div class="p-3 border border-gray-200 text-gray-700 text-sm leading-relaxed">
+                                {{ $shippingAddress }}
+                            </div>
+                        @else
+                            <p class="text-gray-500 text-xs">Tambahkan alamat untuk melanjutkan checkout.</p>
+                        @endif
+
                         @error('shippingAddress') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
                     </div>
                 </div>
