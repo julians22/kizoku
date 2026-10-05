@@ -134,6 +134,46 @@
 
                         @error('shippingAddress') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
                     </div>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">Courier Rates</h3>
+                            @if ($isLoadingRates)
+                                <span class="text-[10px] text-gray-400 uppercase tracking-wider">Calculating...</span>
+                            @endif
+                        </div>
+
+                        @if ($isLoadingRates)
+                            <div class="p-4 border border-gray-200 text-gray-500 text-xs">Checking available delivery services...</div>
+                        @elseif ($ratesError)
+                            <div class="p-4 border border-red-200 text-red-500 text-xs">{{ $ratesError }}</div>
+                        @elseif ($courierPricings)
+                            @foreach (collect($courierPricings)->groupBy(fn ($rate) => $rate['courier_name'] ?? $rate['company'] ?? 'Courier') as $company => $rates)
+                                <fieldset class="space-y-2">
+                                    <legend class="font-semibold text-[11px] text-gray-700 uppercase tracking-wider">{{ $company }}</legend>
+                                    @foreach ($rates as $rate)
+                                        @php($rateKey = ($rate['courier_code'] ?? $rate['company'] ?? '') . ':' . ($rate['courier_service_code'] ?? $rate['type'] ?? ''))
+                                        <label class="flex items-start gap-3 hover:bg-gray-50 p-3 border border-gray-200 transition-colors cursor-pointer">
+                                            <input type="radio" wire:model.live="selectedCourierService" value="{{ $rateKey }}" class="mt-1 border-gray-400 focus:ring-0 accent-black">
+                                            <span class="flex flex-1 justify-between gap-3 text-xs">
+                                                <span>
+                                                    <span class="block font-medium text-gray-800">{{ $rate['courier_service_name'] ?? $rate['type'] ?? 'Service' }}</span>
+                                                    <span class="block mt-1 text-[11px] text-gray-500">{{ $rate['duration'] ?? 'Delivery time unavailable' }}</span>
+                                                </span>
+                                                <span class="font-semibold text-gray-800 whitespace-nowrap">IDR {{ number_format((int) ($rate['price'] ?? $rate['shipping_fee'] ?? 0), 0) }}</span>
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </fieldset>
+                            @endforeach
+                        @elseif ($selectedAddressId)
+                            <p class="p-4 border border-gray-200 text-gray-500 text-xs">No courier rates are available for this postal code.</p>
+                        @else
+                            <p class="p-4 border border-gray-200 text-gray-500 text-xs">Select or create an address to calculate delivery rates.</p>
+                        @endif
+
+                        @error('courier') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+                    </div>
                 </div>
 
                 <div class="space-y-4 pt-4">
@@ -179,7 +219,9 @@
                 </div>
                 <div class="flex justify-between text-gray-600">
                     <span class="uppercase">Shipping</span>
-                    <span class="font-medium text-[11px] uppercase">Free</span>
+                    <span class="font-medium text-[11px] uppercase">
+                        {{ $selectedCourierService ? 'IDR ' . number_format($shippingCost, 0) : 'Select a service' }}
+                    </span>
                 </div>
                 <div class="flex justify-between text-[11px] text-stone-500">
                     <span class="uppercase">Taxes (Included)</span>
@@ -189,7 +231,7 @@
 
             <div class="flex justify-between items-baseline mt-6 mb-8 pt-6 border-black border-t">
                 <span class="font-bold text-sm uppercase tracking-[0.15em]">Total</span>
-                <span class="font-bold text-base tracking-wider">IDR {{ number_format($subtotal, 0) }}</span>
+                <span class="font-bold text-base tracking-wider">IDR {{ number_format($subtotal + $shippingCost, 0) }}</span>
             </div>
 
             @if (! $completed)
@@ -197,6 +239,7 @@
                     type="button"
                     wire:click="completePurchase"
                     wire:loading.attr="disabled"
+                    @disabled($isLoadingRates || ($courierPricings && ! $selectedCourierService))
                     class="bg-[#111625] hover:bg-black disabled:opacity-70 py-4 w-full font-bold text-white text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer disabled:cursor-wait"
                 >
                     <span wire:loading.remove wire:target="completePurchase">Complete Purchase</span>

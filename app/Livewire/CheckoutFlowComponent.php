@@ -56,6 +56,16 @@ class CheckoutFlowComponent extends Component
 
     public bool $newAddressIsPrimary = false;
 
+    public array $courierPricings = [];
+
+    public string $selectedCourierService = '';
+
+    public int $shippingCost = 0;
+
+    public bool $isLoadingRates = false;
+
+    public ?string $ratesError = null;
+
     public bool $giftWrapping = false;
 
     public bool $completed = false;
@@ -90,6 +100,7 @@ class CheckoutFlowComponent extends Component
             if ($address) {
                 $this->selectedAddressId = $address->id;
                 $this->shippingAddress = $address->full_address;
+                $this->refreshCourierRates($address->postal_code);
             } else {
                 $this->showNewAddressForm = true;
             }
@@ -105,7 +116,30 @@ class CheckoutFlowComponent extends Component
         $address = CustomerAddress::where('customer_id', Auth::id())->find($addressId);
         if ($address) {
             $this->shippingAddress = $address->full_address;
+            $this->refreshCourierRates($address->postal_code);
         }
+    }
+
+    public function fetchCourierRates(BiteshipService $biteshipService): void
+    {
+        $postalCode = null;
+
+        if ($this->selectedAddressId && Auth::check()) {
+            $postalCode = CustomerAddress::where('customer_id', Auth::id())
+                ->whereKey($this->selectedAddressId)
+                ->value('postal_code');
+        }
+
+        $this->loadCourierRates($biteshipService, $postalCode);
+    }
+
+    public function updatedSelectedCourierService(string $serviceKey): void
+    {
+        $pricing = collect($this->courierPricings)->first(function (array $rate) use ($serviceKey): bool {
+            return $this->courierRateKey($rate) === $serviceKey;
+        });
+
+        $this->shippingCost = $pricing ? (int) ($pricing['price'] ?? $pricing['shipping_fee'] ?? 0) : 0;
     }
 
     public function searchNewAddressAreas(BiteshipService $biteshipService): void
@@ -169,6 +203,7 @@ class CheckoutFlowComponent extends Component
         $this->selectedAddressId = $address->id;
         $this->shippingAddress = $address->full_address;
         $this->showNewAddressForm = false;
+        $this->refreshCourierRates($address->postal_code);
         $this->newAddressLabel = 'Rumah';
         $this->newRecipientName = '';
         $this->newRecipientPhone = '';
@@ -208,6 +243,11 @@ class CheckoutFlowComponent extends Component
             'shippingAddress' => ['required', 'string', 'max:255'],
         ]);
 
+        if ($this->courierPricings && $this->selectedCourierService === '') {
+            $this->addError('courier', 'Please select a shipping service.');
+            return;
+        }
+
         if (! config('services.midtrans.server_key') || ! config('services.midtrans.client_key')) {
             $this->addError('payment', 'Midtrans credentials are not configured.');
             return;
@@ -219,19 +259,30 @@ class CheckoutFlowComponent extends Component
             $orderId = 'KZK-' . now()->format('YmdHis') . '-' . Str::upper(Str::random(6));
             $this->currentOrderId = $orderId;
 
+            $itemDetails = collect($this->selectedParfumes)->map(function (array $item) {
+                return [
+                    'id' => $item['slug'],
+                    'price' => (int) $item['price'],
+                    'quantity' => (int) $item['quantity'],
+                    'name' => Str::limit((string) $item['name'], 50, ''),
+                ];
+            });
+
+            if ($this->shippingCost > 0) {
+                $itemDetails->push([
+                    'id' => 'shipping',
+                    'price' => $this->shippingCost,
+                    'quantity' => 1,
+                    'name' => 'Shipping',
+                ]);
+            }
+
             $params = [
                 'transaction_details' => [
                     'order_id' => $orderId,
-                    'gross_amount' => (int) round($this->subtotal),
+                    'gross_amount' => (int) round($this->subtotal + $this->shippingCost),
                 ],
-                'item_details' => collect($this->selectedParfumes)->map(function (array $item) {
-                    return [
-                        'id' => $item['slug'],
-                        'price' => (int) $item['price'],
-                        'quantity' => (int) $item['quantity'],
-                        'name' => Str::limit((string) $item['name'], 50, ''),
-                    ];
-                })->values()->all(),
+                'item_details' => $itemDetails->values()->all(),
                 'customer_details' => [
                     'first_name' => $this->firstName,
                     'last_name' => $this->lastName,
@@ -298,6 +349,57 @@ class CheckoutFlowComponent extends Component
         Config::$isProduction = (bool) config('services.midtrans.is_production');
         Config::$isSanitized = true;
         Config::$is3ds = true;
+    }
+
+    private function refreshCourierRates(?string $postalCode): void
+    {
+        $this->loadCourierRates(app(BiteshipService::class), $postalCode);
+    }
+
+    private function loadCourierRates(BiteshipService $biteshipService, ?string $postalCode): void
+    {
+        $this->courierPricings = [];
+        $this->selectedCourierService = '';
+        $this->shippingCost = 0;
+        $this->ratesError = null;
+
+        if (! $postalCode || ! preg_match('/^\d{5}$/', (string) $postalCode)) {
+            return;
+        }
+
+        $this->isLoadingRates = true;
+
+        try {
+            $this->courierPricings = $biteshipService->calculateRates(
+                (int) $postalCode,
+                $this->rateItems(),
+            );
+        } catch (Throwable $exception) {
+            $this->ratesError = $exception->getMessage();
+        } finally {
+            $this->isLoadingRates = false;
+        }
+    }
+
+    private function rateItems(): array
+    {
+        return collect($this->selectedParfumes)->map(function (array $item): array {
+            return [
+                'name' => (string) $item['name'],
+                'description' => (string) $item['name'],
+                'value' => (int) $item['price'],
+                'length' => 10,
+                'width' => 10,
+                'height' => 10,
+                'weight' => (int) config('biteship.default_item_weight_gram', 1000),
+                'quantity' => (int) $item['quantity'],
+            ];
+        })->values()->all();
+    }
+
+    private function courierRateKey(array $rate): string
+    {
+        return (string) ($rate['courier_code'] ?? $rate['company'] ?? '') . ':' . (string) ($rate['courier_service_code'] ?? $rate['type'] ?? '');
     }
 
     public function render()

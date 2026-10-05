@@ -54,6 +54,37 @@ class BiteshipService
             ->all();
     }
 
+    /**
+     * Retrieve courier pricing from Biteship for a destination postal code.
+     *
+     * @param  array<int, array<string, int|string>>  $items
+     * @param  array<int, string>|null  $couriers
+     * @return array<int, array<string, mixed>>
+     */
+    public function calculateRates(int|string $destinationPostalCode, array $items, ?array $couriers = null): array
+    {
+        $apiKey = trim((string) config('biteship.api_key'));
+
+        if ($apiKey === '') {
+            throw new RuntimeException('Biteship API key is not configured.');
+        }
+
+        $response = Http::withToken($apiKey)
+            ->acceptJson()
+            ->timeout(15)
+            ->post(rtrim((string) config('biteship.base_url'), '/') . '/v1/rates/couriers', [
+                'origin_postal_code' => (int) config('biteship.origin.postal_code'),
+                'destination_postal_code' => (int) $destinationPostalCode,
+                'couriers' => implode(',', $couriers ?: config('biteship.default_couriers', [])),
+                'items' => $items,
+            ]);
+
+        $payload = $this->handleResponse($response);
+        $pricing = $payload['pricing'] ?? [];
+
+        return is_array($pricing) ? array_values(array_filter($pricing, 'is_array')) : [];
+    }
+
     private function handleResponse(Response $response): array
     {
         $payload = $response->json() ?? [];
