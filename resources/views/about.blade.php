@@ -6,25 +6,25 @@
 
 <!-- Section 1 -->
 <section
-    class="relative flex justify-center items-center bg-gray-white bg-cover bg-no-repeat bg-center h-screen"
+    class="isolate relative flex justify-center items-center bg-white bg-cover bg-no-repeat bg-center h-screen"
 >
 
     <div class="drag-element">
-        <img src="{{ asset('img/d-1.png') }}" alt="">
+        <img src="{{ asset('img/about/ingredient_1.webp') }}" alt="">
     </div>
     <div class="drag-element">
-        <img src="{{ asset('img/d-2.png') }}" alt="">
+        <img src="{{ asset('img/about/ingredient_2.webp') }}" alt="">
     </div>
     <div class="drag-element">
-        <img src="{{ asset('img/d-3.png') }}" alt="">
+        <img src="{{ asset('img/about/ingredient_3.webp') }}" alt="">
     </div>
     <div class="drag-element">
-        <img src="{{ asset('img/d-4.png') }}" alt="">
+        <img src="{{ asset('img/about/ingredient_4.webp') }}" alt="">
     </div>
 
 
-    <div class="max-w-md">
-        <h2 class="text-center">PERFUME IS THE FIRST LAYER OF DRESSING, AN
+    <div class="z-20 max-w-xl pointer-events-none mix-blend-difference">
+        <h2 class="font-bold text-white text-xl text-center">PERFUME IS THE FIRST LAYER OF DRESSING, AN
             UNSEEN ENSEMBLE THAT SPEAKS BEFORE WORDS,
             REVEALING CHARACTER. PRESENCE. AND INTENT.</h2>
     </div>
@@ -36,21 +36,25 @@
 <!-- Section 2 -->
 <section
     class="flex justify-center items-center bg-cover bg-no-repeat bg-center aspect-[45/32]"
-    style="background-image: url({{ asset('img/S-5.png') }});"
 >
 
-    <div class="max-w-md">
+    <div class="mx-auto max-w-6xl">
 
-        <h2 class="text-center">
-            ROOTED IN THIS BELICF. WE CREATED KIZUKO TO OFFER
-            A NEW EXPRESSION OF FRAGRANCE INSPIRED BY MODERN JAPANESE
-            CULTURE. EACH SCENT IS METICULOUSLY CRAFTED FOR THE MODERN
-            GENTLEMAN, USING HIGH QUALITY INGREDIENTS AND REFINED COMPOSITIONS.
+        <h2 class="font-bold text-xl text-center uppercase">
+            Rooted in this belief, we created KIZUKO to offer a new expression of fragrance
+            inspired by modern Japanese culture. Each scent is meticulously crafted for the
+            modern gentleman, using high-quality ingredients and refined compositions.
         </h2>
 
     </div>
 
+
 </section>
+
+
+<div>
+    <img src="{{ asset('img/about/About_foot.webp') }}" class="w-full h-auto" alt="">
+</div>
 
 
 

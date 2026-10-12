@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View as FacadesView;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -40,5 +41,10 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('localeData', $localeData);
         });
+
+        // Memaksa semua URL asset dan route menggunakan HTTPS jika diakses lewat cloudflare tunnel
+        if (config('app.env') !== 'local' || isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            URL::forceScheme('https');
+        }
     }
 }

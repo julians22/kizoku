@@ -37,7 +37,7 @@
 
 
     .drag-element{
-        @apply z-10 absolute transition-transform duration-300 cursor-grab select-none;
+        @apply z-10 absolute max-w-3xs transition-transform duration-300 cursor-grab select-none;
     }
     .drag-element:active {
         @apply z-20 cursor-grabbing;

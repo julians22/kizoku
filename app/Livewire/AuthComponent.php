@@ -6,10 +6,12 @@ use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Services\Backend\BiteshipService;
 use App\Services\Backend\CustomerAuthService;
+use App\Services\Backend\OrderService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -58,6 +60,12 @@ class AuthComponent extends Component
     public ?string $errorMessage = null;
     public ?string $infoMessage = null;
 
+    public array $orders = [];
+    public array $ordersMeta = ['current_page' => 1, 'last_page' => 1, 'total' => 0];
+    public bool $ordersLoaded = false;
+    public bool $ordersLoading = false;
+    public ?string $ordersError = null;
+
     protected $listeners = [
         'customer-authenticated' => '$refresh',
         'open-auth-mode' => 'setAuthMode',
@@ -80,6 +88,59 @@ class AuthComponent extends Component
     {
         $this->profileView = 'addresses';
         $this->resetAddressForm();
+    }
+
+    public function showOrders(): void
+    {
+        $this->profileView = 'orders';
+        $this->loadOrders(1);
+    }
+
+    public function loadOrders(int $page = 1): void
+    {
+        $token = (string) Cookie::get('customer_token');
+
+        if ($token === '') {
+            $this->ordersError = 'Sesi Anda telah berakhir. Silakan keluar dan masuk kembali.';
+            $this->ordersLoaded = true;
+            return;
+        }
+
+        $this->ordersLoading = true;
+        $this->ordersError = null;
+
+        try {
+            $result = app(OrderService::class)->listOrders($token, $page);
+            $this->orders = collect($result['data'] ?? [])->map(function (array $order): array {
+                $order['status_class'] = match ($order['status'] ?? 'pending') {
+                    'processing' => 'border-blue-300 bg-blue-50 text-blue-700',
+                    'completed' => 'border-emerald-300 bg-emerald-50 text-emerald-700',
+                    'cancelled' => 'border-gray-300 bg-gray-50 text-gray-500',
+                    default => 'border-amber-300 bg-amber-50 text-amber-700',
+                };
+                return $order;
+            })->all();
+            $this->ordersMeta = $result['meta'] ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0];
+        } catch (Exception $e) {
+            $this->ordersError = $e->getMessage();
+        } finally {
+            $this->ordersLoading = false;
+            $this->ordersLoaded = true;
+        }
+    }
+
+    public function nextOrdersPage(): void
+    {
+        if ($this->ordersMeta['current_page'] < $this->ordersMeta['last_page']) {
+            $this->loadOrders($this->ordersMeta['current_page'] + 1);
+        }
+    }
+
+    public function previousOrdersPage(): void
+    {
+        if ($this->ordersMeta['current_page'] > 1) {
+            $this->loadOrders($this->ordersMeta['current_page'] - 1);
+        }
     }
 
     public function backToProfile(): void
@@ -269,7 +330,7 @@ class AuthComponent extends Component
     /**
      * Login with the customer's email and password.
      */
-    public function login(): void
+    public function login(CustomerAuthService $authService): void
     {
         $this->resetErrorBag();
         $this->errorMessage = null;
@@ -305,6 +366,18 @@ class AuthComponent extends Component
         }
 
         Auth::login($customer, true);
+
+        // Obtain a backend API token so authenticated calls (e.g. checkout) work.
+        try {
+            $result = $authService->issueToken($email, $this->loginPassword);
+
+            if (! empty($result['data']['token'])) {
+                Cookie::queue(Cookie::make('customer_token', $result['data']['token'], 60 * 24 * 30, '/', null, false, true));
+            }
+        } catch (Exception $e) {
+            Log::warning('Failed to issue backend customer token: ' . $e->getMessage());
+        }
+
         $this->mode = 'profile';
         $this->resetState();
 

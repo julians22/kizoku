@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use App\Models\CustomerAddress;
 use App\Services\Backend\BiteshipService;
+use App\Services\Backend\OrderService;
 use Throwable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Midtrans\Config;
@@ -14,6 +16,14 @@ use Livewire\Component;
 
 class CheckoutFlowComponent extends Component
 {
+    // Cart slug => Karuizawa product SKU.
+    private const SKU_MAP = [
+        'kahen' => 'KAHEN-EDP',
+        'kakan' => 'KAKAN-EDP',
+        'kohaku' => 'KOHAKU-EDP',
+        'ki' => 'KI-EDP',
+    ];
+
     public array $selectedParfumes = [];
 
     public float|int $subtotal = 0;
@@ -259,6 +269,20 @@ class CheckoutFlowComponent extends Component
             $orderId = 'KZK-' . now()->format('YmdHis') . '-' . Str::upper(Str::random(6));
             $this->currentOrderId = $orderId;
 
+            // Persist the unpaid order in the backend first so a Snap token is never
+            // created for an order that does not exist.
+            try {
+                $this->createBackendOrder($orderId);
+            } catch (\Throwable $exception) {
+                Log::error('Failed to create backend order', ['message' => $exception->getMessage()]);
+                $this->addError('payment', 'Unable to place the order: ' . $exception->getMessage());
+                $this->dispatch('trigger-toast', [
+                    'type' => 'error',
+                    'message' => 'Unable to place the order: ' . $exception->getMessage(),
+                ]);
+                return;
+            }
+
             $itemDetails = collect($this->selectedParfumes)->map(function (array $item) {
                 return [
                     'id' => $item['slug'],
@@ -349,6 +373,61 @@ class CheckoutFlowComponent extends Component
         Config::$isProduction = (bool) config('services.midtrans.is_production');
         Config::$isSanitized = true;
         Config::$is3ds = true;
+    }
+
+    private function createBackendOrder(string $orderId): void
+    {
+        $customerToken = (string) Cookie::get('customer_token');
+
+        if ($customerToken === '') {
+            throw new \RuntimeException('Your session has expired. Please log out and log in again.');
+        }
+
+        $address = CustomerAddress::where('customer_id', Auth::id())->find($this->selectedAddressId);
+
+        $rate = $this->selectedCourierRate();
+
+        $payload = [
+            'address' => array_filter([
+                'customer_address_id' => $address?->id,
+                'label' => $address?->label,
+                'recipient_name' => $address?->recipient_name ?? trim($this->firstName . ' ' . $this->lastName),
+                'recipient_phone' => $address?->recipient_phone,
+                'recipient_email' => $address?->recipient_email ?? $this->email,
+                'full_address' => $address?->full_address ?? $this->shippingAddress,
+                'note' => $address?->note,
+                'area_id' => $address?->area_id ?? '',
+                'area_name' => $address?->area_name,
+                'postal_code' => $address?->postal_code,
+                'latitude' => $address?->latitude,
+                'longitude' => $address?->longitude,
+                'save_address' => false,
+            ], fn ($value) => $value !== null),
+            'items' => collect($this->selectedParfumes)->map(function (array $item): array {
+                return [
+                    'sku' => self::SKU_MAP[$item['slug']] ?? strtoupper((string) $item['slug']),
+                    'qty' => (int) $item['quantity'],
+                ];
+            })->values()->all(),
+            'courier' => array_filter([
+                'company' => $rate['courier_code'] ?? $rate['company'] ?? null,
+                'type' => $rate['courier_service_code'] ?? $rate['type'] ?? null,
+                'name' => $rate['courier_name'] ?? null,
+                'service_name' => $rate['courier_service_name'] ?? null,
+                'shipping_cost' => $this->shippingCost,
+                'insurance_cost' => 0,
+            ], fn ($value) => $value !== null),
+            'midtrans_order_id' => $orderId,
+        ];
+
+        app(OrderService::class)->createOrder($payload, $customerToken);
+    }
+
+    private function selectedCourierRate(): array
+    {
+        return collect($this->courierPricings)->first(function (array $rate): bool {
+            return $this->courierRateKey($rate) === $this->selectedCourierService;
+        }) ?? [];
     }
 
     private function refreshCourierRates(?string $postalCode): void

@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="space-y-3 text-gray-600 text-xs">
+            <div class="space-y-3 text-gray-600 text-sm">
                 @if ($currentUser->phone)
                     <div class="flex justify-between py-1 border-gray-100 border-b">
                         <span class="text-gray-400">@lang('Telepon')</span>
@@ -54,6 +54,17 @@
                 >
                     <span class="font-semibold uppercase tracking-[0.15em]">@lang('KELOLA ALAMAT')</span>
                     <span class="text-gray-400">{{ $addresses->count() }} tersimpan &rarr;</span>
+                </button>
+            </div>
+
+            <div>
+                <button
+                    wire:click="showOrders"
+                    type="button"
+                    class="flex justify-between items-center px-4 py-3 border border-gray-300 hover:border-black w-full text-xs transition-colors"
+                >
+                    <span class="font-semibold uppercase tracking-[0.15em]">@lang('RIWAYAT TRANSAKSI')</span>
+                    <span class="text-gray-400">&rarr;</span>
                 </button>
             </div>
 
@@ -106,6 +117,76 @@
                 </div>
 
                 <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">+ TAMBAH ALAMAT</button>
+            @elseif ($profileView === 'orders')
+                <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
+                    <button wire:click="backToProfile" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>
+                    <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">@lang('RIWAYAT TRANSAKSI')</h3>
+                    <span class="w-12"></span>
+                </div>
+
+                @if ($ordersLoading)
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Memuat riwayat transaksi...')</div>
+                @elseif ($ordersError)
+                    <div class="p-4 border border-red-200 text-red-500 text-xs">{{ $ordersError }}</div>
+                @elseif (! $ordersLoaded)
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Memuat riwayat transaksi...')</div>
+                @elseif (empty($orders))
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Belum ada transaksi.')</div>
+                @else
+                    <div class="space-y-3">
+                        @foreach ($orders as $order)
+                            <div class="space-y-3 p-4 border border-gray-200">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div>
+                                        <p class="font-semibold text-xs tracking-wider">{{ $order['order_number'] ?? '-' }}</p>
+                                        <p class="mt-1 text-[10px] text-gray-400">
+                                            {{ isset($order['order_date']) ? \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') : '' }}
+                                        </p>
+                                    </div>
+                                    <span class="px-2 py-0.5 border text-[10px] uppercase tracking-widest {{ $order['status_class'] ?? 'border-gray-300 bg-gray-50 text-gray-600' }}">
+                                        {{ $order['status'] ?? 'pending' }}
+                                    </span>
+                                </div>
+
+                                <ul class="space-y-1 text-[11px] text-gray-600">
+                                    @foreach ($order['items'] ?? [] as $item)
+                                        <li class="flex justify-between gap-3">
+                                            <span class="truncate">{{ $item['name'] }} &times; {{ $item['qty'] }}</span>
+                                            <span class="whitespace-nowrap">IDR {{ number_format((float) $item['price'] * (int) $item['qty'], 0) }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                <div class="flex justify-between pt-2 border-gray-100 border-t text-xs">
+                                    <span class="text-gray-400">Total</span>
+                                    <span class="font-semibold">IDR {{ number_format((float) ($order['total_price'] ?? 0), 0) }}</span>
+                                </div>
+
+                                @if (! empty($order['shipment']))
+                                    <div class="pt-1 text-[10px] text-gray-500 leading-relaxed">
+                                        {{ $order['shipment']['courier_name'] ?? '' }} {{ $order['shipment']['courier_service_name'] ?? '' }}
+                                        &middot; {{ $order['shipment']['status'] ?? 'pending' }}
+                                        @if (! empty($order['shipment']['waybill_id']))
+                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $order['shipment']['waybill_id'] }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @if (($ordersMeta['last_page'] ?? 1) > 1)
+                        <div class="flex justify-between items-center pt-2 text-[11px]">
+                            <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                                &larr; @lang('Sebelumnya')
+                            </button>
+                            <span class="text-gray-400">{{ $ordersMeta['current_page'] ?? 1 }} / {{ $ordersMeta['last_page'] ?? 1 }}</span>
+                            <button wire:click="nextOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) >= ($ordersMeta['last_page'] ?? 1)) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                                @lang('Berikutnya') &rarr;
+                            </button>
+                        </div>
+                    @endif
+                @endif
             @else
                 <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
                     <button wire:click="showAddresses" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>

@@ -7,7 +7,7 @@
     <!-- Height: 100vh -->
     <section
         class="section-imaged"
-        style="background-image: url({{ asset('img/S-1.png') }});"
+        style="background-image: url({{ asset('img/home/Home_1.webp') }});"
     >
     </section>
 
@@ -15,7 +15,7 @@
     <!-- Height: 100vh -->
     <section
         class="section-imaged"
-        style="background-image: url({{ asset('img/S-2.png') }});"
+        style="background-image: url({{ asset('img/home/Home_2.webp') }});"
     >
     </section>
 
@@ -23,7 +23,7 @@
     <!-- Height: 100vh -->
     <section
         class="section-imaged"
-        style="background-image: url({{ asset('img/S-3.png') }});"
+        style="background-image: url({{ asset('img/home/Home_3.webp') }});"
     >
     </section>
 
@@ -31,7 +31,7 @@
     <!-- Height: 100vh -->
     <section
         class="section-imaged"
-        style="background-image: url({{ asset('img/S-4.png') }});"
+        style="background-image: url({{ asset('img/home/Home_4.webp') }});"
     >
     </section>
 
@@ -45,7 +45,7 @@
         <div class="gap-x-10 grid grid-cols-12 mx-auto py-10 container">
 
             <div class="col-span-5">
-                <img src="{{ asset('img/side-1.png') }}" alt="" class="w-full h-[90vh] object-cover">
+                <img src="{{ asset('img/home/Home_foot.webp') }}" alt="" class="w-full h-[90vh] object-cover">
             </div>
 
             <div class="flex flex-col justify-center col-span-7">

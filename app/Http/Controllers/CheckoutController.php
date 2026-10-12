@@ -78,6 +78,23 @@ class CheckoutController extends Controller
             'raw' => $request->all(),
         ]);
 
+        try {
+            app(\App\Services\Backend\OrderService::class)->confirmPayment([
+                'midtrans_order_id' => $orderId,
+                'transaction_status' => (string) $request->input('transaction_status'),
+                'payment_type' => $request->input('payment_type'),
+                'transaction_id' => $request->input('transaction_id'),
+                'gross_amount' => $request->input('gross_amount'),
+                'fraud_status' => $request->input('fraud_status'),
+            ]);
+        } catch (\Throwable $exception) {
+            // Keep accepting the notification (Midtrans retries on failure), but log for reconciliation.
+            Log::error('Failed to relay Midtrans payment confirmation to backend', [
+                'order_id' => $orderId,
+                'message' => $exception->getMessage(),
+            ]);
+        }
+
         return response()->json(['message' => 'Notification accepted']);
     }
 }

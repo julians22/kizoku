@@ -14,7 +14,14 @@ trait ParfumeCollection
             [
                 'name' => 'KAHEN',
                 'slug' => 'kahen',
-                'image' => asset('img/KAHEN.png'),
+                'image' => asset('img/product/product_Kahen.jpg'),
+                'image_alt' => 'KAHEN Image',
+                'insight_images' => [
+                    asset('img/product/kahen/kahen.png'),
+                    asset('img/product/kahen/kahen-2.png'),
+                    asset('img/product/kahen/kahen-3.png'),
+                    asset('img/product/kahen/kahen-4.png'),
+                ],
                 'price' => 398000,
                 'product_features' => [
                     [
@@ -38,7 +45,14 @@ trait ParfumeCollection
             [
                 'name' => 'KAKAN',
                 'slug' => 'kakan',
-                'image' => asset('img/KAKAN.png'),
+                'image' => asset('img/product/product_Kakan.jpg'),
+                'image_alt' => 'KAKAN Image',
+                'insight_images' => [
+                    asset('img/product/kahen/kahen.png'),
+                    asset('img/product/kahen/kahen-2.png'),
+                    asset('img/product/kahen/kahen-3.png'),
+                    asset('img/product/kahen/kahen-4.png'),
+                ],
                 'price' => 398000,
                 'product_features' => [
                     [
@@ -62,7 +76,14 @@ trait ParfumeCollection
             [
                 'name' => 'KOHAKU',
                 'slug' => 'kohaku',
-                'image' => asset('img/KOHAKU.png'),
+                'image' => asset('img/product/product_Kohaku.jpg'),
+                'image_alt' => 'KOHAKU Image',
+                'insight_images' => [
+                    asset('img/product/kohaku/kohaku.png'),
+                    asset('img/product/kohaku/kohaku-2.png'),
+                    asset('img/product/kohaku/kohaku-3.png'),
+                    asset('img/product/kohaku/kohaku-4.png'),
+                ],
                 'price' => 398000,
                 'product_features' => [
                     [
@@ -87,6 +108,13 @@ trait ParfumeCollection
                 'name' => 'KI',
                 'slug' => 'ki',
                 'image' => asset('img/KI.png'),
+                'image_alt' => 'KI Image',
+                'insight_images' => [
+                    asset('img/product/kahen/kahen.png'),
+                    asset('img/product/kahen/kahen-2.png'),
+                    asset('img/product/kahen/kahen-3.png'),
+                    asset('img/product/kahen/kahen-4.png'),
+                ],
                 'price' => 398000,
                 'product_features' => [
                     [

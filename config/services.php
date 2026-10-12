@@ -47,6 +47,8 @@ return [
 
     'backend' => [
         'base_url' => env('BACKEND_BASE_URL', 'http://karuizawa.test'),
+        // Shared token used when relaying Midtrans payment notifications to the backend.
+        'webhook_token' => env('BACKEND_WEBHOOK_TOKEN'),
     ],
 
 ];

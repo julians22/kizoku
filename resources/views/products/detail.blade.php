@@ -4,21 +4,57 @@
 
 @section('content')
 
-
 <!-- Hero -->
 <section
     class="flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center mt-20"
 >
 
-    <div class="gap-x-6 grid grid-cols-2 mx-auto px-4 py-10 max-w-6xl">
+    {{-- <div class="grid grid-cols-2 py-10 w-full">
 
-        <div>
+        <div class="aspect-square">
             <img src="{{ asset($selectedParfume['image']) }}" alt="" class="w-full h-full object-cover">
         </div>
-        <div>
+        <div class="aspect-square">
             <img src="{{ asset('img/insight-1.png') }}" alt="" class="w-full h-full object-cover">
         </div>
 
+    </div> --}}
+    <div
+        x-data="{
+            distance: 0,
+            x: 0,
+            measure() {
+                const view = this.$refs.view;
+                this.distance = Math.max(this.$refs.track.scrollWidth - view.clientWidth, 0);
+                this.$el.style.height = `${this.distance + view.offsetHeight}px`;
+                this.update();
+            },
+            update() {
+                const stickyTop = parseFloat(getComputedStyle(this.$refs.view).top) || 0;
+                const top = this.$el.getBoundingClientRect().top;
+                this.x = Math.min(Math.max(stickyTop - top, 0), this.distance);
+            }
+        }"
+        x-init="$nextTick(() => measure())"
+        @scroll.window.passive="update()"
+        @resize.window.debounce.150ms="measure()"
+        class="relative w-full"
+    >
+        <div x-ref="view" class="top-20 sticky flex items-center w-full h-[calc(100dvh-5rem)] overflow-hidden">
+
+            <div
+                x-ref="track"
+                class="flex py-10 w-full will-change-transform"
+                :style="`transform: translate3d(${-x}px, 0, 0)`"
+            >
+                @foreach ($selectedParfume['insight_images'] as $insightImage)
+                    <div class="w-1/2 aspect-square shrink-0">
+                        <img src="{{ asset($insightImage) }}" alt="" class="w-full h-full object-cover">
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
     </div>
 
     <div class="gap-x-6 grid grid-cols-10 mx-auto px-4 py-10 max-w-6xl">

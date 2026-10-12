@@ -38,6 +38,18 @@ class CustomerAuthService
     }
 
     /**
+     * Issue an API token with email and password only (no OTP), used by the
+     * Kizoku login flow so checkout calls can authenticate as the customer.
+     */
+    public function issueToken(string $email, string $password): array
+    {
+        return $this->post('/api/customer/auth/token', [
+            'email' => $email,
+            'password' => $password,
+        ]);
+    }
+
+    /**
      * Request OTP for customer registration.
      */
     public function requestRegisterOtp(string $email): array
