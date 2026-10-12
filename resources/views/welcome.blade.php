@@ -42,13 +42,13 @@
         class="flex justify-center items-center bg-cover bg-no-repeat bg-center"
         >
 
-        <div class="gap-x-10 grid grid-cols-12 mx-auto py-10 container">
+        <div class="gap-x-10 gap-y-8 grid grid-cols-1 2xl:grid-cols-12 mx-auto px-4 2xl:px-0 py-10 container">
 
-            <div class="col-span-5">
-                <img src="{{ asset('img/home/Home_foot.webp') }}" alt="" class="w-full h-[90vh] object-cover">
+            <div class="2xl:col-span-5">
+                <img src="{{ asset('img/home/Home_foot.webp') }}" alt="" class="w-full h-[60vh] 2xl:h-[90vh] object-cover">
             </div>
 
-            <div class="flex flex-col justify-center col-span-7">
+            <div class="flex flex-col justify-center 2xl:col-span-7">
                 <div class="font-saa-series-e-dot text-lg text-uppercase">
                     <p>"KIZOKU isn’t just <br> a scent, it’s your signature"</p>
                     <br>

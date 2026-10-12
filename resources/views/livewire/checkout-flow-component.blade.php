@@ -1,4 +1,4 @@
-<div class="gap-16 grid grid-cols-1 lg:grid-cols-12">
+<div class="gap-10 lg:gap-16 grid grid-cols-1 lg:grid-cols-12">
     <section class="space-y-12 lg:col-span-7">
         @if ($completed)
         <div class="bg-mint-light mb-8 p-8 border border-mint-border rounded-lg">
@@ -191,7 +191,7 @@
     </section>
 
     <section class="lg:col-span-5">
-        <div class="top-6 sticky bg-stone-50 p-8 md:p-10">
+        <div class="lg:top-6 lg:sticky bg-stone-50 p-5 md:p-10">
             <h2 class="mb-8 font-bold text-[#111625] text-xs uppercase tracking-[0.15em]">Order Summary</h2>
 
             <div class="space-y-6 mb-8">

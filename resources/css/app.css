@@ -32,7 +32,7 @@
 
 
     .section-imaged {
-        @apply flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-section-imaged-lg;
+        @apply flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[3/4] md:aspect-[4/3] 2xl:aspect-section-imaged-lg;
     }
 
 

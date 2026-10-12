@@ -50,7 +50,7 @@
         </div>
     </header>
 
-    <main class="mx-auto px-6 md:px-12 py-12 max-w-6xl">
+    <main class="mx-auto px-4 md:px-12 py-8 2xl:py-12 max-w-6xl">
         <livewire:checkout-flow-component
             :selected-parfumes="$selectedParfumes"
             :subtotal="$subtotal"
@@ -59,7 +59,7 @@
     </main>
     <!-- Footer -->
     <footer class="bg-slate-200 mt-auto border-gray-400 border-t w-full">
-        <div class="flex md:flex-row flex-col justify-between items-center gap-4 mx-auto px-16 py-8 container">
+        <div class="flex md:flex-row flex-col justify-between items-center gap-4 mx-auto px-6 2xl:px-16 py-8 container">
             <div class="font-mono text-black text-sm uppercase tracking-tighter">
                 © {{ date('Y') }} KIZOKU. ALL RIGHTS RESERVED.
             </div>

@@ -129,12 +129,45 @@
                                     <span class="font-semibold">IDR {{ number_format((float) ($order['total_price'] ?? 0), 0) }}</span>
                                 </div>
                                 @if (! empty($order['shipment']))
-                                    <div class="pt-1 text-[10px] text-gray-500 leading-relaxed">
-                                        {{ $order['shipment']['courier_name'] ?? '' }} {{ $order['shipment']['courier_service_name'] ?? '' }}
-                                        &middot; {{ $order['shipment']['status'] ?? 'pending' }}
-                                        @if (! empty($order['shipment']['waybill_id']))
-                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $order['shipment']['waybill_id'] }}</span>
-                                        @endif
+                                    @php($shipment = $order['shipment'])
+                                    <div class="pt-3 border-gray-100 border-t">
+                                        <h3 class="font-medium text-xs uppercase tracking-wider">Shipment timeline</h3>
+                                        <div class="mt-4">
+                                            <div class="flex gap-3">
+                                                <div class="flex flex-col items-center">
+                                                    <span class="bg-black rounded-full size-2.5"></span>
+                                                    <span class="bg-gray-200 w-px grow min-h-8"></span>
+                                                </div>
+                                                <div class="pb-4">
+                                                    <p class="font-medium text-xs text-gray-800">Order placed</p>
+                                                    @if (! empty($order['order_date']))
+                                                        <p class="mt-1 text-[10px] text-gray-400">
+                                                            {{ \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') }}
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-3">
+                                                <div class="flex flex-col items-center">
+                                                    <span class="bg-black rounded-full size-2.5"></span>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <p class="font-medium text-xs text-gray-800">Latest shipment status</p>
+                                                    <p class="mt-1 text-xs text-gray-600">
+                                                        {{ ucfirst(str_replace('_', ' ', $shipment['status'] ?? 'pending')) }}
+                                                    </p>
+                                                    <p class="mt-1 text-[10px] text-gray-500 leading-relaxed">
+                                                        {{ $shipment['courier_name'] ?? '' }} {{ $shipment['courier_service_name'] ?? '' }}
+                                                        @if (! empty($shipment['waybill_id']))
+                                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $shipment['waybill_id'] }}</span>
+                                                        @endif
+                                                    </p>
+                                                    <p class="mt-2 text-[10px] text-gray-400">
+                                                        Detailed carrier scan events are not available from the current order service.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 @endif
                             </div>

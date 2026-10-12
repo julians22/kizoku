@@ -1,7 +1,7 @@
 <div>
     {{-- An unexamined life is not worth living. - Socrates --}}
     @if ($this->collections->isNotEmpty())
-        <div class="gap-12 grid grid-cols-1 md:grid-cols-2">
+        <div class="gap-8 2xl:gap-12 grid grid-cols-1 md:grid-cols-2">
             @foreach ($this->collections as $collection)
                 <a class="group block overflow-hidden"
                     wire:key="collection-{{ $collection['slug'] }}"

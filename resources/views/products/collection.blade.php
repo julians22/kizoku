@@ -22,7 +22,7 @@
     @scroll.window="updateParallax"
     x-intersect="active = true"
     x-intersect:leave="active = false"
-    class="z-20 before:z-10 before:absolute relative before:inset-0 flex justify-center items-center bg-gray-100 before:bg-[image:var(--tw-bg-section)] before:bg-cover before:bg-no-repeat bg-top bg-fixed before:size-full aspect-[10/8] before:content-[''] before:transform-3d before:-translate-z-0.5 before:translate-y-[var(--tw-lax-transform)]"
+    class="z-20 before:z-10 before:absolute relative before:inset-0 flex justify-center items-center bg-gray-100 before:bg-[image:var(--tw-bg-section)] before:bg-cover before:bg-no-repeat bg-top bg-fixed before:size-full aspect-[4/5] md:aspect-[10/8] before:content-[''] before:transform-3d before:-translate-z-0.5 before:translate-y-[var(--tw-lax-transform)]"
     :style="`--tw-lax-transform: ${y}px; --tw-bg-section:  url({{ asset('img/collection_banner.webp') }});`"
     {{-- style="background-image: url({{ asset('img/collection-hero-parfume.png') }});" --}}
 >

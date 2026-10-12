@@ -6,7 +6,7 @@
 
 <!-- Hero -->
 <section
-    class="flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center mt-20"
+    class="flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center mt-16 2xl:mt-20"
 >
 
     {{-- <div class="grid grid-cols-2 py-10 w-full">
@@ -40,15 +40,15 @@
         @resize.window.debounce.150ms="measure()"
         class="relative w-full"
     >
-        <div x-ref="view" class="top-20 sticky flex items-center w-full h-[calc(100dvh-5rem)] overflow-hidden">
+        <div x-ref="view" class="top-16 2xl:top-20 sticky flex items-center w-full h-[calc(100dvh-4rem)] 2xl:h-[calc(100dvh-5rem)] overflow-hidden">
 
             <div
                 x-ref="track"
-                class="flex py-10 w-full will-change-transform"
+                class="flex py-4 2xl:py-10 w-full will-change-transform"
                 :style="`transform: translate3d(${-x}px, 0, 0)`"
             >
                 @foreach ($selectedParfume['insight_images'] as $insightImage)
-                    <div class="w-1/2 aspect-square shrink-0">
+                    <div class="w-4/5 md:w-1/2 aspect-square shrink-0">
                         <img src="{{ asset($insightImage) }}" alt="" class="w-full h-full object-cover">
                     </div>
                 @endforeach
@@ -57,8 +57,8 @@
         </div>
     </div>
 
-    <div class="gap-x-6 grid grid-cols-10 mx-auto px-4 py-10 max-w-6xl">
-        <div class="col-span-6">
+    <div class="gap-x-6 gap-y-10 grid grid-cols-1 2xl:grid-cols-10 mx-auto px-4 py-10 max-w-6xl">
+        <div class="2xl:col-span-6">
             <p class="mb-5">Eau De Parfume</p>
 
             <h2 class="font-bold text-3xl">{{ $selectedParfume['name'] }}</h2>
@@ -72,7 +72,7 @@
             <livewire:utils.add-to-cart-button slug="{{ $selectedParfume['slug'] }}" text="{{__('ADD TO CART')}}"/>
         </div>
 
-        <div class="col-span-4">
+        <div class="2xl:col-span-4">
             <div class="flex flex-col">
 
                 @foreach ($selectedParfume['product_features'] as $feature)

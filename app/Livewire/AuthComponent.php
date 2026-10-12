@@ -19,56 +19,91 @@ class AuthComponent extends Component
 {
     // Mode: 'login', 'register', 'forgot_password', 'profile'
     public string $mode = 'login';
+
     public string $profileView = 'main';
+
     public string $accountTab = 'orders';
+
     public bool $newsletterEnabled = false;
+
     public bool $emailNotificationsEnabled = false;
+
     public bool $redirectAfterAuth = false;
+
     public bool $accountPage = false;
 
     // Step indicators
     public string $registerStep = 'email'; // 'email' | 'details'
+
     public string $forgotStep = 'email'; // 'email' | 'reset'
 
     // Form attributes
     public string $loginEmail = '';
+
     public string $loginPassword = '';
 
     public string $registerEmail = '';
+
     public string $registerOtp = '';
+
     public string $registerFullName = '';
+
     public string $registerPassword = '';
+
     public string $registerPasswordConfirmation = '';
+
     public string $registerPhone = '';
+
     public string $registerGender = 'male';
 
     public string $forgotEmail = '';
+
     public string $forgotOtp = '';
+
     public string $forgotPassword = '';
+
     public string $forgotPasswordConfirmation = '';
 
     public string $addressLabel = '';
+
     public string $addressRecipientName = '';
+
     public string $addressRecipientPhone = '';
+
     public string $addressRecipientEmail = '';
+
     public string $addressFull = '';
+
     public string $addressNote = '';
+
     public string $addressAreaId = '';
+
     public string $addressAreaName = '';
+
     public string $addressPostalCode = '';
+
     public string $addressAreaSearch = '';
+
     public array $addressAreaResults = [];
+
     public bool $addressIsPrimary = false;
+
     public ?int $editingAddressId = null;
 
     public bool $showPassword = false;
+
     public ?string $errorMessage = null;
+
     public ?string $infoMessage = null;
 
     public array $orders = [];
+
     public array $ordersMeta = ['current_page' => 1, 'last_page' => 1, 'total' => 0];
+
     public bool $ordersLoaded = false;
+
     public bool $ordersLoading = false;
+
     public ?string $ordersError = null;
 
     protected $listeners = [
@@ -115,6 +150,7 @@ class AuthComponent extends Component
 
         if ($tab === 'orders') {
             $this->showOrders();
+
             return;
         }
 
@@ -139,6 +175,7 @@ class AuthComponent extends Component
         if ($token === '') {
             $this->ordersError = 'Sesi Anda telah berakhir. Silakan keluar dan masuk kembali.';
             $this->ordersLoaded = true;
+
             return;
         }
 
@@ -154,9 +191,13 @@ class AuthComponent extends Component
                     'cancelled' => 'border-gray-300 bg-gray-50 text-gray-500',
                     default => 'border-amber-300 bg-amber-50 text-amber-700',
                 };
+
                 return $order;
             })->all();
             $this->ordersMeta = $result['meta'] ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0];
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            report($e);
+            $this->ordersError = 'Layanan pesanan sedang tidak dapat dihubungi. Silakan coba lagi nanti.';
         } catch (Exception $e) {
             $this->ordersError = $e->getMessage();
         } finally {
@@ -392,6 +433,7 @@ class AuthComponent extends Component
                 'type' => 'warning',
                 'message' => 'Akun belum memiliki kata sandi. Silakan reset kata sandi terlebih dahulu.',
             ]);
+
             return;
         }
 
@@ -401,20 +443,31 @@ class AuthComponent extends Component
                 'type' => 'error',
                 'message' => $this->errorMessage,
             ]);
+
             return;
         }
 
         Auth::login($customer, true);
 
         // Obtain a backend API token so authenticated calls (e.g. checkout) work.
+        $tokenIssued = false;
+
         try {
             $result = $authService->issueToken($email, $this->loginPassword);
 
             if (! empty($result['data']['token'])) {
                 Cookie::queue(Cookie::make('customer_token', $result['data']['token'], 60 * 24 * 30, '/', null, false, true));
+                $tokenIssued = true;
             }
         } catch (Exception $e) {
-            Log::warning('Failed to issue backend customer token: ' . $e->getMessage());
+            Log::warning('Failed to issue backend customer token: '.$e->getMessage());
+        }
+
+        if (! $tokenIssued) {
+            $this->dispatch('trigger-toast', [
+                'type' => 'warning',
+                'message' => 'Layanan pesanan tidak dapat dihubungi. Riwayat pesanan dan checkout mungkin belum tersedia.',
+            ]);
         }
 
         $this->mode = 'profile';
@@ -423,7 +476,7 @@ class AuthComponent extends Component
         $this->dispatch('customer-authenticated');
         $this->dispatch('trigger-toast', [
             'type' => 'success',
-            'message' => 'Selamat datang kembali, ' . ($customer->full_name ?? 'Pelanggan') . '!',
+            'message' => 'Selamat datang kembali, '.($customer->full_name ?? 'Pelanggan').'!',
         ]);
 
         if ($this->redirectAfterAuth) {
@@ -512,7 +565,7 @@ class AuthComponent extends Component
             // Authenticate web session
             Auth::login($customer, true);
 
-            if (!empty($result['data']['token'])) {
+            if (! empty($result['data']['token'])) {
                 Cookie::queue(Cookie::make('customer_token', $result['data']['token'], 60 * 24 * 30, '/', null, false, true));
             }
 

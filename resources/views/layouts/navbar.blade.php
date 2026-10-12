@@ -3,17 +3,17 @@
     class="top-0 right-0 left-0 z-50 fixed text-[#11182b]"
     id="navigation"
     >
-    <nav class="flex justify-between items-center mx-auto py-4 container">
+    <nav class="flex justify-between items-center mx-auto px-4 2xl:px-0 py-3 2xl:py-4 container">
 
         <a href="{{ route('home') }}">
-            <img src="{{ asset('primary-logo.png') }}" alt="Kizoku Logo" class="h-12 logo">
+            <img src="{{ asset('primary-logo.png') }}" alt="Kizoku Logo" class="h-9 2xl:h-12 logo">
         </a>
 
-        <ul class="flex items-center space-x-8">
+        <ul class="flex items-center space-x-5 2xl:space-x-8">
             <li>
-                <a href="#" class="text-lg" @click="toggleSidebar('menu')">@lang("MENU")</a>
+                <a href="#" class="text-base 2xl:text-lg" @click.prevent="toggleSidebar('menu')">@lang("MENU")</a>
             </li>
-            <li>
+            <li class="hidden 2xl:block">
                 <a href="{{ auth()->check() ? route('account') : route('login') }}" class="flex items-center space-x-1 text-lg">
                     @auth
                         <span class="bg-black px-4 py-2 rounded-full text-white text-sm capitalize" >{{ Str::limit(auth()->user()->full_name ?? 'ACCOUNT', 12) }}</span>
@@ -22,15 +22,15 @@
                     @endauth
                 </a>
             </li>
-            <li>
+            <li class="hidden 2xl:block">
                 <a href="{{ route('collections.category', ['slug'=> 'parfume']) }}" class="text-lg">@lang("PRODUCTS")</a>
             </li>
             <li>
-                <a href="#" class="flex items-center text-lg" @click="toggleSidebar('cart')">
+                <a href="#" class="flex items-center text-base 2xl:text-lg" @click.prevent="toggleSidebar('cart')">
                     @lang("CART") <livewire:utils.badge-count count-for="cart" />
                 </a>
             </li>
-            <li>
+            <li class="hidden 2xl:block">
                 <div
                     x-data="{ lang: '{{ $localeData['currentLocale'] }}' }"
                     x-init="$watch('lang', value => window.location.href = '{{ $localeData['otherLocaleUrl'] }}')"
@@ -58,7 +58,7 @@
 </header>
 
 <sidebar
-    class="top-0 right-0 bottom-0 z-50 fixed bg-[rgba(255,255,255,0.75)] backdrop-blur-sm px-6 pt-12 w-1/3 h-full transition-transform duration-300"
+    class="top-0 right-0 bottom-0 z-50 fixed bg-[rgba(255,255,255,0.75)] backdrop-blur-sm px-6 pt-6 2xl:pt-12 w-full md:w-1/2 2xl:w-1/3 h-full overflow-y-auto transition-transform duration-300"
     :class="openSidebar ? 'translate-x-0' : 'translate-x-full'"
     x-cloak
     >
@@ -68,7 +68,22 @@
             x-transition:enter="transition ease-out duration-500"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
-            class="flex flex-col gap-y-24 pt-40">
+            class="flex flex-col gap-y-10 2xl:gap-y-24 pt-20 2xl:pt-40 pb-10">
+            <!-- Primary links (hidden from the top bar below 2xl) -->
+            <div class="flex flex-col gap-y-6 2xl:hidden">
+                <a href="{{ auth()->check() ? route('account') : route('login') }}" class="text-xl tracking-widest">
+                    @auth
+                        {{ Str::limit(auth()->user()->full_name ?? __('ACCOUNT'), 20) }}
+                    @else
+                        @lang("ACCOUNT")
+                    @endauth
+                </a>
+                <a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="text-xl tracking-widest">@lang("PRODUCTS")</a>
+                <a href="{{ $localeData['otherLocaleUrl'] }}" class="text-stone-500 text-base uppercase tracking-widest">
+                    {{ $localeData['currentLocale'] === 'id' ? 'English' : 'Bahasa Indonesia' }}
+                </a>
+            </div>
+
             <!-- Page Lists -->
             <div class="flex flex-col justify-center"
                 x-show="section === 'menu'"
