@@ -15,9 +15,8 @@ class CheckoutController extends Controller
     public function index(Request $request)
     {
         if (! Auth::check()) {
-            return redirect()->route('home', ['auth' => 'login'])
-                ->with('error', 'Silakan masuk terlebih dahulu untuk melanjutkan checkout.')
-                ->with('open_account_sidebar', true);
+            return redirect()->route('login')
+                ->with('error', 'Silakan masuk terlebih dahulu untuk melanjutkan checkout.');
         }
 
         $cartItems = session()->get('cart', []);

@@ -20,6 +20,11 @@ class AuthComponent extends Component
     // Mode: 'login', 'register', 'forgot_password', 'profile'
     public string $mode = 'login';
     public string $profileView = 'main';
+    public string $accountTab = 'orders';
+    public bool $newsletterEnabled = false;
+    public bool $emailNotificationsEnabled = false;
+    public bool $redirectAfterAuth = false;
+    public bool $accountPage = false;
 
     // Step indicators
     public string $registerStep = 'email'; // 'email' | 'details'
@@ -71,10 +76,19 @@ class AuthComponent extends Component
         'open-auth-mode' => 'setAuthMode',
     ];
 
-    public function mount(): void
+    public function mount(?string $initialMode = null, bool $redirectAfterAuth = false): void
     {
+        $this->redirectAfterAuth = $redirectAfterAuth;
+        $this->accountPage = request()->routeIs('account');
+
         if (Auth::check()) {
             $this->mode = 'profile';
+
+            if ($this->accountPage) {
+                $this->showOrders();
+            }
+        } elseif (in_array($initialMode, ['login', 'register'], true)) {
+            $this->mode = $initialMode;
         }
     }
 
@@ -86,13 +100,35 @@ class AuthComponent extends Component
 
     public function showAddresses(): void
     {
+        $this->accountTab = 'addresses';
         $this->profileView = 'addresses';
         $this->resetAddressForm();
     }
 
+    public function setAccountTab(string $tab): void
+    {
+        if (! in_array($tab, ['orders', 'details', 'preferences', 'addresses'], true)) {
+            throw new \InvalidArgumentException('Invalid account tab.');
+        }
+
+        $this->accountTab = $tab;
+
+        if ($tab === 'orders') {
+            $this->showOrders();
+            return;
+        }
+
+        $this->profileView = $tab === 'addresses' ? 'addresses' : 'main';
+
+        if ($tab === 'addresses') {
+            $this->resetAddressForm();
+        }
+    }
+
     public function showOrders(): void
     {
-        $this->profileView = 'orders';
+        $this->accountTab = 'orders';
+        $this->profileView = 'main';
         $this->loadOrders(1);
     }
 
@@ -145,12 +181,13 @@ class AuthComponent extends Component
 
     public function backToProfile(): void
     {
-        $this->profileView = 'main';
+        $this->profileView = $this->accountTab === 'addresses' ? 'addresses' : 'main';
         $this->resetAddressForm();
     }
 
     public function newAddress(): void
     {
+        $this->accountTab = 'addresses';
         $this->profileView = 'address_form';
         $this->resetAddressForm();
     }
@@ -172,6 +209,7 @@ class AuthComponent extends Component
         $this->addressAreaSearch = $this->addressAreaName;
         $this->addressIsPrimary = (bool) $address->is_primary;
         $this->addressAreaResults = [];
+        $this->accountTab = 'addresses';
         $this->profileView = 'address_form';
     }
 
@@ -291,6 +329,7 @@ class AuthComponent extends Component
         $this->registerOtp = '';
         $this->forgotOtp = '';
         $this->profileView = 'main';
+        $this->accountTab = 'orders';
         $this->resetAddressForm();
     }
 
@@ -386,6 +425,10 @@ class AuthComponent extends Component
             'type' => 'success',
             'message' => 'Selamat datang kembali, ' . ($customer->full_name ?? 'Pelanggan') . '!',
         ]);
+
+        if ($this->redirectAfterAuth) {
+            $this->redirectRoute('account');
+        }
     }
 
     /**
@@ -481,6 +524,10 @@ class AuthComponent extends Component
                 'type' => 'success',
                 'message' => 'Registrasi berhasil! Selamat datang di Kizoku.',
             ]);
+
+            if ($this->redirectAfterAuth) {
+                $this->redirectRoute('account');
+            }
         } catch (Exception $e) {
             $this->errorMessage = $e->getMessage();
             $this->dispatch('trigger-toast', [
@@ -596,6 +643,10 @@ class AuthComponent extends Component
             'type' => 'success',
             'message' => 'Anda telah berhasil keluar.',
         ]);
+
+        if ($this->accountPage) {
+            $this->redirectRoute('login');
+        }
     }
 
     public function render()

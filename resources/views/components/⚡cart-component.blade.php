@@ -226,21 +226,14 @@ new class extends Component
                         </button>
                     </form>
                 @else
-                    <button
-                        type="button"
-                        @click="
-                            section = 'account';
-                            $dispatch('trigger-toast', {
-                                type: 'warning',
-                                message: 'Silakan masuk terlebih dahulu untuk melanjutkan checkout.'
-                            });
-                        "
+                    <a
+                        href="{{ route('login') }}"
                         class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer"
                     >
                         <span class="font-semibold text-xs uppercase tracking-[0.3em]">
                             @lang("Proceed to Checkout")
                         </span>
-                    </button>
+                    </a>
                 @endauth
             </div>
         @endif

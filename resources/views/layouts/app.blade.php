@@ -34,8 +34,8 @@
 </head>
 <body
      x-data="{
-        openSidebar: {{ session('open_account_sidebar') || request()->has('auth') ? 'true' : 'false' }},
-        section: '{{ (session('open_account_sidebar') || request()->has('auth')) ? 'account' : 'cart' }}',
+        openSidebar: false,
+        section: 'cart',
         toggleSidebar(section) {
             if (section) {
                 this.section = section;

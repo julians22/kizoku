@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -45,22 +46,17 @@ Route::group([
         ->middleware(['auth', 'should-have-carts'])
         ->name('checkout');
 
-    Route::get('login', function () {
-        return redirect()->route('home', ['auth' => 'login']);
-    })
+    Route::view('login', 'auth.login', ['authMode' => 'login'])
         ->middleware('guest')
         ->name('login');
 
-    Route::get('register', function () {
-        return redirect()->route('home', ['auth' => 'register']);
-    })
+    Route::view('register', 'auth.login', ['authMode' => 'register'])
         ->middleware('guest')
         ->name('register');
-});
 
-
-Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
-    Route::get('account', );
+    Route::get('account', [AccountController::class, 'index'])
+        ->middleware('auth')
+        ->name('account');
 });
 
 Route::post('payments/midtrans/notification', [CheckoutController::class, 'midtransNotification'])

@@ -9,83 +9,187 @@
                 ->implode('');
         @endphp
 
-        <div class="space-y-6 pt-6">
-            @if ($profileView === 'main')
-            <div class="flex items-center space-x-4 pb-6 border-gray-200 border-b">
-                <div class="flex justify-center items-center bg-black rounded-full w-14 h-14 font-bold text-white text-lg tracking-wider">
-                    {{ $initials ?: 'KZ' }}
-                </div>
-                <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-gray-900 text-base truncate">
-                        {{ $currentUser->full_name ?? 'Pelanggan Kizoku' }}
-                    </h3>
-                    <p class="text-gray-500 text-xs truncate">{{ $currentUser->email }}</p>
-                    <span class="inline-block bg-gray-100 mt-1 px-2 py-0.5 rounded text-[10px] text-gray-700 uppercase tracking-widest">
-                        Customer
-                    </span>
-                </div>
-            </div>
+        <div class="mb-8">
+            <h1 class="font-light text-3xl tracking-wide">My Account</h1>
+            <p class="mt-2 text-gray-500 text-sm">Manage your orders and account information.</p>
+        </div>
 
-            <div class="space-y-3 text-gray-600 text-sm">
-                @if ($currentUser->phone)
-                    <div class="flex justify-between py-1 border-gray-100 border-b">
-                        <span class="text-gray-400">@lang('Telepon')</span>
-                        <span class="font-medium text-gray-800">{{ $currentUser->phone }}</span>
+        <div class="gap-10 grid grid-cols-1 lg:grid-cols-[15rem_minmax(0,1fr)]">
+            <aside class="flex flex-col lg:min-h-[32rem]">
+                <div class="flex items-center gap-3 pb-6 border-gray-200 border-b">
+                    <div class="flex justify-center items-center bg-black rounded-full w-12 h-12 font-bold text-white tracking-wider">
+                        {{ $initials ?: 'KZ' }}
                     </div>
-                @endif
-                @php($primaryAddress = $addresses->firstWhere('is_primary', true))
-                <div class="flex flex-col py-1 border-gray-100 border-b">
-                    <span class="mb-1 text-gray-400">@lang('Alamat Pengiriman')</span>
-                    <span class="font-medium text-gray-800 leading-relaxed">
-                        {{ $primaryAddress?->full_address ?? 'Belum ada alamat tersimpan.' }}
-                    </span>
+                    <div class="min-w-0">
+                        <h2 class="font-medium text-gray-900 text-sm truncate">{{ $currentUser->full_name ?? 'Kizoku Customer' }}</h2>
+                        <p class="text-gray-500 text-xs truncate">{{ $currentUser->email }}</p>
+                    </div>
                 </div>
-                <div class="flex justify-between py-1 border-gray-100 border-b">
-                    <span class="text-gray-400">@lang('Jenis Kelamin')</span>
-                    <span class="font-medium text-gray-800">{{ $currentUser->gender }}</span>
-                </div>
-            </div>
 
-            <div>
-                <button
-                    wire:click="showAddresses"
-                    type="button"
-                    class="flex justify-between items-center px-4 py-3 border border-gray-300 hover:border-black w-full text-xs transition-colors"
-                >
-                    <span class="font-semibold uppercase tracking-[0.15em]">@lang('KELOLA ALAMAT')</span>
-                    <span class="text-gray-400">{{ $addresses->count() }} tersimpan &rarr;</span>
-                </button>
-            </div>
+                <nav class="grid grid-cols-2 lg:flex lg:flex-col gap-2 py-6" role="tablist" aria-label="Account sections">
+                    @foreach ([
+                        'orders' => 'Order History',
+                        'details' => 'Account Details',
+                        'preferences' => 'Email Preferences',
+                        'addresses' => 'Address',
+                    ] as $tab => $label)
+                        <button
+                            id="account-tab-{{ $tab }}"
+                            type="button"
+                            role="tab"
+                            aria-selected="{{ $accountTab === $tab ? 'true' : 'false' }}"
+                            aria-controls="account-tab-content"
+                            wire:click="setAccountTab('{{ $tab }}')"
+                            class="px-3 py-3 border-l-2 text-xs sm:text-sm text-left transition-colors {{ $accountTab === $tab ? 'border-black bg-gray-50 font-medium text-black' : 'border-transparent text-gray-500 hover:text-black' }}"
+                        >
+                            {{ $label }}
+                        </button>
+                    @endforeach
+                </nav>
 
-            <div>
-                <button
-                    wire:click="showOrders"
-                    type="button"
-                    class="flex justify-between items-center px-4 py-3 border border-gray-300 hover:border-black w-full text-xs transition-colors"
-                >
-                    <span class="font-semibold uppercase tracking-[0.15em]">@lang('RIWAYAT TRANSAKSI')</span>
-                    <span class="text-gray-400">&rarr;</span>
-                </button>
-            </div>
-
-            <div class="pt-2">
                 <button
                     wire:click="logout"
                     wire:loading.attr="disabled"
                     type="button"
-                    class="flex justify-center items-center space-x-2 hover:bg-black py-3 border border-black w-full font-semibold text-black hover:text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                    class="mt-auto px-3 py-3 border-t border-gray-200 text-left text-sm text-gray-500 hover:text-black transition-colors"
                 >
-                    <span wire:loading.remove wire:target="logout">@lang('LOGOUT')</span>
-                    <span wire:loading wire:target="logout">@lang('MEMPROSES...')</span>
+                    <span wire:loading.remove wire:target="logout">Log out</span>
+                    <span wire:loading wire:target="logout">Logging out...</span>
                 </button>
-            </div>
-            @elseif ($profileView === 'addresses')
-                <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
-                    <button wire:click="backToProfile" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>
-                    <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">@lang('ALAMAT SAYA')</h3>
-                    <span class="w-12"></span>
-                </div>
+            </aside>
 
+            <section id="account-tab-content" class="min-w-0" role="tabpanel" aria-labelledby="account-tab-{{ $accountTab }}">
+                <div class="space-y-6">
+            @if ($accountTab === 'details')
+                @php($primaryAddress = $addresses->firstWhere('is_primary', true))
+                <div class="pb-4 border-gray-200 border-b">
+                    <h2 class="font-light text-2xl">Account Details</h2>
+                    <p class="mt-1 text-gray-500 text-sm">Your personal information.</p>
+                </div>
+                <dl class="space-y-4 text-sm">
+                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                        <dt class="text-gray-500">Full name</dt>
+                        <dd class="font-medium text-gray-900">{{ $currentUser->full_name ?? '—' }}</dd>
+                    </div>
+                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                        <dt class="text-gray-500">Email</dt>
+                        <dd class="font-medium text-gray-900">{{ $currentUser->email }}</dd>
+                    </div>
+                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                        <dt class="text-gray-500">Phone</dt>
+                        <dd class="font-medium text-gray-900">{{ $currentUser->phone ?: '—' }}</dd>
+                    </div>
+                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                        <dt class="text-gray-500">Gender</dt>
+                        <dd class="font-medium text-gray-900">{{ $currentUser->gender ?: '—' }}</dd>
+                    </div>
+                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b">
+                        <dt class="text-gray-500">Primary shipping address</dt>
+                        <dd class="font-medium text-gray-900 leading-relaxed">{{ $primaryAddress?->full_address ?? 'No saved address.' }}</dd>
+                    </div>
+                </dl>
+            @elseif ($accountTab === 'orders')
+                <div class="pb-4 border-gray-200 border-b">
+                    <h2 class="font-light text-2xl">Order History</h2>
+                    <p class="mt-1 text-gray-500 text-sm">Review your recent purchases.</p>
+                </div>
+                @if ($ordersLoading)
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-sm text-center">@lang('Memuat riwayat transaksi...')</div>
+                @elseif ($ordersError)
+                    <div class="p-4 border border-red-200 text-red-500 text-sm">{{ $ordersError }}</div>
+                @elseif (! $ordersLoaded)
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-sm text-center">@lang('Memuat riwayat transaksi...')</div>
+                @elseif (empty($orders))
+                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-sm text-center">@lang('Belum ada transaksi.')</div>
+                @else
+                    <div class="space-y-3">
+                        @foreach ($orders as $order)
+                            <div class="space-y-3 p-4 border border-gray-200">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div>
+                                        <p class="font-semibold text-xs tracking-wider">{{ $order['order_number'] ?? '-' }}</p>
+                                        <p class="mt-1 text-[10px] text-gray-400">
+                                            {{ isset($order['order_date']) ? \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') : '' }}
+                                        </p>
+                                    </div>
+                                    <span class="px-2 py-0.5 border text-[10px] uppercase tracking-widest {{ $order['status_class'] ?? 'border-gray-300 bg-gray-50 text-gray-600' }}">
+                                        {{ $order['status'] ?? 'pending' }}
+                                    </span>
+                                </div>
+                                <ul class="space-y-1 text-[11px] text-gray-600">
+                                    @foreach ($order['items'] ?? [] as $item)
+                                        <li class="flex justify-between gap-3">
+                                            <span class="truncate">{{ $item['name'] }} &times; {{ $item['qty'] }}</span>
+                                            <span class="whitespace-nowrap">IDR {{ number_format((float) $item['price'] * (int) $item['qty'], 0) }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="flex justify-between pt-2 border-gray-100 border-t text-xs">
+                                    <span class="text-gray-400">Total</span>
+                                    <span class="font-semibold">IDR {{ number_format((float) ($order['total_price'] ?? 0), 0) }}</span>
+                                </div>
+                                @if (! empty($order['shipment']))
+                                    <div class="pt-1 text-[10px] text-gray-500 leading-relaxed">
+                                        {{ $order['shipment']['courier_name'] ?? '' }} {{ $order['shipment']['courier_service_name'] ?? '' }}
+                                        &middot; {{ $order['shipment']['status'] ?? 'pending' }}
+                                        @if (! empty($order['shipment']['waybill_id']))
+                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $order['shipment']['waybill_id'] }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    @if (($ordersMeta['last_page'] ?? 1) > 1)
+                        <div class="flex justify-between items-center pt-2 text-[11px]">
+                            <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                                &larr; @lang('Sebelumnya')
+                            </button>
+                            <span class="text-gray-400">{{ $ordersMeta['current_page'] ?? 1 }} / {{ $ordersMeta['last_page'] ?? 1 }}</span>
+                            <button wire:click="nextOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) >= ($ordersMeta['last_page'] ?? 1)) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                                @lang('Berikutnya') &rarr;
+                            </button>
+                        </div>
+                    @endif
+                @endif
+            @elseif ($accountTab === 'preferences')
+                <div class="pb-4 border-gray-200 border-b">
+                    <h2 class="font-light text-2xl">Email Preferences</h2>
+                    <p class="mt-1 text-gray-500 text-sm">Choose the updates you would like to see.</p>
+                </div>
+                <div class="divide-y divide-gray-200 border-y border-gray-200">
+                    <label class="flex justify-between items-center gap-6 py-5 cursor-pointer">
+                        <span>
+                            <span class="block font-medium text-sm">Newsletter</span>
+                            <span class="block mt-1 text-gray-500 text-xs">Receive news, launches, and special offers.</span>
+                        </span>
+                        <input type="checkbox" wire:model="newsletterEnabled" class="size-5 accent-black">
+                    </label>
+                    <label class="flex justify-between items-center gap-6 py-5 cursor-pointer">
+                        <span>
+                            <span class="block font-medium text-sm">Email notifications</span>
+                            <span class="block mt-1 text-gray-500 text-xs">Receive updates about your orders and account.</span>
+                        </span>
+                        <input type="checkbox" wire:model="emailNotificationsEnabled" class="size-5 accent-black">
+                    </label>
+                </div>
+                <div class="py-4">
+                    <label for="account-language" class="block mb-2 font-medium text-sm">Language</label>
+                    <select
+                        id="account-language"
+                        onchange="window.location.href = this.value"
+                        class="px-3 py-3 border border-gray-300 focus:border-black focus:outline-none w-full sm:max-w-sm text-sm"
+                    >
+                        <option value="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL('en') }}" @selected(app()->getLocale() === 'en')>English</option>
+                        <option value="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL('id') }}" @selected(app()->getLocale() === 'id')>Bahasa Indonesia</option>
+                    </select>
+                </div>
+                <p class="text-gray-500 text-xs">Newsletter and email notification selections are temporary and are not saved to your account yet.</p>
+            @elseif ($accountTab === 'addresses' && $profileView === 'addresses')
+                <div class="pb-4 border-gray-200 border-b">
+                    <h2 class="font-light text-2xl">Address</h2>
+                    <p class="mt-1 text-gray-500 text-sm">Manage your saved delivery addresses.</p>
+                </div>
                 <div class="space-y-3">
                     @forelse ($addresses as $address)
                         <div class="p-4 border {{ $address->is_primary ? 'border-black' : 'border-gray-200' }}">
@@ -117,77 +221,7 @@
                 </div>
 
                 <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">+ TAMBAH ALAMAT</button>
-            @elseif ($profileView === 'orders')
-                <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
-                    <button wire:click="backToProfile" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>
-                    <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">@lang('RIWAYAT TRANSAKSI')</h3>
-                    <span class="w-12"></span>
-                </div>
-
-                @if ($ordersLoading)
-                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Memuat riwayat transaksi...')</div>
-                @elseif ($ordersError)
-                    <div class="p-4 border border-red-200 text-red-500 text-xs">{{ $ordersError }}</div>
-                @elseif (! $ordersLoaded)
-                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Memuat riwayat transaksi...')</div>
-                @elseif (empty($orders))
-                    <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('Belum ada transaksi.')</div>
-                @else
-                    <div class="space-y-3">
-                        @foreach ($orders as $order)
-                            <div class="space-y-3 p-4 border border-gray-200">
-                                <div class="flex justify-between items-start gap-3">
-                                    <div>
-                                        <p class="font-semibold text-xs tracking-wider">{{ $order['order_number'] ?? '-' }}</p>
-                                        <p class="mt-1 text-[10px] text-gray-400">
-                                            {{ isset($order['order_date']) ? \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') : '' }}
-                                        </p>
-                                    </div>
-                                    <span class="px-2 py-0.5 border text-[10px] uppercase tracking-widest {{ $order['status_class'] ?? 'border-gray-300 bg-gray-50 text-gray-600' }}">
-                                        {{ $order['status'] ?? 'pending' }}
-                                    </span>
-                                </div>
-
-                                <ul class="space-y-1 text-[11px] text-gray-600">
-                                    @foreach ($order['items'] ?? [] as $item)
-                                        <li class="flex justify-between gap-3">
-                                            <span class="truncate">{{ $item['name'] }} &times; {{ $item['qty'] }}</span>
-                                            <span class="whitespace-nowrap">IDR {{ number_format((float) $item['price'] * (int) $item['qty'], 0) }}</span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-
-                                <div class="flex justify-between pt-2 border-gray-100 border-t text-xs">
-                                    <span class="text-gray-400">Total</span>
-                                    <span class="font-semibold">IDR {{ number_format((float) ($order['total_price'] ?? 0), 0) }}</span>
-                                </div>
-
-                                @if (! empty($order['shipment']))
-                                    <div class="pt-1 text-[10px] text-gray-500 leading-relaxed">
-                                        {{ $order['shipment']['courier_name'] ?? '' }} {{ $order['shipment']['courier_service_name'] ?? '' }}
-                                        &middot; {{ $order['shipment']['status'] ?? 'pending' }}
-                                        @if (! empty($order['shipment']['waybill_id']))
-                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $order['shipment']['waybill_id'] }}</span>
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
-
-                    @if (($ordersMeta['last_page'] ?? 1) > 1)
-                        <div class="flex justify-between items-center pt-2 text-[11px]">
-                            <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
-                                &larr; @lang('Sebelumnya')
-                            </button>
-                            <span class="text-gray-400">{{ $ordersMeta['current_page'] ?? 1 }} / {{ $ordersMeta['last_page'] ?? 1 }}</span>
-                            <button wire:click="nextOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) >= ($ordersMeta['last_page'] ?? 1)) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
-                                @lang('Berikutnya') &rarr;
-                            </button>
-                        </div>
-                    @endif
-                @endif
-            @else
+            @elseif ($accountTab === 'addresses')
                 <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
                     <button wire:click="showAddresses" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>
                     <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">{{ $editingAddressId ? 'EDIT ALAMAT' : 'ALAMAT BARU' }}</h3>
@@ -265,6 +299,8 @@
                     </button>
                 </form>
             @endif
+        </div>
+        </section>
         </div>
 
     {{-- GUEST MODES (LOGIN, REGISTER, FORGOT PASSWORD) --}}

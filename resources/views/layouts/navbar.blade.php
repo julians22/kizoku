@@ -14,7 +14,7 @@
                 <a href="#" class="text-lg" @click="toggleSidebar('menu')">@lang("MENU")</a>
             </li>
             <li>
-                <a href="#" class="flex items-center space-x-1 text-lg" @click="toggleSidebar('account')">
+                <a href="{{ auth()->check() ? route('account') : route('login') }}" class="flex items-center space-x-1 text-lg">
                     @auth
                         <span class="bg-black px-4 py-2 rounded-full text-white text-sm capitalize" >{{ Str::limit(auth()->user()->full_name ?? 'ACCOUNT', 12) }}</span>
                     @else
@@ -115,19 +115,6 @@
             <h4 class="text-xl">@lang("YOUR CART")</h4>
 
             <livewire:cart-component/>
-        </div>
-
-        <div
-            class="pb-16 h-full overflow-y-auto"
-            x-show="section === 'account'">
-
-            <h4 class="mb-6 text-xl">@lang("ACCOUNT")</h4>
-
-            <div class="flex justify-center items-start">
-                <div class="w-full max-w-md">
-                    <livewire:auth-component />
-                </div>
-            </div>
         </div>
 
         <!-- close button -->
