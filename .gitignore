@@ -16,7 +16,7 @@
 /public/build
 /public/hot
 /public/storage
-/public/old_img
+/public/img/old_img
 /storage/*.key
 /storage/pail
 /vendor
