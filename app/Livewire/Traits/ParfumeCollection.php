@@ -107,7 +107,7 @@ trait ParfumeCollection
             [
                 'name' => 'KI',
                 'slug' => 'ki',
-                'image' => asset('img/KI.png'),
+                'image' => asset('img/product/kahen/kahen.png'),
                 'image_alt' => 'KI Image',
                 'insight_images' => [
                     asset('img/product/kahen/kahen.png'),
