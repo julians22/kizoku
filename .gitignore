@@ -17,6 +17,7 @@
 /public/hot
 /public/storage
 /public/img/old_img
+/public/img/rawimage
 /storage/*.key
 /storage/pail
 /vendor
