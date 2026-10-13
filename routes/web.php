@@ -22,6 +22,21 @@ Route::group([
     })
     ->name('about');
 
+    Route::get('faq', function () {
+        return view('faq');
+    })
+    ->name('faq');
+
+    Route::get('terms-and-privacy', function () {
+        return view('terms-and-privacy');
+    })
+    ->name('terms');
+
+    Route::get('track-my-order', function () {
+        return view('track-my-order');
+    })
+    ->name('track-order');
+
     Route::get('contact', function ($id) {
         //
     });

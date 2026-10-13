@@ -5,10 +5,10 @@
             <div class="">
                 <p class="font-saa-series-e-dot">@lang('CUSTOMER SERVICE')</p>
                 <ul class="mt-4">
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("FAQ")</a></li>
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("CONTACT")</a></li>
+                    <li><a href="{{ route('faq') }}" class="text-gray-200 hover:text-gray-600 text-sm">@lang("FAQ")</a></li>
+                    {{-- <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("CONTACT")</a></li> --}}
                     <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("SHIPPING")</a></li>
-                    <li><a href="#" class="text-gray-200 hover:text-gray-600 text-sm">@lang("TRACK MY ORDER")</a></li>
+                    <li><a href="{{ route('track-order') }}" class="text-gray-200 hover:text-gray-600 text-sm">@lang("TRACK MY ORDER")</a></li>
                 </ul>
             </div>
         </div>

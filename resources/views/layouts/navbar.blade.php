@@ -70,7 +70,7 @@
             x-transition:enter-end="opacity-100"
             class="flex flex-col gap-y-10 2xl:gap-y-24 pt-20 2xl:pt-40 pb-10">
             <!-- Primary links (hidden from the top bar below 2xl) -->
-            <div class="flex flex-col gap-y-6 2xl:hidden">
+            <div class="2xl:hidden flex flex-col gap-y-6">
                 <a href="{{ auth()->check() ? route('account') : route('login') }}" class="text-xl tracking-widest">
                     @auth
                         {{ Str::limit(auth()->user()->full_name ?? __('ACCOUNT'), 20) }}
@@ -103,7 +103,7 @@
             >
                 <span class="text-stone-500 text-base">@lang("SHOP BY CATEGORY")</span>
                 <ul class="flex flex-col gap-y-8 mt-5">
-                    <li><a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("PERFUME")</a></li>
+                    <li><a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("EAU DE PARFUME")</a></li>
                 </ul>
             </div>
 
@@ -116,9 +116,9 @@
             >
                 <span class="text-stone-500 text-base">@lang("DISCOVER")</span>
                 <ul class="flex flex-col gap-y-8 mt-5">
-                    <li><a href="#" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("TERMS & PRIVACY")</a></li>
-                    <li><a href="#" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("FAQ")</a></li>
-                    <li><a href="#" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("CONTACT")</a></li>
+                    <li><a href="{{ route('terms') }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("TERMS & PRIVACY")</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("FAQ")</a></li>
+                    {{-- <li><a href="#" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("CONTACT")</a></li> --}}
                 </ul>
             </div>
         </div>
