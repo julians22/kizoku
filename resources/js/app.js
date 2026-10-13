@@ -10,6 +10,8 @@ Livewire.start();
 
 window.addEventListener('scroll', function() {
     const navigation = document.getElementById('navigation');
+    if (!navigation) return;
+
     if (window.scrollY > 0) {
         navigation.classList.add('scrolled');
     } else {
