@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@glidejs/glide/dist/css/glide.core.min.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -30,11 +31,9 @@
         @apply bg-white/90 shadow-md transition-colors duration-300;
     }
 
-
     .section-imaged {
-        @apply flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[3/4] md:aspect-[4/3] 2xl:aspect-section-imaged-lg;
+        @apply flex justify-center items-center bg-gray-100 bg-cover bg-no-repeat bg-center aspect-[3/4] md:aspect-[4/3] xl:aspect-section-imaged-lg;
     }
-
 
     .drag-element{
         @apply z-10 absolute max-w-3xs transition-transform duration-300 cursor-grab select-none;
@@ -47,7 +46,7 @@
         @apply absolute inset-0;
     }
 
-    @media (max-width: 1535px) {
+    @media (max-width: 1279px) {
         .about-ingredients {
             position: relative;
             inset: auto;
@@ -99,7 +98,7 @@
     }
 
     .product-detail-dropdown-wrapper .product-detail-dropdown-item{
-        @apply mt-10 text-slate-400;
+        @apply mt-2 lg:mt-6 text-slate-400;
     }
 
 }

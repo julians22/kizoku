@@ -1,0 +1,1 @@
+Gentlemen who value timeless sophistication over fleeting fashion. Thoughtful in every detail and assured in every setting, they bring a sense of elegance, confidence, and understated influence wherever the night takes them.

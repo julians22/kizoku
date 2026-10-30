@@ -1,0 +1,1 @@
+Individuals who lead with consistency rather than spectacle. Thoughtful in their decisions and measured in their pace, they balance ambition with composure and leave a lasting impression through their character rather than their volume.

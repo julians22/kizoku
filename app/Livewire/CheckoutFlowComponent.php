@@ -324,6 +324,13 @@ class CheckoutFlowComponent extends Component
                 ],
             ];
 
+            if ((bool) config('services.midtrans.imposed_payment_fee.enabled')) {
+                $params['customer_imposed_payment_fee'] = [
+                    'enable' => true,
+                    'payment_fee_configs' => config('services.midtrans.imposed_payment_fee.payment_fee_configs'),
+                ];
+            }
+
             $callbacks = array_filter([
                 'finish' => config('services.midtrans.finish_url'),
                 'unfinish' => config('services.midtrans.unfinish_url'),

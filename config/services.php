@@ -43,6 +43,15 @@ return [
         'finish_url' => env('MIDTRANS_FINISH_URL'),
         'unfinish_url' => env('MIDTRANS_UNFINISH_URL'),
         'error_url' => env('MIDTRANS_ERROR_URL'),
+        'imposed_payment_fee' => [
+            'enabled' => (bool) env('MIDTRANS_IMPOSED_PAYMENT_FEE_ENABLED', false),
+            'payment_fee_configs' => [
+                [
+                    'payment_type' => "gopay",
+                    'customer_percentage' => 100
+                ]
+            ]
+        ]
     ],
 
     'backend' => [

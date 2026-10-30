@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\GeneralPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -17,25 +18,10 @@ Route::group([
     })
     ->name('home');
 
-    Route::get('about', function () {
-        return view('about');
-    })
-    ->name('about');
-
-    Route::get('faq', function () {
-        return view('faq');
-    })
-    ->name('faq');
-
-    Route::get('terms-and-privacy', function () {
-        return view('terms-and-privacy');
-    })
-    ->name('terms');
-
-    Route::get('track-my-order', function () {
-        return view('track-my-order');
-    })
-    ->name('track-order');
+    Route::get('about', [GeneralPageController::class, 'about'])->name('about');
+    Route::get('faq', [GeneralPageController::class, 'faq'])->name('faq');
+    Route::get('terms-and-privacy', [GeneralPageController::class, 'terms_and_privacy'])->name('terms');
+    Route::get('track-my-order', [GeneralPageController::class, 'track_order'])->name('track-order');
 
     Route::get('contact', function ($id) {
         //

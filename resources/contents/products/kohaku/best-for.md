@@ -1,0 +1,1 @@
+The kind of person who never needs to choose between effortless and refined. Their days often unfold into evenings, with plans that evolve from casual conversations to memorable occasions. Charming without trying, confident without excess, they leave a lasting impression wherever the day takes them.

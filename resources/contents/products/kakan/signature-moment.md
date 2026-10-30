@@ -1,0 +1,4 @@
+- **Best for:** Formal dinners, indoor events, celebrations, special occasions.
+- **Ideal time:** Night.
+- Excels in elevated settings and after-dark occasions.
+- Rich, distinctive, and designed to leave a memorable impression.

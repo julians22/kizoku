@@ -10,8 +10,8 @@
         @endphp
 
         <div class="mb-8">
-            <h1 class="font-light text-3xl tracking-wide">My Account</h1>
-            <p class="mt-2 text-gray-500 text-sm">Manage your orders and account information.</p>
+            <h1 class="font-light text-3xl tracking-wide">@lang('My Account')</h1>
+            <p class="mt-2 text-gray-500 text-sm">@lang('Manage your orders and account information.')</p>
         </div>
 
         <div class="gap-10 grid grid-cols-1 lg:grid-cols-[15rem_minmax(0,1fr)]">
@@ -26,12 +26,12 @@
                     </div>
                 </div>
 
-                <nav class="grid grid-cols-2 lg:flex lg:flex-col gap-2 py-6" role="tablist" aria-label="Account sections">
+                <nav class="lg:flex lg:flex-col gap-2 grid grid-cols-2 py-6" role="tablist" aria-label="Account sections">
                     @foreach ([
-                        'orders' => 'Order History',
-                        'details' => 'Account Details',
-                        'preferences' => 'Email Preferences',
-                        'addresses' => 'Address',
+                        'orders' => __('Order History'),
+                        'details' => __('Account Details'),
+                        'preferences' => __('Email Preferences'),
+                        'addresses' => __('Address'),
                     ] as $tab => $label)
                         <button
                             id="account-tab-{{ $tab }}"
@@ -51,7 +51,7 @@
                     wire:click="logout"
                     wire:loading.attr="disabled"
                     type="button"
-                    class="mt-auto px-3 py-3 border-t border-gray-200 text-left text-sm text-gray-500 hover:text-black transition-colors"
+                    class="mt-auto px-3 py-3 border-gray-200 border-t text-gray-500 hover:text-black text-sm text-left transition-colors"
                 >
                     <span wire:loading.remove wire:target="logout">Log out</span>
                     <span wire:loading wire:target="logout">Logging out...</span>
@@ -63,23 +63,23 @@
             @if ($accountTab === 'details')
                 @php($primaryAddress = $addresses->firstWhere('is_primary', true))
                 <div class="pb-4 border-gray-200 border-b">
-                    <h2 class="font-light text-2xl">Account Details</h2>
+                    <h2 class="font-light text-2xl">@lang('Account Details')</h2>
                     <p class="mt-1 text-gray-500 text-sm">Your personal information.</p>
                 </div>
                 <dl class="space-y-4 text-sm">
-                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                    <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
                         <dt class="text-gray-500">Full name</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->full_name ?? '—' }}</dd>
                     </div>
-                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                    <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
                         <dt class="text-gray-500">Email</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->email }}</dd>
                     </div>
-                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                    <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
                         <dt class="text-gray-500">Phone</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->phone ?: '—' }}</dd>
                     </div>
-                    <div class="flex flex-col gap-1 py-3 border-gray-100 border-b sm:flex-row sm:justify-between">
+                    <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
                         <dt class="text-gray-500">Gender</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->gender ?: '—' }}</dd>
                     </div>
@@ -90,8 +90,8 @@
                 </dl>
             @elseif ($accountTab === 'orders')
                 <div class="pb-4 border-gray-200 border-b">
-                    <h2 class="font-light text-2xl">Order History</h2>
-                    <p class="mt-1 text-gray-500 text-sm">Review your recent purchases.</p>
+                    <h2 class="font-light text-2xl">@lang('Order History')</h2>
+                    <p class="mt-1 text-gray-500 text-sm">@lang('Review your recent purchases.')</p>
                 </div>
                 @if ($ordersLoading)
                     <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-sm text-center">@lang('Memuat riwayat transaksi...')</div>
@@ -136,10 +136,10 @@
                                             <div class="flex gap-3">
                                                 <div class="flex flex-col items-center">
                                                     <span class="bg-black rounded-full size-2.5"></span>
-                                                    <span class="bg-gray-200 w-px grow min-h-8"></span>
+                                                    <span class="bg-gray-200 w-px min-h-8 grow"></span>
                                                 </div>
                                                 <div class="pb-4">
-                                                    <p class="font-medium text-xs text-gray-800">Order placed</p>
+                                                    <p class="font-medium text-gray-800 text-xs">Order placed</p>
                                                     @if (! empty($order['order_date']))
                                                         <p class="mt-1 text-[10px] text-gray-400">
                                                             {{ \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') }}
@@ -152,8 +152,8 @@
                                                     <span class="bg-black rounded-full size-2.5"></span>
                                                 </div>
                                                 <div class="min-w-0">
-                                                    <p class="font-medium text-xs text-gray-800">Latest shipment status</p>
-                                                    <p class="mt-1 text-xs text-gray-600">
+                                                    <p class="font-medium text-gray-800 text-xs">Latest shipment status</p>
+                                                    <p class="mt-1 text-gray-600 text-xs">
                                                         {{ ucfirst(str_replace('_', ' ', $shipment['status'] ?? 'pending')) }}
                                                     </p>
                                                     <p class="mt-1 text-[10px] text-gray-500 leading-relaxed">
@@ -187,27 +187,27 @@
                 @endif
             @elseif ($accountTab === 'preferences')
                 <div class="pb-4 border-gray-200 border-b">
-                    <h2 class="font-light text-2xl">Email Preferences</h2>
-                    <p class="mt-1 text-gray-500 text-sm">Choose the updates you would like to see.</p>
+                    <h2 class="font-light text-2xl">@lang('Email Preferences')</h2>
+                    <p class="mt-1 text-gray-500 text-sm">@lang('Choose the updates you would like to see.')</p>
                 </div>
-                <div class="divide-y divide-gray-200 border-y border-gray-200">
+                <div class="border-gray-200 border-y divide-y divide-gray-200">
                     <label class="flex justify-between items-center gap-6 py-5 cursor-pointer">
                         <span>
-                            <span class="block font-medium text-sm">Newsletter</span>
-                            <span class="block mt-1 text-gray-500 text-xs">Receive news, launches, and special offers.</span>
+                            <span class="block font-medium text-sm">@lang('Newsletter')</span>
+                            <span class="block mt-1 text-gray-500 text-xs">@lang('Receive news, launches, and special offers.')</span>
                         </span>
                         <input type="checkbox" wire:model="newsletterEnabled" class="size-5 accent-black">
                     </label>
                     <label class="flex justify-between items-center gap-6 py-5 cursor-pointer">
                         <span>
-                            <span class="block font-medium text-sm">Email notifications</span>
-                            <span class="block mt-1 text-gray-500 text-xs">Receive updates about your orders and account.</span>
+                            <span class="block font-medium text-sm">@lang('Email notifications')</span>
+                            <span class="block mt-1 text-gray-500 text-xs">@lang('Receive updates about your orders and account.')</span>
                         </span>
                         <input type="checkbox" wire:model="emailNotificationsEnabled" class="size-5 accent-black">
                     </label>
                 </div>
                 <div class="py-4">
-                    <label for="account-language" class="block mb-2 font-medium text-sm">Language</label>
+                    <label for="account-language" class="block mb-2 font-medium text-sm">@lang('Language')</label>
                     <select
                         id="account-language"
                         onchange="window.location.href = this.value"
@@ -217,11 +217,11 @@
                         <option value="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL('id') }}" @selected(app()->getLocale() === 'id')>Bahasa Indonesia</option>
                     </select>
                 </div>
-                <p class="text-gray-500 text-xs">Newsletter and email notification selections are temporary and are not saved to your account yet.</p>
+                <p class="text-gray-500 text-xs">@lang('Newsletter and email notification selections are temporary and are not saved to your account yet.')</p>
             @elseif ($accountTab === 'addresses' && $profileView === 'addresses')
                 <div class="pb-4 border-gray-200 border-b">
-                    <h2 class="font-light text-2xl">Address</h2>
-                    <p class="mt-1 text-gray-500 text-sm">Manage your saved delivery addresses.</p>
+                    <h2 class="font-light text-2xl">@lang('Address')</h2>
+                    <p class="mt-1 text-gray-500 text-sm">@lang('Manage your saved delivery addresses.')</p>
                 </div>
                 <div class="space-y-3">
                     @forelse ($addresses as $address)
@@ -229,68 +229,68 @@
                             <div class="flex justify-between items-start gap-3">
                                 <div>
                                     <div class="flex items-center gap-2">
-                                        <h4 class="font-semibold text-xs uppercase tracking-wider">{{ $address->label ?: 'Alamat' }}</h4>
+                                        <h4 class="font-semibold text-xs uppercase tracking-wider">{{ $address->label ?: __('Address') }}</h4>
                                         @if ($address->is_primary)
-                                            <span class="bg-black px-2 py-0.5 text-[9px] text-white uppercase tracking-widest">Utama</span>
+                                            <span class="bg-black px-2 py-0.5 text-[9px] text-white uppercase tracking-widest">@lang('Primary')</span>
                                         @endif
                                     </div>
                                     <p class="mt-2 text-gray-700 text-xs leading-relaxed">{{ $address->full_address }}</p>
                                     @if ($address->note)
-                                        <p class="mt-1 text-[11px] text-gray-400">Catatan: {{ $address->note }}</p>
+                                        <p class="mt-1 text-[11px] text-gray-400">@lang('Note:') {{ $address->note }}</p>
                                     @endif
                                 </div>
                                 <div class="flex gap-2 shrink-0">
-                                    <button wire:click="editAddress({{ $address->id }})" type="button" class="text-[11px] text-gray-500 hover:text-black underline">Edit</button>
-                                    <button wire:click="deleteAddress({{ $address->id }})" wire:confirm="Hapus alamat ini?" type="button" class="text-[11px] text-gray-500 hover:text-red-600 underline">Hapus</button>
+                                    <button wire:click="editAddress({{ $address->id }})" type="button" class="text-[11px] text-gray-500 hover:text-black underline">@lang('Edit')</button>
+                                    <button wire:click="deleteAddress({{ $address->id }})" wire:confirm="{{ __('Delete this address?') }}" type="button" class="text-[11px] text-gray-500 hover:text-red-600 underline">@lang('Delete')</button>
                                 </div>
                             </div>
                             @if (! $address->is_primary)
-                                <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-[11px] text-gray-500 hover:text-black underline">Jadikan alamat utama</button>
+                                <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-[11px] text-gray-500 hover:text-black underline">@lang('Set as Primary Address')</button>
                             @endif
                         </div>
                     @empty
-                        <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">Belum ada alamat tersimpan.</div>
+                        <div class="p-4 border border-gray-300 border-dashed text-gray-500 text-xs text-center">@lang('No saved addresses yet.')</div>
                     @endforelse
                 </div>
 
-                <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">+ TAMBAH ALAMAT</button>
+                <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">@lang('+ ADD ADDRESS')</button>
             @elseif ($accountTab === 'addresses')
                 <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
-                    <button wire:click="showAddresses" type="button" class="text-gray-500 hover:text-black text-xs">&larr; Kembali</button>
-                    <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">{{ $editingAddressId ? 'EDIT ALAMAT' : 'ALAMAT BARU' }}</h3>
+                    <button wire:click="showAddresses" type="button" class="text-gray-500 hover:text-black text-xs">&larr; @lang('Back')</button>
+                    <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">{{ $editingAddressId ? __('EDIT ADDRESS') : __('NEW ADDRESS') }}</h3>
                     <span class="w-12"></span>
                 </div>
 
                 <form wire:submit.prevent="saveAddress" class="space-y-4">
                     <div class="gap-2 grid grid-cols-1 sm:grid-cols-2">
                         <div>
-                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Nama Penerima</label>
-                            <input type="text" wire:model="addressRecipientName" placeholder="Nama penerima" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
+                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Recipient's Name")</label>
+                            <input type="text" wire:model="addressRecipientName" placeholder="{{ __('placeholder.address.recipient_name') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
                             @error('addressRecipientName') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                         </div>
                         <div>
-                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Nomor Telepon</label>
-                            <input type="tel" wire:model="addressRecipientPhone" placeholder="08xxxxxxxxxx" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
+                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Contact Number')</label>
+                            <input type="tel" wire:model="addressRecipientPhone" placeholder="{{ __('placeholder.address.phone') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
                             @error('addressRecipientPhone') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Email Penerima (Opsional)</label>
-                        <input type="email" wire:model="addressRecipientEmail" placeholder="nama@email.com" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
+                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Recipient's Email (Optional)")</label>
+                        <input type="email" wire:model="addressRecipientEmail" placeholder="{{ __('placeholder.address.recipient_email') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
                         @error('addressRecipientEmail') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Label</label>
-                        <input type="text" wire:model="addressLabel" placeholder="Rumah atau Kantor" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
+                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Address Type')</label>
+                        <input type="text" wire:model="addressLabel" placeholder="{{ __('placeholder.address.label') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
                         @error('addressLabel') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div class="relative">
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Cari Kota / Area</label>
+                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('City / Town')</label>
                         <input
                             type="search"
                             wire:model.live.debounce.400ms="addressAreaSearch"
                             wire:input.debounce.400ms="searchAddressAreas"
-                            placeholder="Contoh: Jakarta Selatan"
+                            placeholder="{{ __('placeholder.address.area_search') }}"
                             autocomplete="off"
                             class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs"
                         >
@@ -308,27 +308,27 @@
                         <input type="hidden" wire:model="addressAreaName">
                         <input type="hidden" wire:model="addressPostalCode">
                         @if ($addressAreaName)
-                            <p class="mt-1 text-[11px] text-gray-500">Terpilih: {{ $addressAreaName }}{{ $addressPostalCode ? ' - ' . $addressPostalCode : '' }}</p>
+                            <p class="mt-1 text-[11px] text-gray-500">@lang('Selected:') {{ $addressAreaName }}{{ $addressPostalCode ? ' - ' . $addressPostalCode : '' }}</p>
                         @endif
                         @error('addressAreaId') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Alamat Lengkap</label>
-                        <textarea wire:model="addressFull" rows="4" required placeholder="Jalan, nomor rumah, kecamatan, kota, provinsi" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
+                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Street Address')</label>
+                        <textarea wire:model="addressFull" rows="4" required placeholder="{{ __('placeholder.address.full') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
                         @error('addressFull') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Catatan Kurir (Opsional)</label>
-                        <textarea wire:model="addressNote" rows="2" placeholder="Patokan atau instruksi pengiriman" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
+                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Notes for the Courier')</label>
+                        <textarea wire:model="addressNote" rows="2" placeholder="{{ __('placeholder.address.note') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
                         @error('addressNote') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <label class="flex items-center gap-2 text-gray-600 text-xs">
                         <input type="checkbox" wire:model="addressIsPrimary" class="border-gray-400 rounded-none focus:ring-0 accent-black">
-                        Jadikan alamat utama
+                        @lang('Set as Primary Address')
                     </label>
                     <button type="submit" wire:loading.attr="disabled" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">
-                        <span wire:loading.remove wire:target="saveAddress">SIMPAN ALAMAT</span>
-                        <span wire:loading wire:target="saveAddress">MEMPROSES...</span>
+                        <span wire:loading.remove wire:target="saveAddress">@lang('SAVE ADDRESS')</span>
+                        <span wire:loading wire:target="saveAddress">@lang('PROCESSING...')</span>
                     </button>
                 </form>
             @endif
@@ -394,7 +394,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Kata Sandi')</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password')</label>
                                 <div class="relative">
                                     <span class="left-0 absolute inset-y-0 flex items-center pl-3 text-gray-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -429,7 +429,7 @@
                                     wire:click="setAuthMode('forgot_password')"
                                     class="text-gray-500 hover:text-black underline transition-colors"
                                 >
-                                    @lang('Lupa Kata Sandi?')
+                                    @lang('Forgot Password?')
                                 </button>
                             </div>
 
@@ -471,7 +471,7 @@
                             </div>
 
                             <p class="text-[11px] text-gray-500 leading-normal">
-                                Kami akan mengirimkan 6 digit kode OTP verifikasi ke email Anda sebelum melengkapi profil.
+                                @lang('We will send a 6-digit OTP verification code to your email before completing your profile.')
                             </p>
 
                             <button
@@ -479,8 +479,8 @@
                                 wire:loading.attr="disabled"
                                 class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
                             >
-                                <span wire:loading.remove wire:target="requestRegisterOtp">@lang('MINTA KODE OTP REGISTRASI')</span>
-                                <span wire:loading wire:target="requestRegisterOtp">@lang('MENGIRIM OTP...')</span>
+                                <span wire:loading.remove wire:target="requestRegisterOtp">@lang('REQUEST REGISTRATION OTP')</span>
+                                <span wire:loading wire:target="requestRegisterOtp">@lang('SENDING...')</span>
                             </button>
                         </form>
 
@@ -493,7 +493,9 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Kode OTP (6 Digit)</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">
+                                    @lang('OTP Code (6 Digits)')
+                                </label>
                                 <input
                                     type="text"
                                     wire:model="registerOtp"
@@ -507,7 +509,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Nama Lengkap</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Full Name')</label>
                                 <input
                                     type="text"
                                     wire:model="registerFullName"
@@ -520,7 +522,7 @@
 
                             <div class="gap-2 grid grid-cols-2">
                                 <div>
-                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Nomor Telepon</label>
+                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Phone Number')</label>
                                     <input
                                         type="tel"
                                         wire:model="registerPhone"
@@ -531,24 +533,24 @@
                                 </div>
 
                                 <div>
-                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Jenis Kelamin</label>
+                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Gender")</label>
                                     <select
                                         wire:model="registerGender"
                                         class="bg-white px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                     >
-                                        <option value="male">Laki-laki</option>
-                                        <option value="female">Perempuan</option>
+                                        <option value="male">@lang("Male")</option>
+                                        <option value="female">@lang("Female")</option>
                                     </select>
                                     @error('registerGender') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Kata Sandi (Min. 8 Karakter)</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password (Min. 8 Characters)')</label>
                                 <input
                                     type="password"
                                     wire:model="registerPassword"
-                                    placeholder="Minimal 8 karakter"
+                                    placeholder="{{ __('placeholder.password.min_char', ['min' => '8']) }}"
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
@@ -556,11 +558,11 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Konfirmasi Kata Sandi</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password Confirmation')</label>
                                 <input
                                     type="password"
                                     wire:model="registerPasswordConfirmation"
-                                    placeholder="Ulangi kata sandi"
+                                    placeholder="{{ __('passwords.repeat') }}"
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
@@ -572,8 +574,8 @@
                                 wire:loading.attr="disabled"
                                 class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-3 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
                             >
-                                <span wire:loading.remove wire:target="submitRegister">@lang('SELESAIKAN PENDAFTARAN')</span>
-                                <span wire:loading wire:target="submitRegister">@lang('MEMPROSES...')</span>
+                                <span wire:loading.remove wire:target="submitRegister">@lang('COMPLETE REGISTRATION')</span>
+                                <span wire:loading wire:target="submitRegister">@lang('PROCESSING...')</span>
                             </button>
 
                             <div class="pt-2 text-center">
@@ -582,7 +584,7 @@
                                     wire:click="$set('registerStep', 'email')"
                                     class="text-gray-500 hover:text-black text-xs underline"
                                 >
-                                    &larr; @lang('Ganti Email')
+                                    &larr; @lang('Change Email')
                                 </button>
                             </div>
                         </form>
@@ -594,20 +596,20 @@
             @if ($mode === 'forgot_password')
                 <div class="space-y-4">
                     <div class="flex justify-between items-center mb-4 pb-3 border-gray-200 border-b">
-                        <h4 class="font-semibold text-gray-900 text-xs uppercase tracking-[0.2em]">@lang('RESET KATA SANDI')</h4>
+                        <h4 class="font-semibold text-gray-900 text-xs uppercase tracking-[0.2em]">@lang('RESET PASSWORD')</h4>
                         <button
                             type="button"
                             wire:click="setAuthMode('login')"
                             class="text-gray-400 hover:text-black text-xs"
                         >
-                            &times; @lang('Batal')
+                            &times; @lang('Cancel')
                         </button>
                     </div>
 
                     @if ($forgotStep === 'email')
                         <form wire:submit.prevent="requestForgotOtp" class="space-y-4">
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Email Terdaftar</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Email Registered')</label>
                                 <input
                                     type="email"
                                     wire:model="forgotEmail"
@@ -619,7 +621,7 @@
                             </div>
 
                             <p class="text-[11px] text-gray-500 leading-normal">
-                                Kami akan mengirimkan 6 digit kode OTP ke email Anda untuk membuat kata sandi baru.
+                                @lang('We will send a 6-digit OTP verification code to your email before completing your profile.')
                             </p>
 
                             <button
@@ -627,8 +629,8 @@
                                 wire:loading.attr="disabled"
                                 class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
                             >
-                                <span wire:loading.remove wire:target="requestForgotOtp">@lang('KIRIM KODE OTP RESET')</span>
-                                <span wire:loading wire:target="requestForgotOtp">@lang('MENGIRIM...')</span>
+                                <span wire:loading.remove wire:target="requestForgotOtp">@lang('SEND RESET OTP')</span>
+                                <span wire:loading wire:target="requestForgotOtp">@lang('SENDING...')</span>
                             </button>
                         </form>
 
@@ -640,7 +642,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Kode OTP (6 Digit)</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('OTP Code (6 Digits)')</label>
                                 <input
                                     type="text"
                                     wire:model="forgotOtp"
@@ -654,11 +656,11 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Kata Sandi Baru (Min. 8 Karakter)</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider"></label>
                                 <input
                                     type="password"
                                     wire:model="forgotPassword"
-                                    placeholder="Minimal 8 karakter"
+                                    placeholder="{{ __('placeholder.password.min_char', 'min' => 8) }}"
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
@@ -666,7 +668,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Ulangi Kata Sandi Baru</label>
+                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Repeat New Password')</label>
                                 <input
                                     type="password"
                                     wire:model="forgotPasswordConfirmation"

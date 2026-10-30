@@ -1,0 +1,3 @@
+- **Top Notes:** Mirabelle, Pear
+- **Mid Notes:** Date, Jasmine, Freesia
+- **Base Notes:** Sandalwood, Vanilla, Oakmoss, Patchouli.

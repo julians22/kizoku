@@ -1,0 +1,3 @@
+- **Top Notes:** Green, Galbanum, Citrus, Bergamot, Lemon
+- **Mid Notes:** Floral, Orris, Jasmine, Rose, Muguet, Ylang, Hyacinth, Spicy, Clove 
+- **Base Notes:** Woody, Amber, Cedarwood, Vetiver, Sandalwood, Woody Violet, Musk, Mossy, Leathery 

@@ -1,8 +1,11 @@
 import './bootstrap';
 import './toast';
+import { initGlide } from './glide';
 
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 import intersect from '@alpinejs/intersect'
+
+window.initGlide = initGlide;
 
 Alpine.plugin(intersect);
 

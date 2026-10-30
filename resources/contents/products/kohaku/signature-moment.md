@@ -1,0 +1,4 @@
+- **Best for:** Dinner dates, semi-formal events, after-work gatherings, special occasions.
+- **Ideal time:** Day to night.
+- Transitions seamlessly from daytime engagements to evening occasions.
+- A versatile choice when a polished yet approachable presence is desired.

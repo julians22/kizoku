@@ -1,0 +1,4 @@
+- **Best for:** Work, meetings, office events, business lunches, daily activities.
+- **Ideal time:** Daytime (midday onward).
+- Well-suited for professional and productive environments.
+- Fresh and refined without feeling overly formal.

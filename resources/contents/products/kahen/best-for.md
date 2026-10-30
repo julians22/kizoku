@@ -1,0 +1,1 @@
+A natural host of calm and ease. Mornings unfold gently, afternoons are savored rather than rushed, and everyday moments become meaningful through an appreciation for life's finer details. Their presence is relaxed, welcoming, and quietly uplifting.

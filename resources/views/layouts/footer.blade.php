@@ -1,7 +1,7 @@
-<footer class="bg-white pt-16 2xl:pt-36 pb-12 2xl:pb-20">
+<footer class="bg-white pt-16 xl:pt-36 pb-12 xl:pb-20">
 
-    <div class="mx-auto px-4 2xl:px-0 container">
-        <div class="flex flex-col items-start 2xl:items-end mb-8 2xl:mb-0">
+    <div class="mx-auto px-4 xl:px-0 container">
+        <div class="flex flex-col items-start xl:items-end mb-8 xl:mb-0">
             <div class="">
                 <p class="font-saa-series-e-dot">@lang('CUSTOMER SERVICE')</p>
                 <ul class="mt-4">
@@ -15,9 +15,8 @@
 
         <div class="flex justify-center items-center">
             <button
-
-            @click="scrollToTop()"
-            class="flex items-center gap-x-2 px-3 py-2 cursor-pointer">
+                @click="scrollToTop()"
+                class="flex items-center gap-x-2 px-3 py-2 cursor-pointer">
                 <span>
                     <x-carbon-arrow-up class="fill-gray-800 size-6"/>
                 </span>
