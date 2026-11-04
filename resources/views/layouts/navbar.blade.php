@@ -6,14 +6,17 @@
     <nav class="flex justify-between items-center mx-auto px-4 xl:px-0 py-3 xl:py-4 container">
 
         <a href="{{ route('home') }}">
-            <img src="{{ asset('primary-logo.png') }}" alt="Kizoku Logo" class="h-9 xl:h-12 logo">
+            <img src="{{ asset('primary-logo.png') }}" alt="Kizoku Logo" class="h-6 xl:h-12 logo">
         </a>
 
-        <ul class="flex items-center space-x-5 xl:space-x-8">
-            <li>
-                <a href="#" class="text-base xl:text-lg" @click.prevent="toggleSidebar('menu')">@lang("MENU")</a>
+        <ul class="flex items-center gap-3 sm:gap-4 xl:gap-8">
+            <li class="order-3 xl:order-1">
+                <a href="#" class="flex items-center text-base xl:text-lg" @click.prevent="toggleSidebar('menu')" aria-label="@lang('MENU')">
+                    <span class="hidden xl:inline">@lang("MENU")</span>
+                    <x-ionicon-menu-outline class="xl:hidden w-6 h-6" />
+                </a>
             </li>
-            <li class="hidden xl:block">
+            <li class="hidden xl:block xl:order-2">
                 <a href="{{ auth()->check() ? route('account') : route('login') }}" class="flex items-center space-x-1 text-lg">
                     @auth
                         <span class="bg-black px-4 py-2 rounded-full text-white text-sm capitalize" >{{ Str::limit(auth()->user()->full_name ?? 'ACCOUNT', 12) }}</span>
@@ -22,31 +25,33 @@
                     @endauth
                 </a>
             </li>
-            <li class="hidden xl:block">
+            <li class="hidden xl:block xl:order-3">
                 <a href="{{ route('collections.category', ['slug'=> 'parfume']) }}" class="text-lg">@lang("PRODUCTS")</a>
             </li>
-            <li>
-                <a href="#" class="flex items-center text-base xl:text-lg" @click.prevent="toggleSidebar('cart')">
-                    @lang("CART") <livewire:utils.badge-count count-for="cart" />
+            <li class="order-2 xl:order-4">
+                <a href="#" class="flex items-center text-base xl:text-lg" @click.prevent="toggleSidebar('cart')" aria-label="@lang('CART')">
+                    <span class="hidden xl:inline">@lang("CART")</span>
+                    <x-ionicon-cart-outline class="xl:hidden w-6 h-6" />
+                    <livewire:utils.badge-count count-for="cart" />
                 </a>
             </li>
-            <li class="hidden xl:block">
+            <li class="order-1 xl:order-5">
                 <div
                     x-data="{ lang: '{{ $localeData['currentLocale'] }}' }"
                     x-init="$watch('lang', value => window.location.href = '{{ $localeData['otherLocaleUrl'] }}')"
-                    class="relative flex items-center p-1 border-2 border-black rounded-full w-24 h-10 cursor-pointer select-none"
+                    class="relative flex items-center p-px xl:p-1 border-[1px] border-black xl:border-2 rounded-full w-20 xl:w-24 h-8 xl:h-10 cursor-pointer select-none"
                     @click="lang = (lang === 'id' ? 'en' : 'id')">
                     <div
                         x-cloak
-                        class="top-1 bottom-1 left-1 absolute bg-black shadow-md rounded-full w-10 transition-all duration-300 ease-in-out"
-                        :class="lang === 'en' ? 'translate-x-11' : 'translate-x-0'">
+                        class="lang-pill"
+                        :class="lang === 'en' ? 'right' : 'left'">
                     </div>
 
-                    <div class="z-10 w-1/2 font-bold text-sm text-center transition-colors duration-300"
+                    <div class="z-10 w-1/2 font-bold text-xs xl:text-sm text-center transition-colors duration-300"
                         :class="lang === 'id' ? 'text-white' : 'text-black'"> {{ $localeData['supportedLocales'][array_key_first($localeData['supportedLocales'])]['name'] }}
                     </div>
 
-                    <div class="z-10 w-1/2 font-bold text-sm text-center transition-colors duration-300"
+                    <div class="z-10 w-1/2 font-bold text-xs xl:text-sm text-center transition-colors duration-300"
                         :class="lang === 'en' ? 'text-white' : 'text-black'"> {{ $localeData['supportedLocales'][array_key_last($localeData['supportedLocales'])]['name'] }}
                     </div>
                 </div>
@@ -79,9 +84,6 @@
                     @endauth
                 </a>
                 <a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="text-xl tracking-widest">@lang("PRODUCTS")</a>
-                <a href="{{ $localeData['otherLocaleUrl'] }}" class="text-stone-500 text-base uppercase tracking-widest">
-                    {{ $localeData['currentLocale'] === 'id' ? 'English' : 'Bahasa Indonesia' }}
-                </a>
             </div>
 
             <!-- Page Lists -->

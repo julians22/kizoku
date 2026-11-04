@@ -8,17 +8,6 @@
 <section
     class="flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center mt-16 2xl:mt-20"
 >
-
-    {{-- <div class="grid grid-cols-2 py-10 w-full">
-
-        <div class="aspect-square">
-            <img src="{{ asset($selectedParfume['image']) }}" alt="" class="w-full h-full object-cover">
-        </div>
-        <div class="aspect-square">
-            <img src="{{ asset('img/insight-1.png') }}" alt="" class="w-full h-full object-cover">
-        </div>
-
-    </div> --}}
     <div class="relative w-full">
         <div class="glide">
             <div class="glide__track" data-glide-el="track">

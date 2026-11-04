@@ -9,7 +9,7 @@
 
     "Add to cart": "Tambah ke keranjang",
     "SHIPPING": "PENGIRIMAN",
-    "TRACK MY ORDER": "LACAK PESANAN SAYA",
+    "TRACK MY ORDER": "LACAK PESANAN",
     "ADD TO CART": "TAMBAH KE KERANJANG",
     "VIEW PRODUCTS": "LIHAT PRODUK",
 
@@ -67,7 +67,7 @@
 
     "Payment Simulated" : "Pembayaran Disimulasikan",
     "Your order is confirmed." : "Pesanan Anda dikonfirmasi.",
-    "Midtrans is still a blueprint here, so this flow uses a short loading delay to simulate the payment request." : "Midtrans masih berupa blueprint di sini, jadi alur ini menggunakan jeda pemuatan singkat untuk mensimulasikan permintaan pembayaran.",
+    "You can view your past orders in your Order History page." : "Anda dapat melihat pesanan sebelumnya di halaman Riwayat Pesanan Anda.",
     "Transaction reference:" : "Referensi transaksi:",
     "1. Contact Information" : "1. Informasi Kontak",
     "Email" : "Email",
@@ -125,6 +125,31 @@
     "+ ADD ADDRESS" : "+ TAMBAH ALAMAT",
     "Back" : "Kembali",
     "EDIT ADDRESS" : "UBAH ALAMAT",
-    "NEW ADDRESS" : "ALAMAT BARU"
+    "NEW ADDRESS" : "ALAMAT BARU",
+    "Log out" : "Keluar",
+    "Logging out..." : "Keluar...",
+    "Are you sure you want to log out?" : "Apakah Anda yakin ingin keluar?",
+    "Yes, Log out" : "Ya, Keluar",
+    "No, Cancel" : "Tidak, Batal",
 
+    "Your personal information." : "Informasi pribadi Anda.",
+    "Primary shipping address" : "Alamat pengiriman utama",
+
+    "Shipment timeline" : "Garis waktu pengiriman",
+    "Order placed" : "Pesanan dibuat",
+    "Latest shipment status" : "Status pengiriman terbaru",
+    "Detailed carrier scan events are not available from the current order service.": "Peristiwa pemindaian kurir yang terperinci tidak tersedia dari layanan pesanan saat ini.",
+
+    "Waybill:" : "Resi:",
+
+    "pending": "menunggu",
+    "shipped": "dikirim",
+    "delivered": "dikirimkan",
+    "cancelled": "dibatalkan",
+    "processing": "diproses",
+    "confirmed": "dikonfirmasi",
+    "picking up": "sedang diambil",
+    "courier not found": "kurir tidak ditemukan",
+    "courier not available": "kurir tidak tersedia",
+    "courier not supported": "kurir tidak didukung"
 }

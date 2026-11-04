@@ -16,5 +16,5 @@ return [
         'recipient_email' => 'Email penerima (opsional)',
         'label' => 'contoh: Rumah atau Kantor',
         'area_search' => 'contoh: Jakarta Selatan',
-    ],
+    ]
 ];

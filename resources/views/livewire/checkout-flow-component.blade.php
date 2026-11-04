@@ -5,7 +5,7 @@
                 <span class="block mb-2 font-label-caps text-label-caps text-mint-text uppercase tracking-widest">@lang('Payment Simulated')</span>
                 <h1 class="mb-4 font-saa-series-e-dot text-mint-text text-5xl">@lang('Your order is confirmed.')</h1>
                 <p class="opacity-80 mb-4 max-w-md text-mint-text">
-                    @lang('Midtrans is still a blueprint here, so this flow uses a short loading delay to simulate the payment request.')
+                    @lang("You can view your past orders in your Order History page.")
                 </p>
                 <div class="mt-6 pt-4 border-mint-border/30 border-t">
                     <p class="opacity-70 text-mint-text">

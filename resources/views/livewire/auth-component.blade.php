@@ -40,7 +40,7 @@
                             aria-selected="{{ $accountTab === $tab ? 'true' : 'false' }}"
                             aria-controls="account-tab-content"
                             wire:click="setAccountTab('{{ $tab }}')"
-                            class="px-3 py-3 border-l-2 text-xs sm:text-sm text-left transition-colors {{ $accountTab === $tab ? 'border-black bg-gray-50 font-medium text-black' : 'border-transparent text-gray-500 hover:text-black' }}"
+                            class="px-3 py-3 border-l-2 text-sm text-left transition-colors {{ $accountTab === $tab ? 'border-black bg-gray-50 font-medium text-black' : 'border-transparent text-gray-500 hover:text-black' }}"
                         >
                             {{ $label }}
                         </button>
@@ -53,8 +53,8 @@
                     type="button"
                     class="mt-auto px-3 py-3 border-gray-200 border-t text-gray-500 hover:text-black text-sm text-left transition-colors"
                 >
-                    <span wire:loading.remove wire:target="logout">Log out</span>
-                    <span wire:loading wire:target="logout">Logging out...</span>
+                    <span wire:loading.remove wire:target="logout">@lang("Log out")</span>
+                    <span wire:loading wire:target="logout">@lang("Logging out...")</span>
                 </button>
             </aside>
 
@@ -64,27 +64,27 @@
                 @php($primaryAddress = $addresses->firstWhere('is_primary', true))
                 <div class="pb-4 border-gray-200 border-b">
                     <h2 class="font-light text-2xl">@lang('Account Details')</h2>
-                    <p class="mt-1 text-gray-500 text-sm">Your personal information.</p>
+                    <p class="mt-1 text-gray-500 text-sm">@lang("Your personal information.")</p>
                 </div>
                 <dl class="space-y-4 text-sm">
                     <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
-                        <dt class="text-gray-500">Full name</dt>
+                        <dt class="text-gray-500">@lang('Full Name')</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->full_name ?? '—' }}</dd>
                     </div>
                     <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
-                        <dt class="text-gray-500">Email</dt>
+                        <dt class="text-gray-500">@lang('Email')</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->email }}</dd>
                     </div>
                     <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
-                        <dt class="text-gray-500">Phone</dt>
+                        <dt class="text-gray-500">@lang('Phone Number')</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->phone ?: '—' }}</dd>
                     </div>
                     <div class="flex sm:flex-row flex-col sm:justify-between gap-1 py-3 border-gray-100 border-b">
-                        <dt class="text-gray-500">Gender</dt>
+                        <dt class="text-gray-500">@lang('Gender')</dt>
                         <dd class="font-medium text-gray-900">{{ $currentUser->gender ?: '—' }}</dd>
                     </div>
                     <div class="flex flex-col gap-1 py-3 border-gray-100 border-b">
-                        <dt class="text-gray-500">Primary shipping address</dt>
+                        <dt class="text-gray-500">@lang('Primary shipping address')</dt>
                         <dd class="font-medium text-gray-900 leading-relaxed">{{ $primaryAddress?->full_address ?? 'No saved address.' }}</dd>
                     </div>
                 </dl>
@@ -108,15 +108,15 @@
                                 <div class="flex justify-between items-start gap-3">
                                     <div>
                                         <p class="font-semibold text-xs tracking-wider">{{ $order['order_number'] ?? '-' }}</p>
-                                        <p class="mt-1 text-[10px] text-gray-400">
+                                        <p class="mt-1 text-gray-400 text-sm">
                                             {{ isset($order['order_date']) ? \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') : '' }}
                                         </p>
                                     </div>
-                                    <span class="px-2 py-0.5 border text-[10px] uppercase tracking-widest {{ $order['status_class'] ?? 'border-gray-300 bg-gray-50 text-gray-600' }}">
-                                        {{ $order['status'] ?? 'pending' }}
+                                    <span class="px-2 py-0.5 border text-sm uppercase tracking-widest {{ $order['status_class'] ?? 'border-gray-300 bg-gray-50 text-gray-600' }}">
+                                        {{ $order['status'] ? __($order['status']) : __('pending') }}
                                     </span>
                                 </div>
-                                <ul class="space-y-1 text-[11px] text-gray-600">
+                                <ul class="space-y-1 text-gray-600 text-base">
                                     @foreach ($order['items'] ?? [] as $item)
                                         <li class="flex justify-between gap-3">
                                             <span class="truncate">{{ $item['name'] }} &times; {{ $item['qty'] }}</span>
@@ -131,7 +131,7 @@
                                 @if (! empty($order['shipment']))
                                     @php($shipment = $order['shipment'])
                                     <div class="pt-3 border-gray-100 border-t">
-                                        <h3 class="font-medium text-xs uppercase tracking-wider">Shipment timeline</h3>
+                                        <h3 class="font-medium text-xs uppercase tracking-wider">@lang("Shipment timeline")</h3>
                                         <div class="mt-4">
                                             <div class="flex gap-3">
                                                 <div class="flex flex-col items-center">
@@ -139,9 +139,9 @@
                                                     <span class="bg-gray-200 w-px min-h-8 grow"></span>
                                                 </div>
                                                 <div class="pb-4">
-                                                    <p class="font-medium text-gray-800 text-xs">Order placed</p>
+                                                    <p class="font-medium text-gray-800 text-xs">@lang("Order placed")</p>
                                                     @if (! empty($order['order_date']))
-                                                        <p class="mt-1 text-[10px] text-gray-400">
+                                                        <p class="mt-1 text-gray-400 text-sm">
                                                             {{ \Illuminate\Support\Carbon::parse($order['order_date'])->translatedFormat('d M Y, H:i') }}
                                                         </p>
                                                     @endif
@@ -152,18 +152,18 @@
                                                     <span class="bg-black rounded-full size-2.5"></span>
                                                 </div>
                                                 <div class="min-w-0">
-                                                    <p class="font-medium text-gray-800 text-xs">Latest shipment status</p>
+                                                    <p class="font-medium text-gray-800 text-xs">@lang('Latest shipment status')</p>
                                                     <p class="mt-1 text-gray-600 text-xs">
-                                                        {{ ucfirst(str_replace('_', ' ', $shipment['status'] ?? 'pending')) }}
+                                                        {{ ucfirst(str_replace('_', ' ', $shipment['status'] ? __($shipment['status']) : __('pending'))) }}
                                                     </p>
-                                                    <p class="mt-1 text-[10px] text-gray-500 leading-relaxed">
+                                                    <p class="mt-1 text-gray-500 text-sm leading-relaxed">
                                                         {{ $shipment['courier_name'] ?? '' }} {{ $shipment['courier_service_name'] ?? '' }}
                                                         @if (! empty($shipment['waybill_id']))
-                                                            &middot; Resi: <span class="font-medium text-gray-700">{{ $shipment['waybill_id'] }}</span>
+                                                            &middot; @lang('Waybill:') <span class="font-medium text-gray-700">{{ $shipment['waybill_id'] }}</span>
                                                         @endif
                                                     </p>
-                                                    <p class="mt-2 text-[10px] text-gray-400">
-                                                        Detailed carrier scan events are not available from the current order service.
+                                                    <p class="mt-2 text-gray-400 text-sm">
+                                                        @lang("Detailed carrier scan events are not available from the current order service.")
                                                     </p>
                                                 </div>
                                             </div>
@@ -174,7 +174,7 @@
                         @endforeach
                     </div>
                     @if (($ordersMeta['last_page'] ?? 1) > 1)
-                        <div class="flex justify-between items-center pt-2 text-[11px]">
+                        <div class="flex justify-between items-center pt-2 text-base">
                             <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
                                 &larr; @lang('Sebelumnya')
                             </button>
@@ -236,16 +236,16 @@
                                     </div>
                                     <p class="mt-2 text-gray-700 text-xs leading-relaxed">{{ $address->full_address }}</p>
                                     @if ($address->note)
-                                        <p class="mt-1 text-[11px] text-gray-400">@lang('Note:') {{ $address->note }}</p>
+                                        <p class="mt-1 text-gray-400 text-base">@lang('Note:') {{ $address->note }}</p>
                                     @endif
                                 </div>
                                 <div class="flex gap-2 shrink-0">
-                                    <button wire:click="editAddress({{ $address->id }})" type="button" class="text-[11px] text-gray-500 hover:text-black underline">@lang('Edit')</button>
-                                    <button wire:click="deleteAddress({{ $address->id }})" wire:confirm="{{ __('Delete this address?') }}" type="button" class="text-[11px] text-gray-500 hover:text-red-600 underline">@lang('Delete')</button>
+                                    <button wire:click="editAddress({{ $address->id }})" type="button" class="text-gray-500 hover:text-black text-base underline">@lang('Edit')</button>
+                                    <button wire:click="deleteAddress({{ $address->id }})" wire:confirm="{{ __('Delete this address?') }}" type="button" class="text-gray-500 hover:text-red-600 text-base underline">@lang('Delete')</button>
                                 </div>
                             </div>
                             @if (! $address->is_primary)
-                                <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-[11px] text-gray-500 hover:text-black underline">@lang('Set as Primary Address')</button>
+                                <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-gray-500 hover:text-black text-base underline">@lang('Set as Primary Address')</button>
                             @endif
                         </div>
                     @empty
@@ -264,28 +264,28 @@
                 <form wire:submit.prevent="saveAddress" class="space-y-4">
                     <div class="gap-2 grid grid-cols-1 sm:grid-cols-2">
                         <div>
-                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Recipient's Name")</label>
+                            <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang("Recipient's Name")</label>
                             <input type="text" wire:model="addressRecipientName" placeholder="{{ __('placeholder.address.recipient_name') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
-                            @error('addressRecipientName') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                            @error('addressRecipientName') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                         </div>
                         <div>
-                            <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Contact Number')</label>
+                            <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Contact Number')</label>
                             <input type="tel" wire:model="addressRecipientPhone" placeholder="{{ __('placeholder.address.phone') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
-                            @error('addressRecipientPhone') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                            @error('addressRecipientPhone') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Recipient's Email (Optional)")</label>
+                        <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang("Recipient's Email (Optional)")</label>
                         <input type="email" wire:model="addressRecipientEmail" placeholder="{{ __('placeholder.address.recipient_email') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
-                        @error('addressRecipientEmail') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                        @error('addressRecipientEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Address Type')</label>
+                        <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Address Type')</label>
                         <input type="text" wire:model="addressLabel" placeholder="{{ __('placeholder.address.label') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs">
-                        @error('addressLabel') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                        @error('addressLabel') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                     </div>
                     <div class="relative">
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('City / Town')</label>
+                        <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('City / Town')</label>
                         <input
                             type="search"
                             wire:model.live.debounce.400ms="addressAreaSearch"
@@ -308,19 +308,19 @@
                         <input type="hidden" wire:model="addressAreaName">
                         <input type="hidden" wire:model="addressPostalCode">
                         @if ($addressAreaName)
-                            <p class="mt-1 text-[11px] text-gray-500">@lang('Selected:') {{ $addressAreaName }}{{ $addressPostalCode ? ' - ' . $addressPostalCode : '' }}</p>
+                            <p class="mt-1 text-gray-500 text-base">@lang('Selected:') {{ $addressAreaName }}{{ $addressPostalCode ? ' - ' . $addressPostalCode : '' }}</p>
                         @endif
-                        @error('addressAreaId') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                        @error('addressAreaId') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Street Address')</label>
+                        <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Street Address')</label>
                         <textarea wire:model="addressFull" rows="4" required placeholder="{{ __('placeholder.address.full') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
-                        @error('addressFull') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                        @error('addressFull') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Notes for the Courier')</label>
+                        <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Notes for the Courier')</label>
                         <textarea wire:model="addressNote" rows="2" placeholder="{{ __('placeholder.address.note') }}" class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs resize-none"></textarea>
-                        @error('addressNote') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                        @error('addressNote') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                     </div>
                     <label class="flex items-center gap-2 text-gray-600 text-xs">
                         <input type="checkbox" wire:model="addressIsPrimary" class="border-gray-400 rounded-none focus:ring-0 accent-black">
@@ -375,7 +375,7 @@
                 <div class="space-y-4">
                     <form wire:submit.prevent="login" class="space-y-4">
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Email</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">Email</label>
                                 <div class="relative">
                                     <span class="left-0 absolute inset-y-0 flex items-center pl-3 text-gray-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -390,11 +390,11 @@
                                         class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                     />
                                 </div>
-                                @error('loginEmail') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('loginEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Password')</label>
                                 <div class="relative">
                                     <span class="left-0 absolute inset-y-0 flex items-center pl-3 text-gray-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -420,7 +420,7 @@
                                         @endif
                                     </button>
                                 </div>
-                                @error('loginPassword') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('loginPassword') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="flex items-center pt-1 text-xs">
@@ -452,7 +452,7 @@
                     @if ($registerStep === 'email')
                         <form wire:submit.prevent="requestRegisterOtp" class="space-y-4">
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">Email</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">Email</label>
                                 <div class="relative">
                                     <span class="left-0 absolute inset-y-0 flex items-center pl-3 text-gray-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -467,10 +467,10 @@
                                         class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                     />
                                 </div>
-                                @error('registerEmail') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('registerEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
-                            <p class="text-[11px] text-gray-500 leading-normal">
+                            <p class="text-gray-500 text-base leading-normal">
                                 @lang('We will send a 6-digit OTP verification code to your email before completing your profile.')
                             </p>
 
@@ -493,7 +493,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">
                                     @lang('OTP Code (6 Digits)')
                                 </label>
                                 <input
@@ -505,11 +505,11 @@
                                     required
                                     class="py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
                                 />
-                                @error('registerOtp') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('registerOtp') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Full Name')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Full Name')</label>
                                 <input
                                     type="text"
                                     wire:model="registerFullName"
@@ -517,23 +517,23 @@
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('registerFullName') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('registerFullName') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="gap-2 grid grid-cols-2">
                                 <div>
-                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Phone Number')</label>
+                                    <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Phone Number')</label>
                                     <input
                                         type="tel"
                                         wire:model="registerPhone"
                                         placeholder="08123456789"
                                         class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                     />
-                                    @error('registerPhone') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                    @error('registerPhone') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
-                                    <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang("Gender")</label>
+                                    <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang("Gender")</label>
                                     <select
                                         wire:model="registerGender"
                                         class="bg-white px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
@@ -541,12 +541,12 @@
                                         <option value="male">@lang("Male")</option>
                                         <option value="female">@lang("Female")</option>
                                     </select>
-                                    @error('registerGender') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                    @error('registerGender') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password (Min. 8 Characters)')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Password (Min. 8 Characters)')</label>
                                 <input
                                     type="password"
                                     wire:model="registerPassword"
@@ -554,11 +554,11 @@
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('registerPassword') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('registerPassword') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Password Confirmation')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Password Confirmation')</label>
                                 <input
                                     type="password"
                                     wire:model="registerPasswordConfirmation"
@@ -566,7 +566,7 @@
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('registerPasswordConfirmation') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('registerPasswordConfirmation') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <button
@@ -609,7 +609,7 @@
                     @if ($forgotStep === 'email')
                         <form wire:submit.prevent="requestForgotOtp" class="space-y-4">
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Email Registered')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Email Registered')</label>
                                 <input
                                     type="email"
                                     wire:model="forgotEmail"
@@ -617,10 +617,10 @@
                                     required
                                     class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('forgotEmail') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('forgotEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
-                            <p class="text-[11px] text-gray-500 leading-normal">
+                            <p class="text-gray-500 text-base leading-normal">
                                 @lang('We will send a 6-digit OTP verification code to your email before completing your profile.')
                             </p>
 
@@ -642,7 +642,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('OTP Code (6 Digits)')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('OTP Code (6 Digits)')</label>
                                 <input
                                     type="text"
                                     wire:model="forgotOtp"
@@ -652,23 +652,23 @@
                                     required
                                     class="py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
                                 />
-                                @error('forgotOtp') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('forgotOtp') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider"></label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider"></label>
                                 <input
                                     type="password"
                                     wire:model="forgotPassword"
-                                    placeholder="{{ __('placeholder.password.min_char', 'min' => 8) }}"
+                                    placeholder="{{ __('placeholder.password.min_char', ['min' => 8]) }}"
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('forgotPassword') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('forgotPassword') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-[11px] text-gray-500 uppercase tracking-wider">@lang('Repeat New Password')</label>
+                                <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang('Repeat New Password')</label>
                                 <input
                                     type="password"
                                     wire:model="forgotPasswordConfirmation"
@@ -676,7 +676,7 @@
                                     required
                                     class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
                                 />
-                                @error('forgotPasswordConfirmation') <span class="block mt-1 text-[11px] text-red-500">{{ $message }}</span> @enderror
+                                @error('forgotPasswordConfirmation') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                             </div>
 
                             <button
