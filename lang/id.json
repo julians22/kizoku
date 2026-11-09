@@ -40,7 +40,7 @@
     "Sign in or create a Kizoku customer account to access your orders.": "Masuk atau buat akun pelanggan Kizoku untuk mengakses pesanan Anda.",
     "Password": "Kata Sandi",
     "Forgot Password?" : "Lupa Kata Sandi?",
-    "We will send a 6-digit OTP verification code to your email before completing your profile." : "Kami akan mengirimkan 6 digit kode OTP verifikasi ke email Anda sebelum melengkapi profil.",
+    "We’ll send a verification code (OTP) to your email before you complete your profile." : "Kami akan mengirimkan 6 digit kode OTP verifikasi ke email Anda sebelum melengkapi profil.",
     "OTP Code (6 Digits)": "Kode OTP (6 Digit)",
     "Full Name" : "Nama Lengkap",
     "Phone Number": "Nomor Telepon",
@@ -73,6 +73,7 @@
     "Email" : "Email",
     "2. Gift Option" : "2. Opsi Hadiah",
     "Add Complimentary Gift Wrapping" : "Tambahkan Bungkus Kado Gratis",
+    "Service is not yet available" : "Layanan belum tersedia",
     "3. Shipping & Delivery" : "3. Pengiriman",
     "First Name" : "Nama Depan",
     "Last Name" : "Nama Belakang",
@@ -151,5 +152,20 @@
     "picking up": "sedang diambil",
     "courier not found": "kurir tidak ditemukan",
     "courier not available": "kurir tidak tersedia",
-    "courier not supported": "kurir tidak didukung"
+    "courier not supported": "kurir tidak didukung",
+
+    "A more personal fragrance experience awaits. Sign in or create an account to view your orders, track deliveries, and manage your account." : "Nikmati pengalaman wewangian yang lebih personal. Masuk atau daftar untuk melihat pesanan, melacak pengiriman, dan mengelola akun Anda.",
+    "LOG IN" : "MASUK",
+    "SIGN UP" : "DAFTAR",
+
+    "Enter your email address": "Masukkan alamat email Anda",
+    "Enter your password": "Masukkan kata sandi Anda",
+    "Confirm Password" : "Konfirmasi Kata Sandi",
+
+    "CONTACT NUMBER" : "NOMOR TELEPON",
+
+    "OTP Code has been sent to your email": "Kode OTP registrasi telah dikirim ke email Anda.",
+    "Full name as shown on your ID": "Nama sesuai KTP/identitas",
+    "Email is already registered. Please log in or reset your password.": "Email sudah terdaftar. Silakan login atau reset password.",
+    "Registration successful! Welcome to Kizoku." : "Registrasi berhasil! Selamat datang di Kizoku."
 }

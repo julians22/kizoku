@@ -18,7 +18,7 @@
                 <div class="space-y-4">
                     <h2 class="font-bold uppercase tracking-[0.15em]">@lang('1. Contact Information')</h2>
                     <div class="space-y-1">
-                        <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">@lang('Email')</label>
+                        <label class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('Email')</label>
                         <input
                             type="email"
                             wire:model.defer="email"
@@ -31,10 +31,14 @@
 
                 <div class="space-y-4 pt-4">
                     <h2 class="font-bold uppercase tracking-[0.15em]">@lang('2. Gift Option')</h2>
-                    <label class="flex items-center space-x-3 cursor-pointer select-none">
-                        <input wire:model.defer="giftWrapping" type="checkbox" class="checked:bg-black border border-gray-400 rounded-none focus:ring-0 w-4 h-4 accent-black">
-                        <span class="font-medium text-gray-600 uppercase tracking-wider">@lang('Add Complimentary Gift Wrapping')</span>
-                    </label>
+                    @if (config('checkout.gift_wrapping_enabled'))
+                        <label class="flex items-center space-x-3 cursor-pointer select-none">
+                            <input wire:model.defer="giftWrapping" type="checkbox" class="checked:bg-black border border-gray-400 rounded-none focus:ring-0 w-4 h-4 accent-black">
+                            <span class="font-medium text-gray-600 uppercase tracking-wider">@lang('Add Complimentary Gift Wrapping')</span>
+                        </label>
+                    @else
+                        <p class="font-medium text-gray-400 uppercase tracking-wider">@lang('Service is not yet available')</p>
+                    @endif
                 </div>
 
                 <div class="space-y-6 pt-4">
@@ -42,12 +46,12 @@
 
                     <div class="gap-6 grid grid-cols-1 md:grid-cols-2">
                         <div class="space-y-1">
-                            <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">@lang('First Name')</label>
+                            <label class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('First Name')</label>
                             <input type="text" wire:model.defer="firstName" class="pt-1 pb-2 border-gray-300 focus:border-black border-b focus:outline-none w-full text-sm transition-colors">
                             @error('firstName') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
                         </div>
                         <div class="space-y-1">
-                            <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">@lang('Last Name')</label>
+                            <label class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('Last Name')</label>
                             <input type="text" wire:model.defer="lastName" class="pt-1 pb-2 border-gray-300 focus:border-black border-b focus:outline-none w-full text-sm transition-colors">
                             @error('lastName') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
                         </div>
@@ -55,8 +59,8 @@
 
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
-                            <label class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">@lang('Shipping Address')</label>
-                            <button type="button" wire:click="$toggle('showNewAddressForm')" class="text-[10px] text-gray-600 hover:text-black underline uppercase tracking-wider">
+                            <label class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('Shipping Address')</label>
+                            <button type="button" wire:click="$toggle('showNewAddressForm')" class="text-gray-600 hover:text-black text-xs underline uppercase tracking-wider">
                                 {{ $showNewAddressForm ? __('Cancel') : __('+ Add Address') }}
                             </button>
                         </div>
@@ -73,7 +77,7 @@
 
                         @if ($showNewAddressForm)
                             <div class="space-y-3 bg-gray-50 p-4 border border-gray-200">
-                                <p class="font-semibold text-[10px] text-gray-500 uppercase tracking-wider">@lang('New Address')</p>
+                                <p class="font-semibold text-gray-500 text-xs uppercase tracking-wider">@lang('New Address')</p>
                                 <div class="gap-2 grid grid-cols-1 sm:grid-cols-2">
                                     <input type="text" wire:model="newRecipientName" placeholder="{{ __('placeholder.address.recipient_name') }}" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
                                     <input type="tel" wire:model="newRecipientPhone" placeholder="{{ __('placeholder.address.phone') }}" class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-sm">
@@ -137,7 +141,7 @@
 
                     <div class="space-y-3 pt-2">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-medium text-[10px] text-gray-400 uppercase tracking-wider">@lang('Courier Rates')</h3>
+                            <h3 class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('Courier Rates')</h3>
                         </div>
 
                         <div
@@ -221,7 +225,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-[#111625] text-xs uppercase tracking-wider">{{ $parfume['name'] }}</h3>
-                                <p class="mt-1 text-[10px] text-stone-400 uppercase tracking-wider">Qty: {{ $parfume['quantity'] }}</p>
+                                <p class="mt-1 text-stone-400 text-xs uppercase tracking-wider">Qty: {{ $parfume['quantity'] }}</p>
                                 <p class="mt-1 font-medium text-stone-500 text-xs tracking-wider">IDR {{ number_format($parfume['price'], 0) }}</p>
                             </div>
                         </div>
