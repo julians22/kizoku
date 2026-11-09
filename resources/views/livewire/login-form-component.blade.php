@@ -77,8 +77,8 @@
                 wire:loading.attr="disabled"
                 class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
-                <span wire:loading.remove wire:target="login">@lang('MASUK')</span>
-                <span wire:loading wire:target="login">@lang('MEMPROSES...')</span>
+                <span wire:loading.remove wire:target="login">@lang('LOGIN')</span>
+                <span wire:loading wire:target="login">@lang('PROCESSING...')</span>
             </button>
     </form>
 </div>

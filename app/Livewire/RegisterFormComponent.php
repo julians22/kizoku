@@ -59,10 +59,11 @@ class RegisterFormComponent extends Component
         try {
             $response = $authService->requestRegisterOtp($email);
             $this->registerStep = 'details';
-            $this->infoMessage = $response['message'] ?? __('OTP Code has been sent to your email');
+            // $this->infoMessage = $response['message'] ?? __('OTP Code has been sent to your email');
+            $this->infoMessage = $response['status'] == true ? __("api_response.otp_send_to_email") : $response['message'];
             $this->dispatch('trigger-toast', [
                 'type' => 'success',
-                'message' => __('OTP Code has been sent to your email'),
+                'message' => $this->infoMessage
             ]);
         } catch (Exception $e) {
             $this->errorMessage = __($e->getMessage());
