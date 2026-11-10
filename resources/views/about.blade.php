@@ -36,7 +36,7 @@
 >
     <div class="mx-auto max-w-3xl xl:max-w-6xl">
         <h2 class="font-bold text-lg sm:text-xl xl:text-xl text-center uppercase leading-relaxed">
-            Rooted in this belief, we created KIZUKO to offer a new expression of fragrance
+            Rooted in this belief, we created KIZOKU to offer a new expression of fragrance
             inspired by modern Japanese culture. Each scent is meticulously crafted for the
             modern gentleman, using high-quality ingredients and refined compositions.
         </h2>

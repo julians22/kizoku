@@ -105,7 +105,7 @@
             >
                 <span class="text-stone-500 text-base">@lang("SHOP BY CATEGORY")</span>
                 <ul class="flex flex-col gap-y-8 mt-5">
-                    <li><a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("Extrait de Parfume")</a></li>
+                    <li><a href="{{ route('collections.category', ['slug'=>'parfume']) }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("Extrait de Parfum")</a></li>
                 </ul>
             </div>
 

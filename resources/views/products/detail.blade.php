@@ -24,7 +24,7 @@
 
     <div class="gap-x-6 gap-y-10 grid grid-cols-1 2xl:grid-cols-10 mx-auto px-4 py-10 max-w-6xl">
         <div class="2xl:col-span-6">
-            <p class="mb-5">@lang('Extrait de Parfume')</p>
+            <p class="mb-5">@lang('Extrait de Parfum')</p>
 
             <h2 class="font-bold text-3xl">{{ $selectedParfume['name'] }}</h2>
             <p class="mb-5">IDR {{ number_format($selectedParfume['price'], 0) }}</p>
