@@ -5,36 +5,36 @@
 @section('content')
 
 <section
-    class="isolate relative flex flex-col justify-center items-center bg-white bg-cover bg-no-repeat bg-center px-5 xl:px-0 py-24 xl:py-0 h-[82svh] xl:h-screen min-h-[38rem] xl:min-h-0 about-hero"
+    class="isolate relative grid grid-cols-2 grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:flex xl:flex-col justify-center items-center bg-white bg-cover bg-no-repeat bg-center px-5 xl:px-0 py-24 xl:py-0 h-[82svh] xl:h-screen min-h-[38rem] xl:min-h-0 about-hero"
 >
     <div class="about-ingredients" aria-hidden="true">
-        <div class="drag-element">
+        <div class="about-ingredient order-1">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku1_lg.webp') }}" media="(min-width: 1280px)">
-                <img src="{{ asset('img/about/kizoku1.webp') }}" alt="">
+                <img src="{{ asset('img/about/kizoku1.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="drag-element">
+        <div class="about-ingredient order-2">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku2_lg.webp') }}" media="(min-width: 1280px)">
-                <img src="{{ asset('img/about/kizoku2.webp') }}" alt="">
+                <img src="{{ asset('img/about/kizoku2.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="drag-element">
+        <div class="about-ingredient order-4">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku3_lg.webp') }}" media="(min-width: 1280px)">
-                <img src="{{ asset('img/about/kizoku3.webp') }}" alt="">
+                <img src="{{ asset('img/about/kizoku3.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="drag-element">
+        <div class="about-ingredient order-5">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku4_lg.webp') }}" media="(min-width: 1280px)">
-                <img src="{{ asset('img/about/kizoku4.webp') }}" alt="">
+                <img src="{{ asset('img/about/kizoku4.webp') }}" alt="" draggable="false">
             </picture>
         </div>
     </div>
 
-    <div class="z-20 xl:max-w-xl max-w-3xl pointer-events-none about-hero-copy xl:mix-blend-difference">
+    <div class="z-20 order-3 col-span-2 xl:max-w-xl max-w-3xl pointer-events-none about-hero-copy xl:mix-blend-difference">
         <h2 class="font-bold text-black xl:text-white text-xs xl:text-sm text-center leading-relaxed">
             PERFUME IS THE FIRST LAYER OF DRESSING, AN
             UNSEEN ENSEMBLE THAT SPEAKS BEFORE WORDS,
@@ -67,71 +67,68 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hero = document.querySelector('.about-hero');
-            const dragElements = hero.querySelectorAll('.drag-element');
+            const ingredients = hero.querySelectorAll('.about-ingredient');
             const desktopMedia = window.matchMedia('(min-width: 1280px)');
-            let activeElement = null;
-            let offsetX = 0;
-            let offsetY = 0;
+            const hoverMedia = window.matchMedia('(hover: hover)');
 
             const positionDesktopIngredients = () => {
                 if (!desktopMedia.matches) {
-                    if (activeElement) {
-                        activeElement.classList.remove('active');
-                        activeElement = null;
-                    }
-
-                    dragElements.forEach(element => {
+                    ingredients.forEach(element => {
                         element.style.left = '';
                         element.style.top = '';
                     });
                     return;
                 }
 
-                dragElements.forEach(element => {
+                ingredients.forEach(element => {
                     const randomPosition = generateRandomPosition(element, hero);
                     element.style.left = `${randomPosition.x}px`;
                     element.style.top = `${randomPosition.y}px`;
                 });
             };
 
-            dragElements.forEach(element => {
-                element.addEventListener('mousedown', (event) => {
-                    if (!desktopMedia.matches) {
+            const keepIngredientsInBounds = () => {
+                if (!desktopMedia.matches) {
+                    return;
+                }
+
+                ingredients.forEach(element => {
+                    if (element.style.left === '' || element.style.top === '') {
                         return;
                     }
 
-                    event.preventDefault();
-                    element.classList.add('active');
-                    activeElement = element;
-                    offsetX = event.clientX - element.getBoundingClientRect().left;
-                    offsetY = event.clientY - element.getBoundingClientRect().top;
+                    const maxX = Math.max(0, hero.clientWidth - element.offsetWidth);
+                    const maxY = Math.max(0, hero.clientHeight - element.offsetHeight);
+                    element.style.left = `${Math.min(parseFloat(element.style.left), maxX)}px`;
+                    element.style.top = `${Math.min(parseFloat(element.style.top), maxY)}px`;
                 });
-            });
+            };
 
-            document.addEventListener('mousemove', (e) => {
-                if (activeElement) {
-                    activeElement.style.left = `${e.clientX - offsetX}px`;
-                    activeElement.style.top = `${e.clientY - offsetY}px`;
-                }
-            });
+            ingredients.forEach(element => {
+                element.addEventListener('pointerenter', (event) => {
+                    if (!desktopMedia.matches || !hoverMedia.matches || event.pointerType === 'touch') {
+                        return;
+                    }
 
-            document.addEventListener('mouseup', () => {
-                if (activeElement) {
-                    activeElement.classList.remove('active');
-                }
-                activeElement = null;
+                    const randomPosition = generateRandomPosition(element, hero);
+                    element.style.left = `${randomPosition.x}px`;
+                    element.style.top = `${randomPosition.y}px`;
+                });
+
+                element.querySelector('img').addEventListener('load', keepIngredientsInBounds);
             });
 
             positionDesktopIngredients();
             desktopMedia.addEventListener('change', positionDesktopIngredients);
+            window.addEventListener('resize', keepIngredientsInBounds);
         });
 
         function generateRandomPosition(element, container) {
             const containerRect = container.getBoundingClientRect();
             const elementRect = element.getBoundingClientRect();
 
-            const maxX = containerRect.width - elementRect.width;
-            const maxY = containerRect.height - elementRect.height;
+            const maxX = Math.max(0, containerRect.width - elementRect.width);
+            const maxY = Math.max(0, containerRect.height - elementRect.height);
 
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
