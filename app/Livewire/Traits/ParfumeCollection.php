@@ -26,7 +26,7 @@ trait ParfumeCollection
             [
                 'name' => 'KAHEN',
                 'slug' => 'kahen',
-                'image' => asset('img/product/product_Kahen.jpg'),
+                'image' => asset('img/product/product_Kahen.webp'),
                 'image_alt' => 'KAHEN Image',
                 'description' => '“Kahen” emits a breeze of spring morning wind on every spray — invigorating and active. Ideal for outdoor settings and casual to smart-casual occasions, the scent blends hyacinth, jasmine, and ylang-ylang with a vigorous green freshness, then settles into the warm, grounding calm of vetiver and cedarwood.',
                 'insight_images' => [
@@ -58,7 +58,7 @@ trait ParfumeCollection
             [
                 'name' => 'KAKAN',
                 'slug' => 'kakan',
-                'image' => asset('img/product/product_Kakan.jpg'),
+                'image' => asset('img/product/product_Kakan.webp'),
                 'image_alt' => 'KAKAN Image',
                 'description' => '“Kakan” is composed, refined, and timeless — an expression of quiet confidence as the evening unfolds. Saffron, vanilla, and olibanum open with a bold, leathery smoke, softened by subtle sweetness. “Kakan” is the scent of those who value precision and authenticity, a modern classic defined by confidence and leathery nuances.',
                 'insight_images' => [
@@ -90,7 +90,7 @@ trait ParfumeCollection
             [
                 'name' => 'KOHAKU',
                 'slug' => 'kohaku',
-                'image' => asset('img/product/product_Kohaku.jpg'),
+                'image' => asset('img/product/product_Kohaku.webp'),
                 'image_alt' => 'KOHAKU Image',
                 'description' => '“Kohaku” is smooth, subtle, and sensual — best worn during the day to evenings into the depths of the night. Fresh aldehydic and green nuances blend with the gentle fruitiness of pear, leading into a delicate floral heart of muguet, rose, and jasmine. A balanced scent that leaves a delicately alluring impression.',
                 'insight_images' => [
@@ -122,7 +122,7 @@ trait ParfumeCollection
             [
                 'name' => 'KI',
                 'slug' => 'ki',
-                'image' => asset('img/product/product_Kahen.jpg'),
+                'image' => asset('img/product/product_Ki.webp'),
                 'image_alt' => 'KI Image',
                 'description' => 'Strong yet elegant — “Ki” is bold, rich, and earthy. Fresh and subtly sweet with mirabelle and pear, it unfolds into the warmth of date layered with jasmine and freesia, before deepening into earthy oakmoss and patchouli. “Ki” embodies the balance between strength and serenity, crafted for active days that extend into composed evenings.',
                 'insight_images' => [
