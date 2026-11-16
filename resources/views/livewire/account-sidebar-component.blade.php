@@ -1,6 +1,6 @@
 <aside class="flex flex-col lg:min-h-[32rem]">
     <div class="flex items-center gap-3 pb-6 border-gray-200 border-b">
-        <div class="flex justify-center items-center bg-black rounded-full w-12 h-12 font-saa-series-e-dot text-white tracking-wider">
+        <div class="flex justify-center items-center bg-navy-500 rounded-full w-12 h-12 font-saa-series-e-dot text-white tracking-wider">
             {{ $this->initials }}
         </div>
         <div class="min-w-0">

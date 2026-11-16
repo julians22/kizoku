@@ -33,7 +33,7 @@
                     <h2 class="font-bold uppercase tracking-[0.15em]">@lang('2. Gift Option')</h2>
                     @if (config('checkout.gift_wrapping_enabled'))
                         <label class="flex items-center space-x-3 cursor-pointer select-none">
-                            <input wire:model.defer="giftWrapping" type="checkbox" class="checked:bg-black border border-gray-400 rounded-none focus:ring-0 w-4 h-4 accent-black">
+                            <input wire:model.defer="giftWrapping" type="checkbox" class="checked:bg-navy-500 border border-gray-400 rounded-none focus:ring-0 w-4 h-4 accent-black">
                             <span class="font-medium text-gray-600 uppercase tracking-wider">@lang('Add Complimentary Gift Wrapping')</span>
                         </label>
                     @else
@@ -123,7 +123,7 @@
                                     <input type="checkbox" wire:model="newAddressIsPrimary" class="border-gray-400 rounded-none focus:ring-0 accent-black">
                                     @lang('Set as Primary Address')
                                 </label>
-                                <button type="button" wire:click="saveNewAddress" wire:loading.attr="disabled" class="bg-black hover:bg-neutral-800 px-4 py-3 w-full text-white text-xs uppercase tracking-wider">
+                                <button type="button" wire:click="saveNewAddress" wire:loading.attr="disabled" class="bg-navy-500 hover:bg-neutral-800 px-4 py-3 w-full text-white text-xs uppercase tracking-wider">
                                     <span wire:loading.remove wire:target="saveNewAddress">@lang('Save and Use Address')</span>
                                     <span wire:loading wire:target="saveNewAddress">@lang('Saving...')</span>
                                 </button>
@@ -262,7 +262,7 @@
                     wire:click="completePurchase"
                     wire:loading.attr="disabled"
                     @disabled($isLoadingRates || ($courierPricings && ! $selectedCourierService))
-                    class="bg-[#111625] hover:bg-black disabled:opacity-70 py-4 w-full font-bold text-white text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer disabled:cursor-wait"
+                    class="bg-[#111625] hover:bg-navy-500 disabled:opacity-70 py-4 w-full font-bold text-white text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer disabled:cursor-wait"
                 >
                     <span wire:loading.remove wire:target="completePurchase">@lang('Complete Purchase')</span>
                     <span wire:loading wire:target="completePurchase">@lang('Preparing Payment...')</span>

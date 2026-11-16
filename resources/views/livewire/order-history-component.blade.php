@@ -46,7 +46,7 @@
                                 <div class="mt-4">
                                     <div class="flex gap-3">
                                         <div class="flex flex-col items-center">
-                                            <span class="bg-black rounded-full size-2.5"></span>
+                                            <span class="bg-navy-500 rounded-full size-2.5"></span>
                                             <span class="bg-gray-200 w-px min-h-8 grow"></span>
                                         </div>
                                         <div class="pb-4">
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="flex gap-3">
                                         <div class="flex flex-col items-center">
-                                            <span class="bg-black rounded-full size-2.5"></span>
+                                            <span class="bg-navy-500 rounded-full size-2.5"></span>
                                         </div>
                                         <div class="min-w-0">
                                             <p class="font-medium text-gray-800 text-xs">@lang('Latest shipment status')</p>

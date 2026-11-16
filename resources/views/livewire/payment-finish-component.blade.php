@@ -7,7 +7,7 @@
             </p>
             <a
                 href="{{ route('account') }}"
-                class="inline-block bg-[#111625] hover:bg-black px-8 py-4 font-bold text-white text-xs uppercase tracking-[0.2em] transition-colors"
+                class="inline-block bg-[#111625] hover:bg-navy-500 px-8 py-4 font-bold text-white text-xs uppercase tracking-[0.2em] transition-colors"
             >
                 @lang('Lihat Riwayat Pemesanan')
             </a>
@@ -86,7 +86,7 @@
             <div class="flex sm:flex-row flex-col justify-center gap-4">
                 <a
                     href="{{ route('account') }}"
-                    class="inline-block bg-[#111625] hover:bg-black px-8 py-4 font-bold text-white text-xs text-center uppercase tracking-[0.2em] transition-colors"
+                    class="inline-block bg-[#111625] hover:bg-navy-500 px-8 py-4 font-bold text-white text-xs text-center uppercase tracking-[0.2em] transition-colors"
                 >
                     @lang('Lihat Riwayat Pemesanan')
                 </a>

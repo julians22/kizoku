@@ -219,7 +219,7 @@ new class extends Component
                     <form action="{{ route('checkout') }}" method="POST">
                         @csrf
                         <!-- Tombol Checkout -->
-                        <button type="submit" class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer">
+                        <button type="submit" class="bg-navy-500 hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer">
                             <span class="font-semibold text-xs uppercase tracking-[0.3em]">
                                 @lang("Proceed to Checkout")
                             </span>
@@ -228,7 +228,7 @@ new class extends Component
                 @else
                     <a
                         href="{{ route('login') }}"
-                        class="bg-black hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer"
+                        class="bg-navy-500 hover:bg-slate-800 px-6 py-5 w-full text-white transition-all duration-300 cursor-pointer"
                     >
                         <span class="font-semibold text-xs uppercase tracking-[0.3em]">
                             @lang("Proceed to Checkout")

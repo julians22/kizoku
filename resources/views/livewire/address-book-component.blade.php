@@ -12,7 +12,7 @@
                             <div class="flex items-center gap-2">
                                 <h4 class="font-semibold text-xs uppercase tracking-wider">{{ $address->label ?: __('Address') }}</h4>
                                 @if ($address->is_primary)
-                                    <span class="bg-black px-2 py-0.5 text-[9px] text-white uppercase tracking-widest">@lang('Primary')</span>
+                                    <span class="bg-navy-500 px-2 py-0.5 text-[9px] text-white uppercase tracking-widest">@lang('Primary')</span>
                                 @endif
                             </div>
                             <p class="mt-2 text-gray-700 text-xs leading-relaxed">{{ $address->full_address }}</p>
@@ -34,7 +34,7 @@
             @endforelse
         </div>
 
-        <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">@lang('+ ADD ADDRESS')</button>
+        <button wire:click="newAddress" type="button" class="bg-navy-500 hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">@lang('+ ADD ADDRESS')</button>
     @else
         <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
             <button wire:click="backToList" type="button" class="text-gray-500 hover:text-navy-500 text-xs">&larr; @lang('Back')</button>
@@ -107,7 +107,7 @@
                 <input type="checkbox" wire:model="addressIsPrimary" class="border-gray-400 rounded-none focus:ring-0 accent-black">
                 @lang('Set as Primary Address')
             </label>
-            <button type="submit" wire:loading.attr="disabled" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">
+            <button type="submit" wire:loading.attr="disabled" class="bg-navy-500 hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">
                 <span wire:loading.remove wire:target="saveAddress">@lang('SAVE ADDRESS')</span>
                 <span wire:loading wire:target="saveAddress">@lang('PROCESSING...')</span>
             </button>
