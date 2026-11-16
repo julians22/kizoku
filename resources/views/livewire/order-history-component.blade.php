@@ -86,11 +86,11 @@
             </div>
             @if (($ordersMeta['last_page'] ?? 1) > 1)
                 <div class="flex justify-between items-center pt-2 text-base">
-                    <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                    <button wire:click="previousOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) <= 1) class="disabled:opacity-40 text-gray-600 hover:text-navy-500 underline">
                         &larr; @lang('Sebelumnya')
                     </button>
                     <span class="text-gray-400">{{ $ordersMeta['current_page'] ?? 1 }} / {{ $ordersMeta['last_page'] ?? 1 }}</span>
-                    <button wire:click="nextOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) >= ($ordersMeta['last_page'] ?? 1)) class="disabled:opacity-40 text-gray-600 hover:text-black underline">
+                    <button wire:click="nextOrdersPage" type="button" @disabled(($ordersMeta['current_page'] ?? 1) >= ($ordersMeta['last_page'] ?? 1)) class="disabled:opacity-40 text-gray-600 hover:text-navy-500 underline">
                         @lang('Berikutnya') &rarr;
                     </button>
                 </div>

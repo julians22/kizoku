@@ -26,7 +26,7 @@
                         wire:model="loginEmail"
                         placeholder="@lang('Enter your email address')"
                         required
-                        class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                        class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                     />
                 </div>
                 @error('loginEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
@@ -45,7 +45,7 @@
                         wire:model="loginPassword"
                         placeholder="@lang('Enter your password')"
                         required
-                        class="py-2.5 pr-9 pl-9 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                        class="py-2.5 pr-9 pl-9 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                     />
                     <button
                         type="button"
@@ -66,7 +66,7 @@
                 <button
                     type="button"
                     wire:click="$dispatch('open-auth-mode', { mode: 'forgot_password' })"
-                    class="text-gray-500 hover:text-black underline transition-colors"
+                    class="text-gray-500 hover:text-navy-500 underline transition-colors"
                 >
                     @lang('Forgot Password?')
                 </button>
@@ -75,7 +75,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                class="flex justify-center items-center space-x-2 bg-navy-500 hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
                 <span wire:loading.remove wire:target="login">@lang('LOGIN')</span>
                 <span wire:loading wire:target="login">@lang('PROCESSING...')</span>

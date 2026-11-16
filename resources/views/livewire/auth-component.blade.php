@@ -30,13 +30,13 @@
                 <div class="flex mb-6 border-gray-200 border-b">
                     <button
                         wire:click="setAuthMode('login')"
-                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'login' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
+                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'login' ? 'border-b-2 border-navy-500 text-navy-500' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
                     >
                         @lang('LOG IN')
                     </button>
                     <button
                         wire:click="setAuthMode('register')"
-                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'register' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
+                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'register' ? 'border-b-2 border-navy-500 text-navy-500' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
                     >
                         @lang('SIGN UP')
                     </button>

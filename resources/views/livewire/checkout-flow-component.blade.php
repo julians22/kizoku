@@ -60,7 +60,7 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <label class="font-medium text-gray-400 text-xs uppercase tracking-wider">@lang('Shipping Address')</label>
-                            <button type="button" wire:click="$toggle('showNewAddressForm')" class="text-gray-600 hover:text-black text-xs underline uppercase tracking-wider">
+                            <button type="button" wire:click="$toggle('showNewAddressForm')" class="text-gray-600 hover:text-navy-500 text-xs underline uppercase tracking-wider">
                                 {{ $showNewAddressForm ? __('Cancel') : __('+ Add Address') }}
                             </button>
                         </div>

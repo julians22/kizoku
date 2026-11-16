@@ -14,8 +14,8 @@
                     </div>
                     <div class="relative space-y-2 bg-white py-6">
                         <h2>@lang("Extrait de Parfum")</h2>
-                        <h3 class="font-semibold text-gray-900 text-lg tracking-widest">{{ $collection['name'] }}</h3>
-                        <p class="text-gray-900">IDR {{ number_format($collection['price'], 0) }}</p>
+                        <h3 class="font-semibold text-navy-500 text-lg tracking-widest">{{ $collection['name'] }}</h3>
+                        <p class="text-navy-500">IDR {{ number_format($collection['price'], 0) }}</p>
 
                         <div
                             class="right-6 bottom-6 z-10 absolute">

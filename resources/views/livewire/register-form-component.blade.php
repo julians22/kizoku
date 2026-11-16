@@ -28,7 +28,7 @@
                         wire:model="registerEmail"
                         placeholder="@lang('Enter your email address')"
                         required
-                        class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                        class="py-2.5 pr-3 pl-9 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                     />
                 </div>
                 @error('registerEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
@@ -41,7 +41,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                class="flex justify-center items-center space-x-2 bg-navy-500 hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
                 <span wire:loading.remove wire:target="requestRegisterOtp">@lang('REQUEST REGISTRATION OTP')</span>
                 <span wire:loading wire:target="requestRegisterOtp">@lang('SENDING...')</span>
@@ -67,7 +67,7 @@
                     pattern="\d{6}"
                     placeholder="••••••"
                     required
-                    class="py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
+                    class="py-2.5 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
                 />
                 @error('registerOtp') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -79,7 +79,7 @@
                     wire:model="registerFullName"
                     placeholder="@lang('Full name as shown on your ID')"
                     required
-                    class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('registerFullName') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -91,7 +91,7 @@
                         type="tel"
                         wire:model="registerPhone"
                         placeholder="08123456789"
-                        class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                        class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                     />
                     @error('registerPhone') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
                 </div>
@@ -100,7 +100,7 @@
                     <label class="block mb-1 text-gray-500 text-base uppercase tracking-wider">@lang("Gender")</label>
                     <select
                         wire:model="registerGender"
-                        class="bg-white px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                        class="bg-white px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                     >
                         <option value="male">@lang("Male")</option>
                         <option value="female">@lang("Female")</option>
@@ -116,7 +116,7 @@
                     wire:model="registerPassword"
                     placeholder="@lang('Enter your password')"
                     required
-                    class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('registerPassword') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -128,7 +128,7 @@
                     wire:model="registerPasswordConfirmation"
                     placeholder="{{ __('passwords.repeat') }}"
                     required
-                    class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('registerPasswordConfirmation') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -136,7 +136,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-3 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                class="flex justify-center items-center space-x-2 bg-navy-500 hover:bg-neutral-800 mt-3 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
                 <span wire:loading.remove wire:target="submitRegister">@lang('COMPLETE REGISTRATION')</span>
                 <span wire:loading wire:target="submitRegister">@lang('PROCESSING...')</span>
@@ -146,7 +146,7 @@
                 <button
                     type="button"
                     wire:click="$set('registerStep', 'email')"
-                    class="text-gray-500 hover:text-black text-xs underline"
+                    class="text-gray-500 hover:text-navy-500 text-xs underline"
                 >
                     &larr; @lang('Change Email')
                 </button>

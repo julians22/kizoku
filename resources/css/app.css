@@ -19,6 +19,13 @@
     --color-mint-light: #e8f7ee;
     --color-mint-border: #b8dfc7;
     --color-mint-text: #1b4d32;
+    --color-navy-500: #11182b;
+}
+
+@layer base {
+    html {
+        @apply text-navy-500;
+    }
 }
 
 @layer components {
@@ -32,7 +39,7 @@
     }
 
     .lang-pill {
-        @apply top-1 bottom-1 left-1 absolute bg-black shadow-md w-8 xl:w-10 transition-all duration-300 ease-in-out;
+        @apply top-1 bottom-1 left-1 absolute bg-navy-500 shadow-md w-8 xl:w-10 transition-all duration-300 ease-in-out;
     }
 
     .lang-pill.left {
@@ -49,6 +56,10 @@
 
     .title__3xl {
         @apply font-saa-series-e-dot text-3xl uppercase tracking-wide;
+    }
+
+    .link__hover {
+        @apply text-[#11182b] hover:text-gray-200;
     }
 
     .section-imaged {

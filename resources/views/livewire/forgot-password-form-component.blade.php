@@ -13,11 +13,11 @@
     @endif
 
     <div class="flex justify-between items-center mb-4 pb-3 border-gray-200 border-b">
-        <h4 class="font-semibold text-gray-900 text-xs uppercase tracking-[0.2em]">@lang('RESET PASSWORD')</h4>
+        <h4 class="font-semibold text-navy-500 text-xs uppercase tracking-[0.2em]">@lang('RESET PASSWORD')</h4>
         <button
             type="button"
             wire:click="$dispatch('open-auth-mode', { mode: 'login' })"
-            class="text-gray-400 hover:text-black text-xs"
+            class="text-gray-400 hover:text-navy-500 text-xs"
         >
             &times; @lang('Cancel')
         </button>
@@ -32,7 +32,7 @@
                     wire:model="forgotEmail"
                     placeholder="nama@email.com"
                     required
-                    class="px-3 py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2.5 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('forgotEmail') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -44,7 +44,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                class="flex justify-center items-center space-x-2 bg-navy-500 hover:bg-neutral-800 mt-4 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
                 <span wire:loading.remove wire:target="requestForgotOtp">@lang('SEND RESET OTP')</span>
                 <span wire:loading wire:target="requestForgotOtp">@lang('SENDING...')</span>
@@ -67,7 +67,7 @@
                     pattern="\d{6}"
                     placeholder="••••••"
                     required
-                    class="py-2.5 border border-gray-300 focus:border-black rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
+                    class="py-2.5 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full font-bold text-lg text-center tracking-[0.4em] transition-colors"
                 />
                 @error('forgotOtp') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -79,7 +79,7 @@
                     wire:model="forgotPassword"
                     placeholder="{{ __('placeholder.password.min_char', ['min' => 8]) }}"
                     required
-                    class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('forgotPassword') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -91,7 +91,7 @@
                     wire:model="forgotPasswordConfirmation"
                     placeholder="Konfirmasi kata sandi baru"
                     required
-                    class="px-3 py-2 border border-gray-300 focus:border-black rounded focus:outline-none w-full text-xs transition-colors"
+                    class="px-3 py-2 border border-gray-300 focus:border-navy-500 rounded focus:outline-none w-full text-xs transition-colors"
                 />
                 @error('forgotPasswordConfirmation') <span class="block mt-1 text-red-500 text-base">{{ $message }}</span> @enderror
             </div>
@@ -99,7 +99,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="flex justify-center items-center space-x-2 bg-black hover:bg-neutral-800 mt-3 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
+                class="flex justify-center items-center space-x-2 bg-navy-500 hover:bg-neutral-800 mt-3 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
                 <span wire:loading.remove wire:target="submitResetPassword">@lang('SIMPAN KATA SANDI BARU')</span>
                 <span wire:loading wire:target="submitResetPassword">@lang('MEMPROSES...')</span>

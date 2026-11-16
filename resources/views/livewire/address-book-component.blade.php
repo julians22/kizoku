@@ -21,12 +21,12 @@
                             @endif
                         </div>
                         <div class="flex gap-2 shrink-0">
-                            <button wire:click="editAddress({{ $address->id }})" type="button" class="text-gray-500 hover:text-black text-base underline">@lang('Edit')</button>
+                            <button wire:click="editAddress({{ $address->id }})" type="button" class="text-gray-500 hover:text-navy-500 text-base underline">@lang('Edit')</button>
                             <button wire:click="deleteAddress({{ $address->id }})" wire:confirm="{{ __('Delete this address?') }}" type="button" class="text-gray-500 hover:text-red-600 text-base underline">@lang('Delete')</button>
                         </div>
                     </div>
                     @if (! $address->is_primary)
-                        <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-gray-500 hover:text-black text-base underline">@lang('Set as Primary Address')</button>
+                        <button wire:click="setPrimaryAddress({{ $address->id }})" type="button" class="mt-3 text-gray-500 hover:text-navy-500 text-base underline">@lang('Set as Primary Address')</button>
                     @endif
                 </div>
             @empty
@@ -37,7 +37,7 @@
         <button wire:click="newAddress" type="button" class="bg-black hover:bg-neutral-800 py-3 w-full font-semibold text-white text-xs uppercase tracking-[0.18em] transition-colors">@lang('+ ADD ADDRESS')</button>
     @else
         <div class="flex justify-between items-center pb-4 border-gray-200 border-b">
-            <button wire:click="backToList" type="button" class="text-gray-500 hover:text-black text-xs">&larr; @lang('Back')</button>
+            <button wire:click="backToList" type="button" class="text-gray-500 hover:text-navy-500 text-xs">&larr; @lang('Back')</button>
             <h3 class="font-semibold text-xs uppercase tracking-[0.18em]">{{ $editingAddressId ? __('EDIT ADDRESS') : __('NEW ADDRESS') }}</h3>
             <span class="w-12"></span>
         </div>
