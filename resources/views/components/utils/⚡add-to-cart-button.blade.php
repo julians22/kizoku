@@ -41,7 +41,7 @@ new class extends Component
         wire:loading.attr="disabled"
         wire:click.prevent="addToCart"
 
-        {{ $attributes->merge(['class' => 'bg-black hover:bg-gray-800 px-4 py-2 font-medium text-white text-sm transition-colors cursor-pointer data-loading:opacity-50']) }}
+        {{ $attributes->merge(['class' => 'bg-navy-500 hover:bg-gray-800 px-4 py-2 font-medium text-white text-sm transition-colors cursor-pointer data-loading:opacity-50']) }}
     >
         @if($text)
             <span class="uppercase tracking-widest">{{ $text }}</span>
