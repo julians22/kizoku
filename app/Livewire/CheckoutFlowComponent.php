@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\ConfiguresMidtrans;
 use App\Models\CustomerAddress;
 use App\Services\Backend\BiteshipService;
 use App\Services\Backend\OrderService;
@@ -10,12 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Midtrans\Config;
 use Midtrans\Snap;
 use Livewire\Component;
 
 class CheckoutFlowComponent extends Component
 {
+    use ConfiguresMidtrans;
+
     // Cart slug => Karuizawa product SKU.
     private const SKU_MAP = [
         'kahen' => 'KAHEN-EDP',
@@ -359,12 +361,16 @@ class CheckoutFlowComponent extends Component
         $this->transactionReference = $result['transaction_id'] ?? $this->currentOrderId;
         $this->completed = true;
         session()->forget('cart');
+
+        $this->redirectToFinishPage($result);
     }
 
     public function markPaymentPending(array $result = []): void
     {
         $this->paymentStatus = 'pending';
         $this->transactionReference = $result['transaction_id'] ?? $this->currentOrderId;
+
+        $this->redirectToFinishPage($result);
     }
 
     public function markPaymentError(array $result = []): void
@@ -374,12 +380,13 @@ class CheckoutFlowComponent extends Component
         $this->addError('payment', 'Payment was not completed. You can try again.');
     }
 
-    private function configureMidtrans(): void
+    private function redirectToFinishPage(array $result = []): void
     {
-        Config::$serverKey = (string) config('services.midtrans.server_key');
-        Config::$isProduction = (bool) config('services.midtrans.is_production');
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+        $this->redirectRoute('checkout.finish', array_filter([
+            'order_id' => $result['order_id'] ?? $this->currentOrderId,
+            'status_code' => $result['status_code'] ?? null,
+            'transaction_status' => $result['transaction_status'] ?? null,
+        ]));
     }
 
     private function createBackendOrder(string $orderId): void

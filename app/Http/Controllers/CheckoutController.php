@@ -50,6 +50,15 @@ class CheckoutController extends Controller
         return $this->index($request);
     }
 
+    /**
+     * Landing page customers are redirected to after completing payment,
+     * either by Snap (Finish Redirect URL) or by the Snap JS callbacks.
+     */
+    public function finish(Request $request)
+    {
+        return view('checkout-finish');
+    }
+
     public function midtransNotification(Request $request)
     {
         $serverKey = config('services.midtrans.server_key');

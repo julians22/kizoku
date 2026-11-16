@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
     <meta name="apple-mobile-web-app-title" content="Kizoku" />
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
 
     <!-- Fonts -->
     <link href="{{ asset('fonts/stylesheet.css') }}" rel="stylesheet"/>

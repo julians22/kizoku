@@ -9,21 +9,33 @@
 >
     <div class="about-ingredients" aria-hidden="true">
         <div class="drag-element">
-            <img src="{{ asset('img/about/ingredient_1.webp') }}" alt="">
+            <picture>
+                <source srcset="{{ asset('img/about/kizoku1_lg.webp') }}" media="(min-width: 1280px)">
+                <img src="{{ asset('img/about/kizoku1.webp') }}" alt="">
+            </picture>
         </div>
         <div class="drag-element">
-            <img src="{{ asset('img/about/ingredient_2.webp') }}" alt="">
+            <picture>
+                <source srcset="{{ asset('img/about/kizoku2_lg.webp') }}" media="(min-width: 1280px)">
+                <img src="{{ asset('img/about/kizoku2.webp') }}" alt="">
+            </picture>
         </div>
         <div class="drag-element">
-            <img src="{{ asset('img/about/ingredient_3.webp') }}" alt="">
+            <picture>
+                <source srcset="{{ asset('img/about/kizoku3_lg.webp') }}" media="(min-width: 1280px)">
+                <img src="{{ asset('img/about/kizoku3.webp') }}" alt="">
+            </picture>
         </div>
         <div class="drag-element">
-            <img src="{{ asset('img/about/ingredient_4.webp') }}" alt="">
+            <picture>
+                <source srcset="{{ asset('img/about/kizoku4_lg.webp') }}" media="(min-width: 1280px)">
+                <img src="{{ asset('img/about/kizoku4.webp') }}" alt="">
+            </picture>
         </div>
     </div>
 
     <div class="z-20 xl:max-w-xl max-w-3xl pointer-events-none about-hero-copy xl:mix-blend-difference">
-        <h2 class="font-bold text-black xl:text-white text-base sm:text-lg xl:text-xl text-center leading-relaxed">
+        <h2 class="font-bold text-black xl:text-white text-xs xl:text-sm text-center leading-relaxed">
             PERFUME IS THE FIRST LAYER OF DRESSING, AN
             UNSEEN ENSEMBLE THAT SPEAKS BEFORE WORDS,
             REVEALING CHARACTER. PRESENCE. AND INTENT.

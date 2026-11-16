@@ -47,6 +47,10 @@ Route::group([
         ->middleware(['auth', 'should-have-carts'])
         ->name('checkout');
 
+    Route::get('checkout/finish', [CheckoutController::class, 'finish'])
+        ->middleware('auth')
+        ->name('checkout.finish');
+
     Route::view('login', 'auth.login', ['authMode' => 'login'])
         ->middleware('guest')
         ->name('login');
