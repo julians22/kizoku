@@ -2,7 +2,7 @@
     {{-- PROFILE VIEW (LOGGED IN) --}}
     @if ($mode === 'profile' && Auth::check())
         <div class="mb-8">
-            <h1 class="font-light text-3xl tracking-wide">@lang('My Account')</h1>
+            <h1 class="title__3xl">@lang('My Account')</h1>
             <p class="mt-2 text-gray-500 text-sm">@lang('Manage your orders and account information.')</p>
         </div>
 
@@ -30,13 +30,13 @@
                 <div class="flex mb-6 border-gray-200 border-b">
                     <button
                         wire:click="setAuthMode('login')"
-                        class="flex-1 pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'login' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
+                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'login' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
                     >
                         @lang('LOG IN')
                     </button>
                     <button
                         wire:click="setAuthMode('register')"
-                        class="flex-1 pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'register' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
+                        class="flex-1 font-saa-series-e-dot pb-3 text-xs font-semibold text-center tracking-[0.2em] uppercase transition-all duration-300 {{ $mode === 'register' ? 'border-b-2 border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600' }}"
                     >
                         @lang('SIGN UP')
                     </button>

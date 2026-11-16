@@ -1,6 +1,6 @@
 <aside class="flex flex-col lg:min-h-[32rem]">
     <div class="flex items-center gap-3 pb-6 border-gray-200 border-b">
-        <div class="flex justify-center items-center bg-black rounded-full w-12 h-12 font-bold text-white tracking-wider">
+        <div class="flex justify-center items-center bg-black rounded-full w-12 h-12 font-saa-series-e-dot text-white tracking-wider">
             {{ $this->initials }}
         </div>
         <div class="min-w-0">
@@ -23,7 +23,7 @@
                 aria-selected="{{ $accountTab === $tab ? 'true' : 'false' }}"
                 aria-controls="account-tab-content"
                 wire:click="$dispatch('set-account-tab', { tab: '{{ $tab }}' })"
-                class="px-3 py-3 border-l-2 text-sm text-left transition-colors {{ $accountTab === $tab ? 'border-black bg-gray-50 font-medium text-black' : 'border-transparent text-gray-500 hover:text-black' }}"
+                class="px-3 py-3 border-l-2 text-sm font-saa-series-e-dot uppercase text-left transition-colors {{ $accountTab === $tab ? 'border-black bg-gray-50 font-medium text-black' : 'border-transparent text-gray-500 hover:text-black' }}"
             >
                 {{ $label }}
             </button>
@@ -34,7 +34,7 @@
         wire:click="logout"
         wire:loading.attr="disabled"
         type="button"
-        class="mt-auto px-3 py-3 border-gray-200 border-t text-gray-500 hover:text-black text-sm text-left transition-colors"
+        class="mt-auto px-3 py-3 border-gray-200 border-t font-saa-series-e-dot text-gray-500 hover:text-black text-sm text-left uppercase transition-colors"
     >
         <span wire:loading.remove wire:target="logout">@lang("Log out")</span>
         <span wire:loading wire:target="logout">@lang("Logging out...")</span>

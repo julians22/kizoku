@@ -1,7 +1,7 @@
 <div class="space-y-6">
     @if ($view === 'list')
         <div class="pb-4 border-gray-200 border-b">
-            <h2 class="font-light text-2xl">@lang('Address')</h2>
+            <h2 class="title__2xl">@lang('Address')</h2>
             <p class="mt-1 text-gray-500 text-sm">@lang('Manage your saved delivery addresses.')</p>
         </div>
         <div class="space-y-3">

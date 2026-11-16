@@ -1,7 +1,7 @@
 <div class="mx-auto max-w-2xl">
     @if ($notFound)
         <div class="space-y-6 p-8 border border-gray-200 text-center">
-            <h1 class="font-light text-2xl">@lang('Transaksi tidak ditemukan')</h1>
+            <h1 class="title__2xl">@lang('Transaksi tidak ditemukan')</h1>
             <p class="text-gray-500 text-sm">
                 @lang('Kami tidak dapat menemukan informasi transaksi Anda. Silakan periksa riwayat pemesanan Anda.')
             </p>
@@ -24,7 +24,7 @@
 
         <div class="space-y-8">
             <div class="p-8 border {{ $statusStyle }}">
-                <span class="block mb-2 font-label-caps text-label-caps uppercase tracking-widest opacity-70">@lang('Status Pesanan')</span>
+                <span class="block opacity-70 mb-2 font-label-caps text-label-caps uppercase tracking-widest">@lang('Status Pesanan')</span>
                 <h1 class="font-saa-series-e-dot text-3xl">
                     @if ($orderStatus === 'processing')
                         @lang('Pembayaran berhasil, pesanan Anda sedang diproses.')
@@ -35,7 +35,7 @@
                     @endif
                 </h1>
                 @if ($statusMessage)
-                    <p class="mt-3 text-sm opacity-80">{{ $statusMessage }}</p>
+                    <p class="opacity-80 mt-3 text-sm">{{ $statusMessage }}</p>
                 @endif
             </div>
 
@@ -43,7 +43,7 @@
                 <div class="px-6 py-4 border-gray-200 border-b">
                     <h2 class="font-bold text-xs uppercase tracking-[0.15em]">@lang('Detail Transaksi')</h2>
                 </div>
-                <dl class="px-6 py-4 space-y-3 text-sm">
+                <dl class="space-y-3 px-6 py-4 text-sm">
                     <div class="flex justify-between gap-4">
                         <dt class="text-gray-400 uppercase">@lang('Nomor Pesanan')</dt>
                         <dd class="font-medium text-right">{{ $orderId }}</dd>

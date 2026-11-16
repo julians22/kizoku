@@ -35,11 +35,12 @@
                     <livewire:utils.badge-count count-for="cart" />
                 </a>
             </li>
+            <!-- Language Switcher -->
             <li class="order-1 xl:order-5">
                 <div
                     x-data="{ lang: '{{ $localeData['currentLocale'] }}' }"
                     x-init="$watch('lang', value => window.location.href = '{{ $localeData['otherLocaleUrl'] }}')"
-                    class="relative flex items-center p-px xl:p-1 border-[1px] border-black xl:border-2 rounded-full w-20 xl:w-24 h-8 xl:h-10 cursor-pointer select-none"
+                    class="relative flex items-center p-px xl:p-1 w-20 xl:w-24 h-8 xl:h-10 cursor-pointer select-none"
                     @click="lang = (lang === 'id' ? 'en' : 'id')">
                     <div
                         x-cloak

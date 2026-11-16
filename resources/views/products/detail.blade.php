@@ -23,10 +23,10 @@
     </div>
 
     <div class="gap-x-6 gap-y-10 grid grid-cols-1 2xl:grid-cols-10 mx-auto px-4 py-10 max-w-6xl">
-        <div class="2xl:col-span-6">
-            <p class="mb-5">@lang('Extrait de Parfum')</p>
+        <div class="2xl:col-span-5">
+            <p class="mb-5 font-saa-series-e-dot">@lang('Extrait de Parfum')</p>
 
-            <h2 class="font-bold text-3xl">{{ $selectedParfume['name'] }}</h2>
+            <h2 class="font-saa-series-e-dot text-3xl">{{ $selectedParfume['name'] }}</h2>
             <p class="mb-5">IDR {{ number_format($selectedParfume['price'], 0) }}</p>
 
             <div class="mb-5">
@@ -39,7 +39,7 @@
             <livewire:utils.add-to-cart-button slug="{{ $selectedParfume['slug'] }}" text="{{__('ADD TO CART')}}"/>
         </div>
 
-        <div class="2xl:col-span-4">
+        <div class="2xl:col-span-5">
             <div class="flex flex-col">
 
                 @foreach ($selectedParfume['product_features'] as $feature)
@@ -47,7 +47,7 @@
                     <div class="product-detail-dropdown-wrapper" x-data="{show: false}">
                         <a href="#" class="group product-detail-dropdown-link"
                             @click.prevent="show = !show">
-                            <span class="font-medium text-slate-700 text-sm uppercase tracking-widest">{{ $feature['title'] }}</span>
+                            <span class="font-saa-series-e-dot font-medium text-slate-700 text-sm uppercase tracking-widest">{{ $feature['title'] }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" x-bind:class="show ? 'rotate-90 scale-110 -translate-x-4' : ''" class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>

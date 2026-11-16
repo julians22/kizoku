@@ -1,6 +1,6 @@
 <div class="space-y-6">
     <div class="pb-4 border-gray-200 border-b">
-        <h2 class="font-light text-2xl">@lang('Account Details')</h2>
+        <h2 class="title__2xl">@lang('Account Details')</h2>
         <p class="mt-1 text-gray-500 text-sm">@lang("Your personal information.")</p>
     </div>
     <dl class="space-y-4 text-sm">
