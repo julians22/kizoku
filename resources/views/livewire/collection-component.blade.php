@@ -7,10 +7,18 @@
                     wire:key="collection-{{ $collection['slug'] }}"
                     href="{{ route('products.detail', ['product'=>$collection['slug']]) }}"
                     >
-                    <div class="w-full aspect-square overflow-hidden">
+                    <div class="relative w-full aspect-square overflow-hidden">
                         <img src="{{ $collection['image'] }}" alt="{{ $collection['name'] }}"
                             width="600" height="600"
-                            class="size-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            @class([
+                                'size-full object-cover group-hover:scale-105 group-focus-visible:scale-105 transition-[opacity,transform] duration-500 motion-reduce:transition-none',
+                                'group-hover:opacity-0 group-focus-visible:opacity-0' => ! empty($collection['image_hover']),
+                            ])>
+                        @if (! empty($collection['image_hover']))
+                            <img src="{{ $collection['image_hover'] }}" alt="" aria-hidden="true"
+                                width="600" height="600" loading="lazy"
+                                class="absolute inset-0 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 size-full object-cover group-hover:scale-105 group-focus-visible:scale-105 transition-[opacity,transform] duration-500 motion-reduce:transition-none">
+                        @endif
                     </div>
                     <div class="relative space-y-2 bg-white py-6">
                         <h2>@lang("Extrait de Parfum")</h2>
