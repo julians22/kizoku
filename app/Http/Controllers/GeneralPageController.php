@@ -10,6 +10,10 @@ class GeneralPageController extends Controller
         return view('about');
     }
 
+    function contact() {
+        return view('contact');
+    }
+
     function faq() {
         $locale = app()->getLocale();
 

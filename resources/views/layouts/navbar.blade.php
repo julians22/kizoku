@@ -31,7 +31,7 @@
             <li class="order-2 xl:order-4">
                 <a href="#" class="flex items-center text-base xl:text-lg link__hover" @click.prevent="toggleSidebar('cart')" aria-label="@lang('CART')">
                     <span class="hidden xl:inline">@lang("CART")</span>
-                    <x-ionicon-cart-outline class="xl:hidden w-6 h-6" />
+                    <x-ionicon-cart-outline class="xl:hidden outline-navy-500 w-6 h-6" />
                     <livewire:utils.badge-count count-for="cart" />
                 </a>
             </li>
@@ -121,7 +121,7 @@
                 <ul class="flex flex-col gap-y-8 mt-5">
                     <li><a href="{{ route('terms') }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300 link__hover">@lang("TERMS & PRIVACY")</a></li>
                     <li><a href="{{ route('faq') }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300 link__hover">@lang("FAQ")</a></li>
-                    {{-- <li><a href="#" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("CONTACT")</a></li> --}}
+                    <li><a href="{{ route('contact') }}" class="hover:pl-2 text-xl tracking-widest transition-all duration-300">@lang("CONTACT")</a></li>
                 </ul>
             </div>
         </div>

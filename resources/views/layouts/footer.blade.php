@@ -8,7 +8,7 @@
 
                     <li><a href="{{ route('terms') }}" class="text-sm link__hover">@lang("TERMS & PRIVACY")</a></li>
                     <li><a href="{{ route('faq') }}" class="text-sm link__hover">@lang("FAQ")</a></li>
-                    <li><a href="#" class="text-sm link__hover">@lang("CONTACT")</a></li>
+                    <li><a href="{{ route('contact') }}" class="text-sm link__hover">@lang("CONTACT")</a></li>
                     <li><a href="#" class="text-sm link__hover">@lang("SHIPPING")</a></li>
                     <li><a href="{{ route('track-order') }}" class="text-sm link__hover">@lang("TRACK MY ORDER")</a></li>
                 </ul>
@@ -20,7 +20,7 @@
                 @click="scrollToTop()"
                 class="flex items-center gap-x-2 px-3 py-2 cursor-pointer">
                 <span>
-                    <x-carbon-arrow-up class="fill-gray-800 size-6"/>
+                    <x-carbon-arrow-up class="fill-navy-500 size-6"/>
                 </span>
                 <span>
                     TOP

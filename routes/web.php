@@ -20,12 +20,9 @@ Route::group([
 
     Route::get('about', [GeneralPageController::class, 'about'])->name('about');
     Route::get('faq', [GeneralPageController::class, 'faq'])->name('faq');
+    Route::get('contact', [GeneralPageController::class, 'contact'])->name('contact');
     Route::get('terms-and-privacy', [GeneralPageController::class, 'terms_and_privacy'])->name('terms');
     Route::get('track-my-order', [GeneralPageController::class, 'track_order'])->name('track-order');
-
-    Route::get('contact', function ($id) {
-        //
-    });
 
     Route::group(['prefix' => 'collections', 'as' => 'collections.'], function() {
         Route::get('{slug}', function (string $slug) {
