@@ -14,7 +14,7 @@
     @else
 
         <div class="max-h-[640px] overflow-y-auto">
-            <div class="space-y-3">
+            <div class="space-y-4">
                 @foreach ($orders as $order)
                     <div class="space-y-3 p-4 border border-gray-200" wire:key="order-{{ $order['order_number'] ?? $loop->index }}">
                         <div class="flex justify-between items-start gap-3">
