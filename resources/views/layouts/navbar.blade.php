@@ -130,7 +130,7 @@
             class="h-full"
             x-show="section === 'cart'">
 
-            <h4 class="text-xl">@lang("YOUR CART")</h4>
+            <h4 class="title__xl">@lang("YOUR CART")</h4>
 
             <livewire:cart-component/>
         </div>
