@@ -8,25 +8,25 @@
     class="isolate relative xl:flex xl:flex-col justify-center items-center grid grid-cols-2 grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] bg-white bg-cover bg-no-repeat bg-center px-5 xl:px-0 py-24 xl:py-0 h-[82svh] xl:h-screen min-h-[38rem] xl:min-h-0 about-hero"
 >
     <div class="about-ingredients" aria-hidden="true">
-        <div class="order-1 about-ingredient">
+        <div class="order-2 about-ingredient">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku1_lg.webp') }}" media="(min-width: 1280px)">
                 <img src="{{ asset('img/about/kizoku1.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="order-2 about-ingredient">
+        <div class="order-5 about-ingredient">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku2_lg.webp') }}" media="(min-width: 1280px)">
                 <img src="{{ asset('img/about/kizoku2.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="order-4 about-ingredient">
+        <div class="order-1 about-ingredient">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku3_lg.webp') }}" media="(min-width: 1280px)">
                 <img src="{{ asset('img/about/kizoku3.webp') }}" alt="" draggable="false">
             </picture>
         </div>
-        <div class="order-5 about-ingredient">
+        <div class="order-4 about-ingredient">
             <picture>
                 <source srcset="{{ asset('img/about/kizoku4_lg.webp') }}" media="(min-width: 1280px)">
                 <img src="{{ asset('img/about/kizoku4.webp') }}" alt="" draggable="false">
@@ -34,8 +34,8 @@
         </div>
     </div>
 
-    <div class="z-20 order-3 col-span-2 xl:max-w-xl max-w-3xl pointer-events-none about-hero-copy xl:mix-blend-difference">
-        <h2 class="font-bold text-navy-500 xl:text-white text-xs xl:text-sm text-center leading-relaxed">
+    <div class="z-20 order-3 col-span-2 xl:max-w-2xl max-w-3xl pointer-events-none about-hero-copy xl:mix-blend-difference">
+        <h2 class="font-bold text-navy-500 xl:text-white text-base xl:text-lg text-center leading-relaxed">
             PERFUME IS THE FIRST LAYER OF DRESSING, AN
             UNSEEN ENSEMBLE THAT SPEAKS BEFORE WORDS,
             REVEALING CHARACTER. PRESENCE. AND INTENT.
@@ -56,7 +56,7 @@
 </section>
 
 <div>
-    <img src="{{ asset('img/about/About_foot.webp') }}" class="block w-full h-auto" alt="">
+    <img src="{{ asset('img/about/About_foot_2.webp') }}" class="block w-full h-auto" alt="">
 </div>
 
 

@@ -13,7 +13,7 @@
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     @foreach ($selectedParfume['insight_images'] as $insightImage)
-                        <li class="glide__slide">
+                        <li class="aspect-square glide__slide">
                             <img src="{{ asset($insightImage) }}" alt="" class="w-full h-full object-cover">
                         </li>
                     @endforeach

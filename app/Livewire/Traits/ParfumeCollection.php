@@ -31,10 +31,9 @@ trait ParfumeCollection
                 'image_alt' => 'KAHEN Image',
                 'description' => '“Kahen” emits a breeze of spring morning wind on every spray — invigorating and active. Ideal for outdoor settings and casual to smart-casual occasions, the scent blends hyacinth, jasmine, and ylang-ylang with a vigorous green freshness, then settles into the warm, grounding calm of vetiver and cedarwood.',
                 'insight_images' => [
-                    asset('img/product/kahen/kahen.png'),
-                    // asset('img/product/kahen/kahen-2.png'),
-                    asset('img/product/kahen/kahen-3.png'),
-                    asset('img/product/kahen/kahen-4.png'),
+                    asset('img/product/kahen/web_image-1.jpg'),
+                    asset('img/product/kahen/web_image-2.jpg'),
+                    asset('img/product/kahen/web_image-3.jpg')
                 ],
                 'price' => 398000,
                 'product_features' => [
@@ -64,10 +63,9 @@ trait ParfumeCollection
                 'image_alt' => 'KAKAN Image',
                 'description' => '“Kakan” is composed, refined, and timeless — an expression of quiet confidence as the evening unfolds. Saffron, vanilla, and olibanum open with a bold, leathery smoke, softened by subtle sweetness. “Kakan” is the scent of those who value precision and authenticity, a modern classic defined by confidence and leathery nuances.',
                 'insight_images' => [
-                    asset('img/product/kahen/kahen.png'),
-                    // asset('img/product/kahen/kahen-2.png'),
-                    asset('img/product/kahen/kahen-3.png'),
-                    asset('img/product/kahen/kahen-4.png'),
+                    asset('img/product/kakan/web_image-1.jpg'),
+                    asset('img/product/kakan/web_image-2.jpg'),
+                    asset('img/product/kakan/web_image-3.jpg')
                 ],
                 'price' => 398000,
                 'product_features' => [
@@ -97,10 +95,9 @@ trait ParfumeCollection
                 'image_alt' => 'KOHAKU Image',
                 'description' => '“Kohaku” is smooth, subtle, and sensual — best worn during the day to evenings into the depths of the night. Fresh aldehydic and green nuances blend with the gentle fruitiness of pear, leading into a delicate floral heart of muguet, rose, and jasmine. A balanced scent that leaves a delicately alluring impression.',
                 'insight_images' => [
-                    asset('img/product/kohaku/kohaku.png'),
-                    // asset('img/product/kohaku/kohaku-2.png'),
-                    asset('img/product/kohaku/kohaku-3.png'),
-                    asset('img/product/kohaku/kohaku-4.png'),
+                    asset('img/product/kohaku/web_image-1.jpg'),
+                    asset('img/product/kohaku/web_image-2.jpg'),
+                    asset('img/product/kohaku/web_image-3.jpg')
                 ],
                 'price' => 398000,
                 'product_features' => [
@@ -130,10 +127,9 @@ trait ParfumeCollection
                 'image_alt' => 'KI Image',
                 'description' => 'Strong yet elegant — “Ki” is bold, rich, and earthy. Fresh and subtly sweet with mirabelle and pear, it unfolds into the warmth of date layered with jasmine and freesia, before deepening into earthy oakmoss and patchouli. “Ki” embodies the balance between strength and serenity, crafted for active days that extend into composed evenings.',
                 'insight_images' => [
-                    asset('img/product/kahen/kahen.png'),
-                    // asset('img/product/kahen/kahen-2.png'),
-                    asset('img/product/kahen/kahen-3.png'),
-                    asset('img/product/kahen/kahen-4.png'),
+                    asset('img/product/ki/web_image-1.jpg'),
+                    asset('img/product/ki/web_image-2.jpg'),
+                    asset('img/product/ki/web_image-3.jpg')
                 ],
                 'price' => 398000,
                 'product_features' => [

@@ -47,7 +47,7 @@
     }
 
     .lang-pill.right {
-        @apply translate-x-9 xl:translate-x-11;
+        @apply translate-x-10 xl:translate-x-11;
     }
 
     .title__xl {
@@ -71,7 +71,7 @@
     }
 
     .about-ingredient {
-        @apply z-10 absolute max-w-3xs transition-[left,top] motion-reduce:transition-none duration-300 ease-out select-none;
+        @apply z-10 absolute max-w-80 transition-[left,top] motion-reduce:transition-none duration-700 ease-out select-none;
     }
 
     .about-ingredients {

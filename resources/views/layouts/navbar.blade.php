@@ -40,7 +40,7 @@
                 <div
                     x-data="{ lang: '{{ $localeData['currentLocale'] }}' }"
                     x-init="$watch('lang', value => window.location.href = '{{ $localeData['otherLocaleUrl'] }}')"
-                    class="relative flex items-center p-px xl:p-1 w-20 xl:w-24 h-8 xl:h-10 cursor-pointer select-none"
+                    class="relative flex items-center gap-px xl:gap-0 p-0.5 xl:p-1 w-20 xl:w-24 h-8 xl:h-10 cursor-pointer select-none"
                     @click="lang = (lang === 'id' ? 'en' : 'id')">
                     <div
                         x-cloak
