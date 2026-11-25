@@ -5,7 +5,7 @@
 @section('content')
 
 <section
-    class="isolate relative xl:flex xl:flex-col justify-center items-center grid grid-cols-2 grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] bg-white bg-cover bg-no-repeat bg-center px-5 xl:px-0 py-24 xl:py-0 h-[82svh] xl:h-screen min-h-[38rem] xl:min-h-0 about-hero"
+    class="isolate relative xl:flex xl:flex-col justify-center items-center grid grid-cols-2 grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] bg-white bg-cover bg-no-repeat bg-center px-5 xl:px-0 py-0 h-screen xl:h-screen min-h-[38rem] xl:min-h-0 about-hero"
 >
     <div class="about-ingredients" aria-hidden="true">
         <div class="order-2 about-ingredient">
